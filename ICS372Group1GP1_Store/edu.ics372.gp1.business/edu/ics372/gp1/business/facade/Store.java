@@ -186,26 +186,31 @@ public class Store implements Serializable {
 	 */
 	public Result purchaseOneOrMoreModels(Request request) {
 		Result result = new Result();
-		Appliance purchase = inventory.search(request.getApplianceID());
+		Appliance appliance = inventory.search(request.getApplianceID());
+		Customer customer = customerList.search(request.getCustomerID());
 		int quantity = request.getPurchaseQuantity();
-		int stock = purchase.getStock();
-		double cost = purchase.getCost();
-		if (purchase == null) {
+		int stock = appliance.getStock();
+		double cost = appliance.getCost();
+		if (appliance == null) {
 			result.setResultCode(Result.APPLIANCE_NOT_FOUND);
-		} else {
+		}
+		else if (customer == null) {
+			result.setResultCode(Result.NO_SUCH_CUSTOMER);
+		}
+		else {
 			if (stock >= quantity) {
-				purchase.removeStock(quantity);
+				appliance.removeStock(quantity);
 				addSalesRevenue(quantity * cost);
 				result.setResultCode(Result.OPERATION_COMPLETED);
 			} else {
-				if (purchase instanceof Furnace) {
+				if (appliance instanceof Furnace) {
 					addSalesRevenue(stock * cost);
 					result.setFurnacesOrdered(stock);
-					purchase.removeStock(stock);
+					appliance.removeStock(stock);
 					result.setResultCode(Result.INSUFFICIENT_STOCK);
 				} else {
 					addSalesRevenue(quantity * cost);
-					purchase.removeStock(stock);
+					appliance.removeStock(stock);
 					request.setBackorderQuantity(quantity - stock);
 					request.setBackorderID(backorderList.addBackorder(purchase, quantity - stock));
 					result.setResultCode(Result.BACKORDER_PLACED);

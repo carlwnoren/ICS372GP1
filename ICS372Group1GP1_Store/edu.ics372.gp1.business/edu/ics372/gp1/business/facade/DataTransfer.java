@@ -1,6 +1,7 @@
 package edu.ics372.gp1.business.facade;
 
 import edu.ics372.gp1.business.store.Appliance;
+import edu.ics372.gp1.business.store.Backorder;
 import edu.ics372.gp1.business.store.ClothDryer;
 import edu.ics372.gp1.business.store.ClothWasher;
 import edu.ics372.gp1.business.store.Customer;
@@ -227,6 +228,16 @@ public abstract class DataTransfer {
 		// needs work
 		repairPlanCost = repairPlan.getCost();
 		repairPlanApplianceID = repairPlan.getApplianceID();
+	}
+	
+	public void setBackorderFields(Backorder backorder) {
+		backorderID = backorder.getBackorderID();
+		applianceID = backorder.getAppliance().getApplianceID();
+		applianceBrand = backorder.getAppliance().getBrand();
+		applianceModel = backorder.getAppliance().getModel();
+		backorderQuantity = backorder.getQuantity();
+		customerName = backorder.getCustomer().getName();
+		customerID = backorder.getCustomer().getId();
 	}
 
 	public int getMaxHeatOutput() {

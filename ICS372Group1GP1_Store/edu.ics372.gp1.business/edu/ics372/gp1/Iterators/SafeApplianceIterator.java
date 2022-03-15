@@ -4,7 +4,6 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import edu.ics372.gp1.business.facade.Result;
-import edu.ics372.gp1.business.store.Appliance;
 
 
 public class SafeApplianceIterator implements Iterator<Result> {
@@ -12,9 +11,9 @@ public class SafeApplianceIterator implements Iterator<Result> {
 	private Result result = new Result();
 
 	/**
-	 * The user of SafeIterator must supply an Iterator to Book.
+	 * The user of SafeIterator must supply an Iterator to Appliance.
 	 * 
-	 * @param iterator Iterator<Book>
+	 * @param iterator Iterator<Appliance>
 	 */
 	public SafeApplianceIterator(FilteredIterator iterator) {
 		this.iterator = iterator;
