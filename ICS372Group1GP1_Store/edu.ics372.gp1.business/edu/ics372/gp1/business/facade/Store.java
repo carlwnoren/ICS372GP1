@@ -119,9 +119,9 @@ public class Store implements Serializable {
 		return inventory.addClothWasher(request);
 	}
 
-	public Result addDishWasher(Request request) {
+	public Result addDishwasher(Request request) {
 		// TODO Auto-generated method stub
-		return inventory.addDishWasher(request);
+		return inventory.addDishwasher(request);
 	}
 	// (String brand, String model, double cost, String applianceID, int
 	// maxHeatOutput
@@ -228,9 +228,22 @@ public class Store implements Serializable {
 
 	}
 
-	public Iterator<Result> getAppliances(Predicate<Appliance> predicate) {
+	public Iterator<Result> getFurnaces() {
 		Predicate<Appliance> p1 = ((Appliance a) -> a instanceof Furnace);
-		return new SafeApplianceIterator(new FilteredIterator(inventory.iterator(), predicate));
+		return new SafeApplianceIterator(new FilteredIterator(inventory.iterator(), p1));
 	}
+
+	public Result addStock(Request request) {
+
+		return inventory.addStock(request);
+	}
+
+//	public Iterator<Result> getTransactions(Request request) {
+//		Member member = members.search(request.getMemberId());
+//		if (member == null) {
+//			return new LinkedList<Result>().iterator();
+//		}
+//		return member.getTransactionsOnDate(request.getDate());
+//	}
 
 }

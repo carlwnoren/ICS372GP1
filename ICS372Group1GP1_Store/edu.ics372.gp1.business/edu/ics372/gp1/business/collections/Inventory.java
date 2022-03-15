@@ -16,7 +16,7 @@ import edu.ics372.gp1.business.facade.Result;
 import edu.ics372.gp1.business.store.Appliance;
 import edu.ics372.gp1.business.store.ClothDryer;
 import edu.ics372.gp1.business.store.ClothWasher;
-import edu.ics372.gp1.business.store.DishWasher;
+import edu.ics372.gp1.business.store.Dishwasher;
 import edu.ics372.gp1.business.store.Furnace;
 import edu.ics372.gp1.business.store.KitchenRange;
 import edu.ics372.gp1.business.store.Refrigerator;
@@ -129,9 +129,9 @@ public class Inventory implements ItemList<Appliance, String>, Serializable {
 	// (String brand, String model, double cost, String applianceID, int
 	// maxHeatOutput
 
-	public Result addDishWasher(Request request) {
+	public Result addDishwasher(Request request) {
 		Result result = new Result();
-		DishWasher dishWasher = new DishWasher(request.getApplianceBrand(), request.getApplianceModel(),
+		Dishwasher dishWasher = new Dishwasher(request.getApplianceBrand(), request.getApplianceModel(),
 				request.getApplianceCost(), APPLIANCE_STRING + idCounter++);
 		if (appliances.add(dishWasher)) {
 			result.setResultCode(Result.OPERATION_COMPLETED);
@@ -153,6 +153,11 @@ public class Inventory implements ItemList<Appliance, String>, Serializable {
 		}
 		result.setResultCode(Result.OPERATION_FAILED);
 		return result;
+	}
+
+	public Result addStock(Request request) {
+		Appliance a = search(request.getApplianceID());
+		return null;
 	}
 
 }

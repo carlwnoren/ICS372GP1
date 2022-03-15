@@ -67,7 +67,7 @@ public class TesterUI {
 			addClothWasher();
 			break;
 		case 6:
-			addDishWasher();
+			addDishwasher();
 			break;
 		}
 
@@ -126,8 +126,8 @@ public class TesterUI {
 		}
 	}
 
-	public void addDishWasher() {
-		Result result = store.addDishWasher(Request.instance());
+	public void addDishwasher() {
+		Result result = store.addDishwasher(Request.instance());
 		if (result.getResultCode() != Result.OPERATION_COMPLETED) {
 			System.out.println("Could not add member");
 		} else {
@@ -144,6 +144,17 @@ public class TesterUI {
 			System.out.println("Could not add member");
 		} else {
 			System.out.println(result.getCustomerName() + "'s id is " + result.getCustomerID());
+		}
+	}
+
+	public void addStock() {
+		Request.instance().setApplianceID(getInt("Enter appliance ID"));
+		Request.instance().setApplianceStock(getInt("Enter quantity"));
+		Result result = store.addStock(Request.instance());
+		if (result.getResultCode() != Result.OPERATION_COMPLETED) {
+			System.out.println("Could not add member");
+		} else {
+			System.out.println(result.getApplianceModel() + "'s Stock is " + result.getApplianceStock());
 		}
 	}
 
@@ -240,17 +251,47 @@ public class TesterUI {
 		System.out.println("End of listing");
 	}
 
+	public void getInventory() {
+		applianceType = getInt("Enter Appliance Type");
+
+		switch (applianceType) {
+		case 1:
+			store.getFurnaces();
+			break;
+		case 2:
+			addRefrigerator();
+			break;
+		case 3:
+			addKitchenRange();
+			break;
+		case 4:
+			addClothDryer();
+			break;
+		case 5:
+			addClothWasher();
+			break;
+		case 6:
+			addDishWasher();
+			break;
+		case 7:
+
+			break;
+		}
+
+	}
+
 	public void process() {
 		store.addCustomer("Joe", "123 fake st", "5555555555");
 		store.addCustomer("Moe", "123 fake st", "5555555555");
 		store.addCustomer("Zoe", "123 fake st", "5555555555");
 
 		System.out.println(store.getCustomers());
-		Iterator<Result> itr = store.getCustomers();
 
 		getCustomer();
-		addAppliance();
-
+		for (int i = 0; i < 3; i++) {
+			addAppliance();
+		}
+		getInventory();
 	}
 
 	private boolean yesOrNo(String prompt) {
