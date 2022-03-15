@@ -148,7 +148,7 @@ public class TesterUI {
 	}
 
 	public void addStock() {
-		Request.instance().setApplianceID(getInt("Enter appliance ID"));
+		Request.instance().setApplianceID(getName("Enter appliance ID"));
 		Request.instance().setApplianceStock(getInt("Enter quantity"));
 		Result result = store.addStock(Request.instance());
 		if (result.getResultCode() != Result.OPERATION_COMPLETED) {
@@ -187,7 +187,7 @@ public class TesterUI {
 			}
 		} while (yesOrNo("Would you like to order another model?"));
 	}
-	
+
 	/**
 	 * Charges all repair plans.
 	 */
@@ -195,9 +195,10 @@ public class TesterUI {
 		store.chargeAllRepairPlans();
 		System.out.println("All repair plans have been charged.");
 	}
-	
+
 	/**
-	 * Enrolls a customer, by given customer ID, in a repair plan, by given appliance ID.
+	 * Enrolls a customer, by given customer ID, in a repair plan, by given
+	 * appliance ID.
 	 */
 	public void enrollInRepairPlan() {
 		Request.instance().setCustomerID(getToken("Enter the customer ID to be enrolled. "));
@@ -205,16 +206,14 @@ public class TesterUI {
 		Result result = store.enrollInRepairPlan(Request.instance());
 		if (result.getResultCode() == Result.REPAIR_PLAN_NOT_FOUND) {
 			System.out.println("No repair plan exists for the given appliance ID.");
-		}
-		else if (result.getResultCode() == Result.NO_SUCH_CUSTOMER) {
+		} else if (result.getResultCode() == Result.NO_SUCH_CUSTOMER) {
 			System.out.println("Invalid customer ID.");
-		}
-		else if (result.getResultCode() == Result.OPERATION_COMPLETED) {
-			System.out.println("Customer " + Request.instance().getCustomerID() + " enrolled in repair plan for appliance " + 
-			Request.instance().getApplianceID() + ".");
+		} else if (result.getResultCode() == Result.OPERATION_COMPLETED) {
+			System.out.println("Customer " + Request.instance().getCustomerID()
+					+ " enrolled in repair plan for appliance " + Request.instance().getApplianceID() + ".");
 		}
 	}
-	
+
 	/**
 	 * Fulfills a single backorder given by the user. The stock for that appliance is
 	 * reduced by the amount on backorder.
@@ -229,11 +228,11 @@ public class TesterUI {
 			System.out.println("Backorder " + Request.instance().getBackorderID() + " fulfilled.")
 		}
 	}
-	
+
 	/**
-	 * Prints out the 
+	 * Prints out the
 	 */
-	
+
 	/**
 	 * Saves the data for the store.
 	 */
@@ -241,8 +240,7 @@ public class TesterUI {
 		Result result = store.saveData();
 		if (result.getResultCode() == Result.OPERATION_COMPLETED) {
 			System.out.println("Store data successfully saved.");
-		}
-		else {
+		} else {
 			System.out.println("Store data was not saved.");
 		}
 	}
@@ -330,7 +328,7 @@ public class TesterUI {
 			addClothWasher();
 			break;
 		case 6:
-			addDishWasher();
+			addDishwasher();
 			break;
 		case 7:
 
@@ -347,10 +345,10 @@ public class TesterUI {
 		System.out.println(store.getCustomers());
 
 		getCustomer();
-		for (int i = 0; i < 3; i++) {
-			addAppliance();
-		}
-		getInventory();
+		addAppliance();
+
+		addStock();
+		addStock();
 	}
 
 	private boolean yesOrNo(String prompt) {

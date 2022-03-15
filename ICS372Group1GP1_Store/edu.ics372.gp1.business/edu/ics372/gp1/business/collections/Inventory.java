@@ -156,8 +156,17 @@ public class Inventory implements ItemList<Appliance, String>, Serializable {
 	}
 
 	public Result addStock(Request request) {
-		Appliance a = search(request.getApplianceID());
-		return null;
+		Result result = new Result();
+		for (Appliance model : appliances) {
+			if (model.matches(request.getApplianceID())) {
+				model.addStock(request.getApplianceStock());
+				result.setResultCode(Result.OPERATION_COMPLETED);
+				result.setApplianceFields(model);
+				return result;
+			}
+		}
+		result.setResultCode(result.OPERATION_FAILED);
+		return result;
 	}
 
 }
