@@ -308,6 +308,20 @@ public class TesterUI {
 		System.out.println("End of listing");
 	}
 
+	/**
+	 * Method to print all repair plans with all customer info.
+	 */
+	public void getRepairPlans() {
+		Iterator<Result> iterator = store.getRepairPlans();
+		System.out.println("RepairPlans");
+		while (iterator.hasNext()) {
+			Result result = iterator.next();
+			System.out.println(result.getRepairPlanApplianceID() + " " + result.getRepairPlanCost()
+					+ result.getRepairPlanSubscribers());
+		}
+		System.out.println("End of llisting");
+	}
+
 	public void getInventory() {
 		applianceType = getInt("Enter Appliance Type");
 
@@ -343,12 +357,10 @@ public class TesterUI {
 		store.addCustomer("Zoe", "123 fake st", "5555555555");
 
 		System.out.println(store.getCustomers());
-
 		getCustomer();
 		addAppliance();
-
-		addStock();
-		addStock();
+		addAppliance();
+		getRepairPlans();
 	}
 
 	private boolean yesOrNo(String prompt) {

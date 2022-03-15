@@ -105,6 +105,7 @@ public class Inventory implements ItemList<Appliance, String>, Serializable {
 		Result result = new Result();
 		ClothDryer clothDryer = new ClothDryer(request.getApplianceBrand(), request.getApplianceModel(),
 				request.getApplianceCost(), APPLIANCE_STRING + idCounter++, request.getRepairPlanCost());
+
 		if (appliances.add(clothDryer)) {
 			result.setResultCode(Result.OPERATION_COMPLETED);
 			result.setClothDryerFields(clothDryer);
