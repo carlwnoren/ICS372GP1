@@ -29,6 +29,8 @@ public abstract class DataTransfer {
 	private int purchaseQuantity;
 	private int furnacesOrdered;
 	private int orderQuantity;
+	private double salesRevenue;
+	private double repairPlanRevenue;
 
 	private int maxHeatOutput;
 	private int capacity;
@@ -260,6 +262,22 @@ public abstract class DataTransfer {
 
 	public void setRepairPlanSubscribers(List<Customer> repairPlanSubscribers) {
 		this.repairPlanSubscribers = repairPlanSubscribers;
+
+	public double getSalesRevenue() {
+		return salesRevenue;
+	}
+
+	public void setSalesRevenue(double salesRevenue) {
+		this.salesRevenue = salesRevenue;
+	}
+
+	public double getRepairPlanRevenue() {
+		return repairPlanRevenue;
+	}
+
+	public void setRepairPlanRevenue(double repairPlanRevenue) {
+		this.repairPlanRevenue = repairPlanRevenue;
+
 	}
 
 	/**

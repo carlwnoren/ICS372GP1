@@ -67,7 +67,7 @@ public class TesterUI {
 			addClothWasher();
 			break;
 		case 6:
-			addDishwasher();
+			addDishWasher();
 			break;
 		}
 
@@ -126,8 +126,8 @@ public class TesterUI {
 		}
 	}
 
-	public void addDishwasher() {
-		Result result = store.addDishwasher(Request.instance());
+	public void addDishWasher() {
+		Result result = store.addDishWasher(Request.instance());
 		if (result.getResultCode() != Result.OPERATION_COMPLETED) {
 			System.out.println("Could not add member");
 		} else {
@@ -144,17 +144,6 @@ public class TesterUI {
 			System.out.println("Could not add member");
 		} else {
 			System.out.println(result.getCustomerName() + "'s id is " + result.getCustomerID());
-		}
-	}
-
-	public void addStock() {
-		Request.instance().setApplianceID(getName("Enter appliance ID"));
-		Request.instance().setApplianceStock(getInt("Enter quantity"));
-		Result result = store.addStock(Request.instance());
-		if (result.getResultCode() != Result.OPERATION_COMPLETED) {
-			System.out.println("Could not add member");
-		} else {
-			System.out.println(result.getApplianceModel() + "'s Stock is " + result.getApplianceStock());
 		}
 	}
 
@@ -215,23 +204,46 @@ public class TesterUI {
 	}
 
 	/**
-	 * Fulfills a single backorder given by the user. The stock for that appliance is
-	 * reduced by the amount on backorder.
+	 * Withdraws the customer given by the user, by customer ID, from the repair
+	 * plan given by the user, by appliance ID.
+	 */
+	public void withdrawFromRepairPlan() {
+		Request.instance().setCustomerID(getToken("Enter the customer ID to be enrolled. "));
+		Request.instance().setApplianceID(getToken("Enter the appliance ID for the repair plan. "));
+		Result result = store.withdrawFromRepairPlan(Request.instance());
+		if (result.getResultCode() == Result.REPAIR_PLAN_NOT_FOUND) {
+			System.out.println("No repair plan exists for the given appliance ID.");
+		} else if (result.getResultCode() == Result.NO_SUCH_CUSTOMER) {
+			System.out.println("Invalid customer ID.");
+		} else if (result.getResultCode() == Result.OPERATION_COMPLETED) {
+			System.out.println("Customer " + Request.instance().getCustomerID()
+					+ " withdrew from repair plan for appliance " + Request.instance().getApplianceID() + ".");
+		}
+	}
+
+	/**
+	 * Fulfills a single backorder given by the user. The stock for that appliance
+	 * is reduced by the amount on backorder.
 	 */
 	public void fulfillSingleBackorder() {
 		Request.instance().setBackorderID(getToken("Enter the backorder ID."));
 		Result result = store.fulfillBackorder(Request.instance());
 		if (result.getResultCode() == Result.BACKORDER_NOT_FOUND) {
 			System.out.println("Invalid backorder ID.");
-		}
-		else if (result.getResultCode() == Result.OPERATION_COMPLETED) {
-			System.out.println("Backorder " + Request.instance().getBackorderID() + " fulfilled.")
+		} else if (result.getResultCode() == Result.OPERATION_COMPLETED) {
+			System.out.println("Backorder " + Request.instance().getBackorderID() + " fulfilled.");
 		}
 	}
 
 	/**
-	 * Prints out the
+	 * Prints the sales and repair plan revenue from the store.
 	 */
+
+	public void printRevenue() {
+		Result result = store.printRevenue();
+		System.out.println("Revenue from sales: $" + result.getSalesRevenue());
+		System.out.println("Revenue from repair plans: $" + result.getRepairPlanRevenue());
+	}
 
 	/**
 	 * Saves the data for the store.
@@ -357,10 +369,17 @@ public class TesterUI {
 		store.addCustomer("Zoe", "123 fake st", "5555555555");
 
 		System.out.println(store.getCustomers());
+
 		getCustomer();
 		addAppliance();
 		addAppliance();
 		getRepairPlans();
+
+		Iterator<Result> itr = store.getCustomers();
+
+		getCustomer();
+		addAppliance();
+
 	}
 
 	private boolean yesOrNo(String prompt) {
