@@ -205,6 +205,26 @@ public class TesterUI {
 	}
 	
 	/**
+	 * Withdraws the customer given by the user, by customer ID, from the repair plan
+	 * given by the user, by appliance ID.
+	 */
+	public void withdrawFromRepairPlan() {
+		Request.instance().setCustomerID(getToken("Enter the customer ID to be enrolled. "));
+		Request.instance().setApplianceID(getToken("Enter the appliance ID for the repair plan. "));
+		Result result = store.withdrawFromRepairPlan(Request.instance());
+		if (result.getResultCode() == Result.REPAIR_PLAN_NOT_FOUND) {
+			System.out.println("No repair plan exists for the given appliance ID.");
+		}
+		else if (result.getResultCode() == Result.NO_SUCH_CUSTOMER) {
+			System.out.println("Invalid customer ID.");
+		}
+		else if (result.getResultCode() == Result.OPERATION_COMPLETED) {
+			System.out.println("Customer " + Request.instance().getCustomerID() + " withdrew from repair plan for appliance " + 
+			Request.instance().getApplianceID() + ".");
+		}
+	}
+	
+	/**
 	 * Fulfills a single backorder given by the user. The stock for that appliance is
 	 * reduced by the amount on backorder.
 	 */
@@ -215,13 +235,9 @@ public class TesterUI {
 			System.out.println("Invalid backorder ID.");
 		}
 		else if (result.getResultCode() == Result.OPERATION_COMPLETED) {
-			System.out.println("Backorder " + Request.instance().getBackorderID() + " fulfilled.")
+			System.out.println("Backorder " + Request.instance().getBackorderID() + " fulfilled.");
 		}
 	}
-	
-	/**
-	 * Prints out the 
-	 */
 	
 	/**
 	 * Saves the data for the store.

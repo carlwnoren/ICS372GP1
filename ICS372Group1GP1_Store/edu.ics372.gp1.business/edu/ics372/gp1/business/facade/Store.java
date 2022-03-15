@@ -145,15 +145,21 @@ public class Store implements Serializable {
 	 * @param applianceID
 	 * @return true if customer successfully removed from the plan
 	 */
-	public boolean withdrawFromRepairPlan(Request request) {
+	public Result withdrawFromRepairPlan(Request request) {
+		Result result = new Result();
 		Customer customer = customerList.search(request.getCustomerID());
 		RepairPlan repairPlan = repairPlanList.search(request.getApplianceID());
-		if (customer.equals(null) || repairPlan.equals(null)) {
-			return false;
-		} else {
-			repairPlan.enrollCustomer(customer);
-			return true;
+		if (customer == null) {
+			result.setResultCode(Result.NO_SUCH_CUSTOMER);
+		} 
+		else if (repairPlan == null) {
+			result.setResultCode(Result.REPAIR_PLAN_NOT_FOUND);
 		}
+		else {
+			repairPlan.enrollCustomer(customer);
+			result.setResultCode(Result.OPERATION_COMPLETED);
+		}
+		return result;
 	}
 
 	/**
