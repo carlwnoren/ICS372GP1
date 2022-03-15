@@ -262,6 +262,7 @@ public abstract class DataTransfer {
 
 	public void setRepairPlanSubscribers(List<Customer> repairPlanSubscribers) {
 		this.repairPlanSubscribers = repairPlanSubscribers;
+	}
 
 	public double getSalesRevenue() {
 		return salesRevenue;
