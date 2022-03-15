@@ -240,6 +240,16 @@ public class TesterUI {
 	}
 	
 	/**
+	 * Prints the sales and repair plan revenue from the store.
+	 */
+	
+	public void printRevenue() {
+		Result result = store.printRevenue();
+		System.out.println("Revenue from sales: $" + result.getSalesRevenue());
+		System.out.println("Revenue from repair plans: $" + result.getRepairPlanRevenue());
+	}
+	
+	/**
 	 * Saves the data for the store.
 	 */
 	public void saveData() {

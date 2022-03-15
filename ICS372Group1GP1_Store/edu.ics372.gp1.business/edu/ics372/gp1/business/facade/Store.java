@@ -173,8 +173,11 @@ public class Store implements Serializable {
 		}
 	}
 
-	public double printRevenue() {
-		return salesRevenue + repairPlanRevenue;
+	public Result printRevenue() {
+		Result result = new Result();
+		result.setSalesRevenue(salesRevenue);
+		result.setRepairPlanRevenue(repairPlanRevenue);
+		return result;
 	}
 
 	/**
