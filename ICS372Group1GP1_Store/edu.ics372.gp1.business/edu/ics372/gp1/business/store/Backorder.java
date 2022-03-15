@@ -20,7 +20,7 @@ public class Backorder implements Matchable<String>, Serializable{
 		return backorderID.equals(match);
 	}
 
-	public Appliance getAppliances() {
+	public Appliance getAppliance() {
 		return appliance;
 	}
 	

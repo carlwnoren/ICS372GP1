@@ -8,6 +8,8 @@ public class Result extends DataTransfer {
 	public static final int NO_SUCH_CUSTOMER = 4;
 	public static final int INSUFFICIENT_STOCK = 5;
 	public static final int BACKORDER_PLACED = 6;
+	public static final int BACKORDER_NOT_FOUND = 7;
+	public static final int REPAIR_PLAN_NOT_FOUND = 8;
 
 	private int resultCode;
 

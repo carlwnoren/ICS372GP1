@@ -187,6 +187,65 @@ public class TesterUI {
 			}
 		} while (yesOrNo("Would you like to order another model?"));
 	}
+	
+	/**
+	 * Charges all repair plans.
+	 */
+	public void chargeAllRepairPlans() {
+		store.chargeAllRepairPlans();
+		System.out.println("All repair plans have been charged.");
+	}
+	
+	/**
+	 * Enrolls a customer, by given customer ID, in a repair plan, by given appliance ID.
+	 */
+	public void enrollInRepairPlan() {
+		Request.instance().setCustomerID(getToken("Enter the customer ID to be enrolled. "));
+		Request.instance().setApplianceID(getToken("Enter the appliance ID for the repair plan. "));
+		Result result = store.enrollInRepairPlan(Request.instance());
+		if (result.getResultCode() == Result.REPAIR_PLAN_NOT_FOUND) {
+			System.out.println("No repair plan exists for the given appliance ID.");
+		}
+		else if (result.getResultCode() == Result.NO_SUCH_CUSTOMER) {
+			System.out.println("Invalid customer ID.");
+		}
+		else if (result.getResultCode() == Result.OPERATION_COMPLETED) {
+			System.out.println("Customer " + Request.instance().getCustomerID() + " enrolled in repair plan for appliance " + 
+			Request.instance().getApplianceID() + ".");
+		}
+	}
+	
+	/**
+	 * Fulfills a single backorder given by the user. The stock for that appliance is
+	 * reduced by the amount on backorder.
+	 */
+	public void fulfillSingleBackorder() {
+		Request.instance().setBackorderID(getToken("Enter the backorder ID."));
+		Result result = store.fulfillBackorder(Request.instance());
+		if (result.getResultCode() == Result.BACKORDER_NOT_FOUND) {
+			System.out.println("Invalid backorder ID.");
+		}
+		else if (result.getResultCode() == Result.OPERATION_COMPLETED) {
+			System.out.println("Backorder " + Request.instance().getBackorderID() + " fulfilled.")
+		}
+	}
+	
+	/**
+	 * Prints out the 
+	 */
+	
+	/**
+	 * Saves the data for the store.
+	 */
+	public void saveData() {
+		Result result = store.saveData();
+		if (result.getResultCode() == Result.OPERATION_COMPLETED) {
+			System.out.println("Store data successfully saved.");
+		}
+		else {
+			System.out.println("Store data was not saved.");
+		}
+	}
 
 	public String getName(String prompt) {
 		do {

@@ -45,6 +45,10 @@ public class BackorderList implements ItemList<Backorder, String>, Serializable 
 		return backorderID;
 	}
 	
+	public void removeBackorder(Backorder backorder) {
+		backorders.remove(backorder);
+	}
+	
 	/**
 	 * This method searches the appliances field for an Backorder object with a matching backorderID
 	 * @return the matching Backorder or null, if no match is found.
