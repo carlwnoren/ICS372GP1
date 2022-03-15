@@ -1,5 +1,7 @@
 package edu.ics372.gp1.business.facade;
 
+import java.util.List;
+
 import edu.ics372.gp1.business.store.Appliance;
 import edu.ics372.gp1.business.store.Backorder;
 import edu.ics372.gp1.business.store.ClothDryer;
@@ -23,6 +25,7 @@ public abstract class DataTransfer {
 	private int applianceStock;
 	private double repairPlanCost;
 	private String repairPlanApplianceID;
+	private List<Customer> repairPlanSubscribers;
 	private int backorderQuantity;
 	private int purchaseQuantity;
 	private int furnacesOrdered;
@@ -225,9 +228,9 @@ public abstract class DataTransfer {
 	}
 
 	public void setRepairPlanFields(RepairPlan repairPlan) {
-		// needs work
 		repairPlanCost = repairPlan.getCost();
 		repairPlanApplianceID = repairPlan.getApplianceID();
+		repairPlanSubscribers = repairPlan.getSubscribers();
 	}
 	
 	public void setBackorderFields(Backorder backorder) {
@@ -264,6 +267,14 @@ public abstract class DataTransfer {
 		this.orderQuantity = orderQuantity;
 	}
 
+	public List<Customer> getRepairPlanSubscribers() {
+		return repairPlanSubscribers;
+	}
+
+	public void setRepairPlanSubscribers(List<Customer> repairPlanSubscribers) {
+		this.repairPlanSubscribers = repairPlanSubscribers;
+	}
+
 	public double getSalesRevenue() {
 		return salesRevenue;
 	}
@@ -278,6 +289,7 @@ public abstract class DataTransfer {
 
 	public void setRepairPlanRevenue(double repairPlanRevenue) {
 		this.repairPlanRevenue = repairPlanRevenue;
+
 	}
 
 	/**
@@ -296,6 +308,7 @@ public abstract class DataTransfer {
 		applianceID = "No such model";
 		repairPlanCost = 0;
 		repairPlanApplianceID = "No such plan";
+		repairPlanSubscribers = null;
 
 	}
 }

@@ -64,6 +64,12 @@ public class RepairPlanList implements ItemList<RepairPlan, String>, Serializabl
 		return null;
 	}
 
+	public boolean addRepairPlan(RepairPlan repairPlan) {
+		this.repairPlans.add(repairPlan);
+		System.out.println("Success");
+		return true;
+	}
+
 	/**
 	 * List all repair plans
 	 * 

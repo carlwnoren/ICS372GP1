@@ -180,7 +180,7 @@ public class TesterUI {
 			}
 		} while (yesOrNo("Would you like to order another model?"));
 	}
-	
+
 	/**
 	 * Charges all repair plans.
 	 */
@@ -188,9 +188,10 @@ public class TesterUI {
 		store.chargeAllRepairPlans();
 		System.out.println("All repair plans have been charged.");
 	}
-	
+
 	/**
-	 * Enrolls a customer, by given customer ID, in a repair plan, by given appliance ID.
+	 * Enrolls a customer, by given customer ID, in a repair plan, by given
+	 * appliance ID.
 	 */
 	public void enrollInRepairPlan() {
 		Request.instance().setCustomerID(getToken("Enter the customer ID to be enrolled. "));
@@ -198,19 +199,17 @@ public class TesterUI {
 		Result result = store.enrollInRepairPlan(Request.instance());
 		if (result.getResultCode() == Result.REPAIR_PLAN_NOT_FOUND) {
 			System.out.println("No repair plan exists for the given appliance ID.");
-		}
-		else if (result.getResultCode() == Result.NO_SUCH_CUSTOMER) {
+		} else if (result.getResultCode() == Result.NO_SUCH_CUSTOMER) {
 			System.out.println("Invalid customer ID.");
-		}
-		else if (result.getResultCode() == Result.OPERATION_COMPLETED) {
-			System.out.println("Customer " + Request.instance().getCustomerID() + " enrolled in repair plan for appliance " + 
-			Request.instance().getApplianceID() + ".");
+		} else if (result.getResultCode() == Result.OPERATION_COMPLETED) {
+			System.out.println("Customer " + Request.instance().getCustomerID()
+					+ " enrolled in repair plan for appliance " + Request.instance().getApplianceID() + ".");
 		}
 	}
-	
+
 	/**
-	 * Withdraws the customer given by the user, by customer ID, from the repair plan
-	 * given by the user, by appliance ID.
+	 * Withdraws the customer given by the user, by customer ID, from the repair
+	 * plan given by the user, by appliance ID.
 	 */
 	public void withdrawFromRepairPlan() {
 		Request.instance().setCustomerID(getToken("Enter the customer ID to be enrolled. "));
@@ -218,41 +217,38 @@ public class TesterUI {
 		Result result = store.withdrawFromRepairPlan(Request.instance());
 		if (result.getResultCode() == Result.REPAIR_PLAN_NOT_FOUND) {
 			System.out.println("No repair plan exists for the given appliance ID.");
-		}
-		else if (result.getResultCode() == Result.NO_SUCH_CUSTOMER) {
+		} else if (result.getResultCode() == Result.NO_SUCH_CUSTOMER) {
 			System.out.println("Invalid customer ID.");
-		}
-		else if (result.getResultCode() == Result.OPERATION_COMPLETED) {
-			System.out.println("Customer " + Request.instance().getCustomerID() + " withdrew from repair plan for appliance " + 
-			Request.instance().getApplianceID() + ".");
+		} else if (result.getResultCode() == Result.OPERATION_COMPLETED) {
+			System.out.println("Customer " + Request.instance().getCustomerID()
+					+ " withdrew from repair plan for appliance " + Request.instance().getApplianceID() + ".");
 		}
 	}
-	
+
 	/**
-	 * Fulfills a single backorder given by the user. The stock for that appliance is
-	 * reduced by the amount on backorder.
+	 * Fulfills a single backorder given by the user. The stock for that appliance
+	 * is reduced by the amount on backorder.
 	 */
 	public void fulfillSingleBackorder() {
 		Request.instance().setBackorderID(getToken("Enter the backorder ID."));
 		Result result = store.fulfillBackorder(Request.instance());
 		if (result.getResultCode() == Result.BACKORDER_NOT_FOUND) {
 			System.out.println("Invalid backorder ID.");
-		}
-		else if (result.getResultCode() == Result.OPERATION_COMPLETED) {
+		} else if (result.getResultCode() == Result.OPERATION_COMPLETED) {
 			System.out.println("Backorder " + Request.instance().getBackorderID() + " fulfilled.");
 		}
 	}
-	
+
 	/**
 	 * Prints the sales and repair plan revenue from the store.
 	 */
-	
+
 	public void printRevenue() {
 		Result result = store.printRevenue();
 		System.out.println("Revenue from sales: $" + result.getSalesRevenue());
 		System.out.println("Revenue from repair plans: $" + result.getRepairPlanRevenue());
 	}
-	
+
 	/**
 	 * Saves the data for the store.
 	 */
@@ -260,8 +256,7 @@ public class TesterUI {
 		Result result = store.saveData();
 		if (result.getResultCode() == Result.OPERATION_COMPLETED) {
 			System.out.println("Store data successfully saved.");
-		}
-		else {
+		} else {
 			System.out.println("Store data was not saved.");
 		}
 	}
@@ -329,12 +324,61 @@ public class TesterUI {
 		System.out.println("End of listing");
 	}
 
+	/**
+	 * Method to print all repair plans with all customer info.
+	 */
+	public void getRepairPlans() {
+		Iterator<Result> iterator = store.getRepairPlans();
+		System.out.println("RepairPlans");
+		while (iterator.hasNext()) {
+			Result result = iterator.next();
+			System.out.println(result.getRepairPlanApplianceID() + " " + result.getRepairPlanCost()
+					+ result.getRepairPlanSubscribers());
+		}
+		System.out.println("End of llisting");
+	}
+
+	public void getInventory() {
+		applianceType = getInt("Enter Appliance Type");
+
+		switch (applianceType) {
+		case 1:
+			store.getFurnaces();
+			break;
+		case 2:
+			addRefrigerator();
+			break;
+		case 3:
+			addKitchenRange();
+			break;
+		case 4:
+			addClothDryer();
+			break;
+		case 5:
+			addClothWasher();
+			break;
+		case 6:
+			addDishwasher();
+			break;
+		case 7:
+
+			break;
+		}
+
+	}
+
 	public void process() {
 		store.addCustomer("Joe", "123 fake st", "5555555555");
 		store.addCustomer("Moe", "123 fake st", "5555555555");
 		store.addCustomer("Zoe", "123 fake st", "5555555555");
 
 		System.out.println(store.getCustomers());
+
+		getCustomer();
+		addAppliance();
+		addAppliance();
+		getRepairPlans();
+
 		Iterator<Result> itr = store.getCustomers();
 
 		getCustomer();

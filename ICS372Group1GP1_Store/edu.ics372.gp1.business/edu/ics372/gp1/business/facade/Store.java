@@ -65,11 +65,9 @@ public class Store implements Serializable {
 		RepairPlan repairPlan = repairPlanList.search(request.getApplianceID());
 		if (customer.equals(null)) {
 			result.setResultCode(Result.NO_SUCH_CUSTOMER);
-		}
-		else if (repairPlan == null) {
+		} else if (repairPlan == null) {
 			result.setResultCode(Result.REPAIR_PLAN_NOT_FOUND);
-		}
-		else {
+		} else {
 			repairPlan.enrollCustomer(customer);
 			result.setResultCode(Result.OPERATION_COMPLETED);
 		}
@@ -121,13 +119,19 @@ public class Store implements Serializable {
 	}
 
 	public Result addClothDryer(Request request) {
-		// TODO Auto-generated method stub
-		return inventory.addClothDryer(request);
+		Result tempResult = inventory.addClothDryer(request);
+		RepairPlan tempPlan = new RepairPlan(tempResult.getRepairPlanCost(), tempResult.getApplianceID());
+		this.repairPlanList.addRepairPlan(tempPlan);
+		tempResult.setRepairPlanFields(tempPlan);
+		return tempResult;
 	}
 
 	public Result addClothWasher(Request request) {
-		// TODO Auto-generated method stub
-		return inventory.addClothWasher(request);
+		Result tempResult = inventory.addClothWasher(request);
+		RepairPlan tempPlan = new RepairPlan(tempResult.getRepairPlanCost(), tempResult.getApplianceID());
+		this.repairPlanList.addRepairPlan(tempPlan);
+		tempResult.setRepairPlanFields(tempPlan);
+		return tempResult;
 	}
 
 	public Result addDishwasher(Request request) {
@@ -220,28 +224,29 @@ public class Store implements Serializable {
 
 		return result;
 	}
-	
+
 	/**
-	 * Fulfills a single backorder, depleting the given appliance's stock
-	 * by the amount on backorder.
+	 * Fulfills a single backorder, depleting the given appliance's stock by the
+	 * amount on backorder.
+	 * 
 	 * @return the result of the operation
 	 */
 	public Result fulfillBackorder(Request request) {
 		Result result = new Result();
 		Backorder backorder = backorderList.search(request.getBackorderID());
-		if(backorder == null) {
+		if (backorder == null) {
 			result.setResultCode(Result.BACKORDER_NOT_FOUND);
-		}
-		else {
+		} else {
 			backorder.getAppliance().removeStock(backorder.getQuantity());
 			backorderList.removeBackorder(backorder);
 			result.setResultCode(Result.OPERATION_COMPLETED);
 		}
 		return result;
 	}
-	
+
 	/**
 	 * Serializes the store's data.
+	 * 
 	 * @return the result of the operation
 	 */
 	public Result saveData() {
@@ -253,8 +258,7 @@ public class Store implements Serializable {
 			objectOut.flush();
 			objectOut.close();
 			result.setResultCode(Result.OPERATION_COMPLETED);
-		}
-		catch (IOException ioe) {
+		} catch (IOException ioe) {
 			result.setResultCode(Result.OPERATION_FAILED);
 		}
 		return result;
