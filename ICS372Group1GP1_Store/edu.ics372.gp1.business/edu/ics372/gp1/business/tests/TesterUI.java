@@ -178,6 +178,33 @@ public class TesterUI {
 	}
 	
 	/**
+	 * Charges all repair plans.
+	 */
+	public void chargeAllRepairPlans() {
+		store.chargeAllRepairPlans();
+		System.out.println("All repair plans have been charged.");
+	}
+	
+	/**
+	 * Enrolls a customer, by given customer ID, in a repair plan, by given appliance ID.
+	 */
+	public void enrollInRepairPlan() {
+		Request.instance().setCustomerID(getToken("Enter the customer ID to be enrolled. "));
+		Request.instance().setApplianceID(getToken("Enter the appliance ID for the repair plan. "));
+		Result result = store.enrollInRepairPlan(Request.instance());
+		if (result.getResultCode() == Result.REPAIR_PLAN_NOT_FOUND) {
+			System.out.println("No repair plan exists for the given appliance ID.");
+		}
+		else if (result.getResultCode() == Result.NO_SUCH_CUSTOMER) {
+			System.out.println("Invalid customer ID.");
+		}
+		else if (result.getResultCode() == Result.OPERATION_COMPLETED) {
+			System.out.println("Customer " + Request.instance().getCustomerID() + " enrolled in repair plan for appliance " + 
+			Request.instance().getApplianceID() + ".");
+		}
+	}
+	
+	/**
 	 * Fulfills a single backorder given by the user. The stock for that appliance is
 	 * reduced by the amount on backorder.
 	 */
