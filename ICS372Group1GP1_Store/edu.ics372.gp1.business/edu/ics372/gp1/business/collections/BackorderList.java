@@ -12,6 +12,7 @@ import java.util.List;
 
 import edu.ics372.gp1.business.store.Appliance;
 import edu.ics372.gp1.business.store.Backorder;
+import edu.ics372.gp1.business.store.Customer;
 
 public class BackorderList implements ItemList<Backorder, String>, Serializable {
 	/**
@@ -24,12 +25,14 @@ public class BackorderList implements ItemList<Backorder, String>, Serializable 
 	private List<Backorder> backorders = new LinkedList<Backorder>();
 	private static String BACKORDER_STRING = "B";
 	private int idCounter = 1000;
-	
+
 	private BackorderList() {
-		
+
 	}
+
 	/**
 	 * This method creates a BackorderList if none yet exists.
+	 * 
 	 * @return either the newly created or existing backorderList
 	 */
 	public static BackorderList getInstance() {
@@ -38,32 +41,48 @@ public class BackorderList implements ItemList<Backorder, String>, Serializable 
 		}
 		return backorderList;
 	}
-	
-	public String addBackorder(Appliance appliance, int quantity) {
-		String backorderID =  BACKORDER_STRING + idCounter++;
-		backorders.add(new Backorder(appliance, quantity, backorderID));
+
+	/**
+	 * Adds new back order to list of all backorders .
+	 * 
+	 * @param appliance
+	 * @param quantity
+	 * @param customer
+	 * @return
+	 */
+	public String addBackorder(Appliance appliance, int quantity, Customer customer) {
+		String backorderID = BACKORDER_STRING + idCounter++;
+		backorders.add(new Backorder(appliance, quantity, customer, backorderID));
 		return backorderID;
 	}
-	
+
+	/**
+	 * Removes specific backorder from list.
+	 * 
+	 * @param backorder
+	 */
 	public void removeBackorder(Backorder backorder) {
 		backorders.remove(backorder);
 	}
-	
+
 	/**
-	 * This method searches the appliances field for an Backorder object with a matching backorderID
+	 * This method searches the appliances field for an Backorder object with a
+	 * matching backorderID
+	 * 
 	 * @return the matching Backorder or null, if no match is found.
 	 */
 	@Override
 	public Backorder search(String backorderID) {
-		for (Backorder backorder: backorders) {
+		for (Backorder backorder : backorders) {
 			if (backorder.matches(backorderID)) {
 				return backorder;
 			}
 		}
 		return null;
 	}
+
 	@Override
 	public String listAll() {
-		 return backorders.toString();
+		return backorders.toString();
 	}
 }
