@@ -18,8 +18,13 @@ import edu.ics372.gp1.business.collections.Inventory;
 import edu.ics372.gp1.business.collections.RepairPlanList;
 import edu.ics372.gp1.business.store.Appliance;
 import edu.ics372.gp1.business.store.Backorder;
+import edu.ics372.gp1.business.store.ClothDryer;
+import edu.ics372.gp1.business.store.ClothWasher;
 import edu.ics372.gp1.business.store.Customer;
+import edu.ics372.gp1.business.store.Dishwasher;
 import edu.ics372.gp1.business.store.Furnace;
+import edu.ics372.gp1.business.store.KitchenRange;
+import edu.ics372.gp1.business.store.Refrigerator;
 import edu.ics372.gp1.business.store.RepairPlan;
 
 public class Store implements Serializable {
@@ -195,11 +200,9 @@ public class Store implements Serializable {
 		double cost = appliance.getCost();
 		if (appliance == null) {
 			result.setResultCode(Result.APPLIANCE_NOT_FOUND);
-		}
-		else if (customer == null) {
+		} else if (customer == null) {
 			result.setResultCode(Result.NO_SUCH_CUSTOMER);
-		}
-		else {
+		} else {
 			if (stock >= quantity) {
 				appliance.removeStock(quantity);
 				addSalesRevenue(quantity * cost);
@@ -294,8 +297,38 @@ public class Store implements Serializable {
 
 	}
 
+	public Iterator<Result> getAllAppliances() {
+		Predicate<Appliance> p1 = ((Appliance a) -> a instanceof Appliance);
+		return new SafeApplianceIterator(new FilteredIterator(inventory.iterator(), p1));
+	}
+
 	public Iterator<Result> getFurnaces() {
 		Predicate<Appliance> p1 = ((Appliance a) -> a instanceof Furnace);
+		return new SafeApplianceIterator(new FilteredIterator(inventory.iterator(), p1));
+	}
+
+	public Iterator<Result> getRefrigerators() {
+		Predicate<Appliance> p1 = ((Appliance a) -> a instanceof Refrigerator);
+		return new SafeApplianceIterator(new FilteredIterator(inventory.iterator(), p1));
+	}
+
+	public Iterator<Result> getClothDryers() {
+		Predicate<Appliance> p1 = ((Appliance a) -> a instanceof ClothDryer);
+		return new SafeApplianceIterator(new FilteredIterator(inventory.iterator(), p1));
+	}
+
+	public Iterator<Result> getClothWashers() {
+		Predicate<Appliance> p1 = ((Appliance a) -> a instanceof ClothWasher);
+		return new SafeApplianceIterator(new FilteredIterator(inventory.iterator(), p1));
+	}
+
+	public Iterator<Result> getDishwashers() {
+		Predicate<Appliance> p1 = ((Appliance a) -> a instanceof Dishwasher);
+		return new SafeApplianceIterator(new FilteredIterator(inventory.iterator(), p1));
+	}
+
+	public Iterator<Result> getKitchenRanges() {
+		Predicate<Appliance> p1 = ((Appliance a) -> a instanceof KitchenRange);
 		return new SafeApplianceIterator(new FilteredIterator(inventory.iterator(), p1));
 	}
 

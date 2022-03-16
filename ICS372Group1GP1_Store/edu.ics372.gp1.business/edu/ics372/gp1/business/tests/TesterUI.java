@@ -339,13 +339,43 @@ public class TesterUI {
 	}
 
 	public void getInventory() {
-		Iterator<Result> iterator = store.getFurnaces();
-		System.out.println("Appliances");
+		Iterator<Result> iterator = null;
+		System.out.println("1 = furnace");
+		System.out.println("2 = Refrigerator");
+		System.out.println("3 = Kitchen Range");
+		System.out.println("4 = Cloth Dryer");
+		System.out.println("5 = Cloth Washer");
+		System.out.println("6 = Dishwasher");
+		System.out.println("7 = All appliances");
+		applianceType = getInt("Enter Appliance Type");
+
+		switch (applianceType) {
+		case 1:
+			iterator = store.getFurnaces();
+			break;
+		case 2:
+			iterator = store.getRefrigerators();
+			break;
+		case 3:
+			iterator = store.getKitchenRanges();
+			break;
+		case 4:
+			iterator = store.getClothDryers();
+			break;
+		case 5:
+			iterator = store.getClothWashers();
+			break;
+		case 6:
+			iterator = store.getDishwashers();
+			break;
+		case 7:
+			iterator = store.getAllAppliances();
+			break;
+		}
 		while (iterator.hasNext()) {
 			Result result = iterator.next();
 			System.out.println(result.getApplianceID());
 		}
-
 	}
 
 	public void process() {

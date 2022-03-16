@@ -5,7 +5,6 @@ import java.util.NoSuchElementException;
 
 import edu.ics372.gp1.business.facade.Result;
 
-
 public class SafeApplianceIterator implements Iterator<Result> {
 	private FilteredIterator iterator;
 	private Result result = new Result();
