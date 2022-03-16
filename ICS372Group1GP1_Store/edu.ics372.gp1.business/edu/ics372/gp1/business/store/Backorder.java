@@ -7,11 +7,13 @@ import edu.ics372.gp1.business.collections.Matchable;
 public class Backorder implements Matchable<String>, Serializable{
 	String backorderID;
 	Appliance appliance;
+	Customer customer;
 	int quantity;
 	
-	public Backorder(Appliance appliance, int quantity, String backorderID) {
+	public Backorder(Appliance appliance, int quantity, Customer customer, String backorderID) {
 		this.appliance = appliance;
 		this.quantity = quantity;
+		this.customer = customer;
 		this.backorderID = backorderID;
 	}
 	
@@ -26,6 +28,14 @@ public class Backorder implements Matchable<String>, Serializable{
 	
 	public int getQuantity() {
 		return quantity;
+	}
+	
+	public String getBackorderID() {
+		return backorderID;
+	}
+	
+	public Customer getCustomer() {
+		return customer;
 	}
 	
 	@Override

@@ -1,5 +1,7 @@
 package edu.ics372.gp1.business.facade;
 
+import edu.ics372.gp1.business.store.Appliance;
+
 public class Result extends DataTransfer {
 
 	public static final int APPLIANCE_NOT_FOUND = 1;
@@ -20,5 +22,4 @@ public class Result extends DataTransfer {
 	public void setResultCode(int resultCode) {
 		this.resultCode = resultCode;
 	}
-
 }

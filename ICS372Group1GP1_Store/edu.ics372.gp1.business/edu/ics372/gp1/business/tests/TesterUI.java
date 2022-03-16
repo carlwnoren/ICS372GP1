@@ -67,7 +67,7 @@ public class TesterUI {
 			addClothWasher();
 			break;
 		case 6:
-			addDishWasher();
+			addDishwasher();
 			break;
 		}
 
@@ -126,8 +126,8 @@ public class TesterUI {
 		}
 	}
 
-	public void addDishWasher() {
-		Result result = store.addDishWasher(Request.instance());
+	public void addDishwasher() {
+		Result result = store.addDishwasher(Request.instance());
 		if (result.getResultCode() != Result.OPERATION_COMPLETED) {
 			System.out.println("Could not add member");
 		} else {
@@ -152,11 +152,15 @@ public class TesterUI {
 	 * user. The user is then asked if they wish to order another model.
 	 */
 	public void purchaseOneOrMoreModels() {
+		Request.instance().setCustomerID(getToken("Enter the customer ID."));
 		do {
 			Request.instance().setApplianceID(getToken("Enter the appliance ID."));
 			Request.instance().setOrderQuantity(getInt("Enter the quantity to order."));
 			Result result = store.purchaseOneOrMoreModels(Request.instance());
 			switch (result.getResultCode()) {
+			case Result.NO_SUCH_CUSTOMER:
+				System.out.println("Invalid customer ID.");
+				return;
 			case Result.APPLIANCE_NOT_FOUND:
 				System.out.println("Invalid appliance ID.");
 				break;
