@@ -12,6 +12,7 @@ import java.util.List;
 
 import edu.ics372.gp1.business.store.Appliance;
 import edu.ics372.gp1.business.store.Backorder;
+import edu.ics372.gp1.business.store.Customer;
 
 public class BackorderList implements ItemList<Backorder, String>, Serializable {
 	/**
@@ -39,9 +40,9 @@ public class BackorderList implements ItemList<Backorder, String>, Serializable 
 		return backorderList;
 	}
 	
-	public String addBackorder(Appliance appliance, int quantity) {
+	public String addBackorder(Appliance appliance, int quantity, Customer customer) {
 		String backorderID =  BACKORDER_STRING + idCounter++;
-		backorders.add(new Backorder(appliance, quantity, backorderID));
+		backorders.add(new Backorder(appliance, quantity, customer, backorderID));
 		return backorderID;
 	}
 	
