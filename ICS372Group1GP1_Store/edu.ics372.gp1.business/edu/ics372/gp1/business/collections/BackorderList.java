@@ -52,9 +52,6 @@ public class BackorderList implements ItemList<Backorder, String>, Serializable 
 	 */
 	public String addBackorder(Appliance appliance, int quantity, Customer customer) {
 		String backorderID = BACKORDER_STRING + idCounter++;
-
-	public String addBackorder(Appliance appliance, int quantity, Customer customer) {
-		String backorderID = BACKORDER_STRING + idCounter++;
 		backorders.add(new Backorder(appliance, quantity, customer, backorderID));
 		return backorderID;
 	}
