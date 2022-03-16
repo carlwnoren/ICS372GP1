@@ -7,6 +7,7 @@
 package edu.ics372.gp1.business.collections;
 
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -41,7 +42,11 @@ public class BackorderList implements ItemList<Backorder, String>, Serializable 
 		}
 		return backorderList;
 	}
-
+	
+	public Iterator<Backorder> iterator() {
+		return backorders.iterator();
+	}
+	
 	/**
 	 * Adds new back order to list of all backorders .
 	 * 

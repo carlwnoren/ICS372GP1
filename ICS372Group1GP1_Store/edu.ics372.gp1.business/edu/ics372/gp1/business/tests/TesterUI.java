@@ -335,7 +335,19 @@ public class TesterUI {
 			System.out.println(result.getRepairPlanApplianceID() + " " + result.getRepairPlanCost()
 					+ result.getRepairPlanSubscribers());
 		}
-		System.out.println("End of llisting");
+		System.out.println("End of listing");
+	}
+	
+	public void getBackorders() {
+		Iterator<Result> iterator = store.getBackorders();
+		System.out.println("Backorders");
+		while (iterator.hasNext()) {
+			Result result = iterator.next();
+			System.out.println("ID: " + result.getBackorderID() + " " + "Appliance: " + result.getApplianceBrand() + " " +
+			result.getApplianceModel() + " " + result.getApplianceID() + " Quantity: " + result.getBackorderQuantity() +
+			"Customer: " + result.getCustomerName() + " " + result.getCustomerID());
+		}
+		System.out.println("End of listing");
 	}
 
 	public void getInventory() {
