@@ -378,6 +378,17 @@ public class TesterUI {
 		}
 	}
 
+	public void addStock() {
+		Request.instance().setApplianceID(getName("Enter Appliance ID"));
+		Request.instance().setApplianceStock(getInt("Enter Stock Amount"));
+		Result result = store.addStock(Request.instance());
+		if (result.getResultCode() != Result.OPERATION_COMPLETED) {
+			System.out.println("Could not add member");
+		} else {
+			System.out.println(result.getApplianceID() + " stock is " + result.getApplianceStock());
+		}
+	}
+
 	public void process() {
 		store.addCustomer("Joe", "123 fake st", "5555555555");
 		store.addCustomer("Moe", "123 fake st", "5555555555");
@@ -388,7 +399,7 @@ public class TesterUI {
 		getCustomer();
 		addAppliance();
 		addAppliance();
-
+		addStock();
 		getInventory();
 
 		Iterator<Result> itr = store.getCustomers();

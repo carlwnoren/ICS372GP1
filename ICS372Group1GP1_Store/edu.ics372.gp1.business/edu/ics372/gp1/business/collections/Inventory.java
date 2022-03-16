@@ -70,11 +70,6 @@ public class Inventory implements ItemList<Appliance, String>, Serializable {
 		return appliances.iterator();
 	}
 
-	@Override
-	public String listAll() {
-		return appliances.toString();
-	}
-
 	public Result addFurnace(Request request) {
 		Result result = new Result();
 		Furnace furnace = new Furnace(request.getApplianceBrand(), request.getApplianceModel(),
