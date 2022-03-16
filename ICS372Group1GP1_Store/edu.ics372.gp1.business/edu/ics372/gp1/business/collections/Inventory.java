@@ -67,7 +67,7 @@ public class Inventory implements ItemList<Appliance, String>, Serializable {
 	}
 
 	public Iterator<Appliance> iterator() {
-		return inventory.iterator();
+		return appliances.iterator();
 	}
 
 	@Override

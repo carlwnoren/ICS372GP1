@@ -155,11 +155,9 @@ public class Store implements Serializable {
 		RepairPlan repairPlan = repairPlanList.search(request.getApplianceID());
 		if (customer == null) {
 			result.setResultCode(Result.NO_SUCH_CUSTOMER);
-		} 
-		else if (repairPlan == null) {
+		} else if (repairPlan == null) {
 			result.setResultCode(Result.REPAIR_PLAN_NOT_FOUND);
-		}
-		else {
+		} else {
 			repairPlan.enrollCustomer(customer);
 			result.setResultCode(Result.OPERATION_COMPLETED);
 		}

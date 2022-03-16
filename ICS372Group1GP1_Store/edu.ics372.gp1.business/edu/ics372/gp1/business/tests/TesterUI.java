@@ -335,30 +335,11 @@ public class TesterUI {
 	}
 
 	public void getInventory() {
-		applianceType = getInt("Enter Appliance Type");
-
-		switch (applianceType) {
-		case 1:
-			store.getFurnaces();
-			break;
-		case 2:
-			addRefrigerator();
-			break;
-		case 3:
-			addKitchenRange();
-			break;
-		case 4:
-			addClothDryer();
-			break;
-		case 5:
-			addClothWasher();
-			break;
-		case 6:
-			addDishwasher();
-			break;
-		case 7:
-
-			break;
+		Iterator<Result> iterator = store.getFurnaces();
+		System.out.println("Appliances");
+		while (iterator.hasNext()) {
+			Result result = iterator.next();
+			System.out.println(result.getApplianceID());
 		}
 
 	}
@@ -373,12 +354,10 @@ public class TesterUI {
 		getCustomer();
 		addAppliance();
 		addAppliance();
-		getRepairPlans();
+
+		getInventory();
 
 		Iterator<Result> itr = store.getCustomers();
-
-		getCustomer();
-		addAppliance();
 
 	}
 
