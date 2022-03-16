@@ -10,6 +10,7 @@ import java.util.function.Predicate;
 
 import edu.ics372.gp1.Iterators.FilteredIterator;
 import edu.ics372.gp1.Iterators.SafeApplianceIterator;
+import edu.ics372.gp1.Iterators.SafeBackorderIterator;
 import edu.ics372.gp1.Iterators.SafeCustomerIterator;
 import edu.ics372.gp1.Iterators.SafeRepairPlanIterator;
 import edu.ics372.gp1.business.collections.BackorderList;
@@ -295,6 +296,10 @@ public class Store implements Serializable {
 	public Iterator<Result> getRepairPlans() {
 		return new SafeRepairPlanIterator(repairPlanList.iterator());
 
+	}
+	
+	public Iterator<Result> getBackorders() {
+		return new SafeBackorderIterator(backorderList.iterator());
 	}
 
 	public Iterator<Result> getAllAppliances() {
