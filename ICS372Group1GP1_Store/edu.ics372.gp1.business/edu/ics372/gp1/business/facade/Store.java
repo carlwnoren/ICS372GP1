@@ -217,7 +217,7 @@ public class Store implements Serializable {
 					addSalesRevenue(quantity * cost);
 					appliance.removeStock(stock);
 					request.setBackorderQuantity(quantity - stock);
-					request.setBackorderID(backorderList.addBackorder(purchase, quantity - stock));
+					request.setBackorderID(backorderList.addBackorder(appliance, quantity - stock, customer));
 					result.setResultCode(Result.BACKORDER_PLACED);
 				}
 			}
