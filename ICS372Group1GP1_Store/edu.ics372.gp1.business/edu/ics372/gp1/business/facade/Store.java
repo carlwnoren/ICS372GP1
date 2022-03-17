@@ -109,7 +109,9 @@ public class Store implements Serializable {
 
 	// public boolean addToInventory()
 
-	// public Appliance addSingleModel()
+	public Result addAppliance(Request request) {
+		return inventory.addAppliance(request);
+	}
 
 	public Result addFurnace(Request request) {
 		return inventory.addFurnace(request);
@@ -341,13 +343,5 @@ public class Store implements Serializable {
 
 		return inventory.addStock(request);
 	}
-
-//	public Iterator<Result> getTransactions(Request request) {
-//		Member member = members.search(request.getMemberId());
-//		if (member == null) {
-//			return new LinkedList<Result>().iterator();
-//		}
-//		return member.getTransactionsOnDate(request.getDate());
-//	}
 
 }

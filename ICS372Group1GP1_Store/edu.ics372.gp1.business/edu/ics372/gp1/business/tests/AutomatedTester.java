@@ -1,5 +1,7 @@
 package edu.ics372.gp1.business.tests;
 
+import java.util.ArrayList;
+
 import edu.ics372.gp1.business.facade.Request;
 import edu.ics372.gp1.business.facade.Result;
 import edu.ics372.gp1.business.facade.Store;
@@ -10,10 +12,16 @@ public class AutomatedTester {
 	private Store store;
 	private String[] names = { "n1", "n2", "n3" };
 	private String[] addresses = { "a1", "a2", "a3" };
-	private String[] phones = { "p1", "p2", "p3" };
+	private String[] phones = { "1111111111", "2222222222", "3333333333" };
 	private Customer[] customers = new Customer[3];
 	private String[] ids = { "i1", "i2", "i3", "i4", "i5", "i6" };
-	private Appliance[] appliances = new Appliance[6];
+	private Appliance[] appliances = new Appliance[3];
+	private String[] applianceModels = { "m1", "m2", "m3" };
+	private String[] applianceBrands = { "b1", "b2", "b3" };
+	private double[] applianceCosts = { 1, 2, 3 };
+	private String[] applianceIDs = { "A1000", "A1001", "A2000" };
+	private String[] CustomerIDs = { "C1000", "C1001", "C2000" };
+	private ArrayList<Appliance> testApplianceList = new ArrayList<Appliance>();
 
 	/**
 	 * Tests Member creation.
@@ -23,38 +31,131 @@ public class AutomatedTester {
 		for (int count = 0; count < customers.length; count++) {
 			Request.instance().setCustomerAddress(addresses[count]);
 			Request.instance().setCustomerName(names[count]);
-			Request.instance().setCustomerPhone(phones[count]);
-			Result result = store.instance().addCustomer(Request.instance());
+			Request.instance().setCustomerPhoneNumber(phones[count]);
+			Result result = store.getInstance().addCustomer(Request.instance());
 			assert result.getResultCode() == Result.OPERATION_COMPLETED;
 			assert result.getCustomerName().equals(names[count]);
-			assert result.getCustomerPhone().equals(phones[count]);
+			assert result.getCustomerPhoneNumber().equals(phones[count]);
 		}
 	}
 
-	// add appliance and repair plan
-	public void testAddBook() {
-		for (int count = 0; count < books.length; count++) {
-			Request.instance().setBookAuthor(authors[count]);
-			Request.instance().setBookTitle(titles[count]);
-			Request.instance().setBookId(ids[count]);
-			Result result = Library.instance().addBook(Request.instance());
+	/**
+	 * Test creation of Furnace
+	 */
+	public void testAddFurnace() {
+		for (int count = 0; count < appliances.length - 1; count++) {
+			Request.instance().setApplianceModel(applianceModels[count]);
+			Request.instance().setApplianceBrand(applianceBrands[count]);
+			Request.instance().setApplianceCost(applianceCosts[count]);
+			Request.instance().setMaxHeatOutput(count);
+			Result result = Store.getInstance().addFurnace(Request.instance());
 			assert result.getResultCode() == Result.OPERATION_COMPLETED;
-			assert result.getBookTitle().equals(titles[count]);
-			assert result.getBookId().equals(ids[count]);
+			assert result.getApplianceModel().equals(applianceModels[count]);
+			assert result.getApplianceBrand().equals(applianceBrands[count]);
+			assert result.getMaxHeatOutput() == count;
+
 		}
 	}
 
-	public void testSearchMembership() {
-		Request.instance().setMemberId("M1");
-		assert Library.instance().searchMembership(Request.instance()).getMemberId().equals("M1");
-		Request.instance().setMemberId("M4");
-		assert Library.instance().searchMembership(Request.instance()) == null;
+	/**
+	 * Test creation of Refrigerator
+	 */
+	public void testAddRefrigerator() {
+		for (int count = 0; count < appliances.length; count++) {
+			Request.instance().setApplianceModel(applianceModels[count]);
+			Request.instance().setApplianceBrand(applianceBrands[count]);
+			Request.instance().setApplianceCost(applianceCosts[count]);
+			Request.instance().setCapacity(count);
+			Result result = Store.getInstance().addRefrigerator(Request.instance());
+			assert result.getResultCode() == Result.OPERATION_COMPLETED;
+			assert result.getApplianceModel().equals(applianceModels[count]);
+			assert result.getApplianceBrand().equals(applianceBrands[count]);
+			assert result.getCapacity() == count;
+		}
+	}
+
+	/**
+	 * Test creation of Cloth Dryer, which also tests creation of repair plans
+	 */
+	public void testAddClothDryer() {
+		for (int count = 0; count < appliances.length; count++) {
+			Request.instance().setApplianceModel(applianceModels[count]);
+			Request.instance().setApplianceBrand(applianceBrands[count]);
+			Request.instance().setApplianceCost(applianceCosts[count]);
+			Request.instance().setRepairPlanCost(count);
+			Result result = Store.getInstance().addClothDryer(Request.instance());
+			assert result.getResultCode() == Result.OPERATION_COMPLETED;
+			assert result.getApplianceModel().equals(applianceModels[count]);
+			assert result.getApplianceBrand().equals(applianceBrands[count]);
+			assert result.getRepairPlanCost() == count;
+		}
+	}
+
+	/**
+	 * Test creation of Cloth washer, which also tests creation of repair plans
+	 */
+	public void testAddClothWasher() {
+		for (int count = 0; count < appliances.length; count++) {
+			Request.instance().setApplianceModel(applianceModels[count]);
+			Request.instance().setApplianceBrand(applianceBrands[count]);
+			Request.instance().setApplianceCost(applianceCosts[count]);
+			Request.instance().setRepairPlanCost(count);
+			Result result = Store.getInstance().addClothWasher(Request.instance());
+			assert result.getResultCode() == Result.OPERATION_COMPLETED;
+			assert result.getApplianceModel().equals(applianceModels[count]);
+			assert result.getApplianceBrand().equals(applianceBrands[count]);
+			assert result.getRepairPlanCost() == count;
+		}
+	}
+
+	/**
+	 * Test creation of Dishwasher
+	 */
+	public void testAddDishwasher() {
+		for (int count = 0; count < appliances.length; count++) {
+			Request.instance().setApplianceModel(applianceModels[count]);
+			Request.instance().setApplianceBrand(applianceBrands[count]);
+			Request.instance().setApplianceCost(applianceCosts[count]);
+			Result result = Store.getInstance().addDishwasher(Request.instance());
+			assert result.getResultCode() == Result.OPERATION_COMPLETED;
+			assert result.getApplianceModel().equals(applianceModels[count]);
+			assert result.getApplianceBrand().equals(applianceBrands[count]);
+		}
+	}
+
+	/**
+	 * Test creation of Dishwasher
+	 */
+	public void testAddKitchenRange() {
+		for (int count = 0; count < appliances.length; count++) {
+			Request.instance().setApplianceModel(applianceModels[count]);
+			Request.instance().setApplianceBrand(applianceBrands[count]);
+			Request.instance().setApplianceCost(applianceCosts[count]);
+			Result result = Store.getInstance().addKitchenRange(Request.instance());
+			assert result.getResultCode() == Result.OPERATION_COMPLETED;
+			assert result.getApplianceModel().equals(applianceModels[count]);
+			assert result.getApplianceBrand().equals(applianceBrands[count]);
+		}
+	}
+
+	/**
+	 * Test creation of backorder
+	 */
+	public void testAddStock() {
+		Request.instance().setApplianceID(null);
+		Result result = Store.getInstance().addStock(Request.instance());
 	}
 
 	public void testAll() {
-		testAddMember();
-		testAddBook();
-		testSearchMembership();
+		testAddCustomer();
+		testAddFurnace();
+		testAddRefrigerator();
+		testAddClothWasher();
+		testAddClothDryer();
+		testAddDishwasher();
+		testAddKitchenRange();
+		testPurchase();
+
 	}
 
 	public static void main(String[] args) {
