@@ -10,5 +10,4 @@ public interface ItemList<T extends Matchable<K>, K> {
 	 */
 	public T search(K value);
 
-	public String listAll();
 }

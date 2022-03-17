@@ -139,11 +139,34 @@ public class AutomatedTester {
 	}
 
 	/**
-	 * Test creation of backorder
+	 * Test Addition of stock to a appliance.
 	 */
 	public void testAddStock() {
-		Request.instance().setApplianceID(null);
+		Request.instance().setApplianceID("A1000");
+		Request.instance().setApplianceStock(10);
 		Result result = Store.getInstance().addStock(Request.instance());
+		assert result.getResultCode() == Result.OPERATION_COMPLETED;
+		assert result.getApplianceID().equals("A1000");
+		assert result.getApplianceStock() == 10;
+	}
+
+	/**
+	 * Test purchase of one or more appliances
+	 */
+	public void testPurchase() {
+		Request.instance().setCustomerID("C1000");
+		Request.instance().setApplianceID("A1000");
+		Request.instance().setOrderQuantity(2);
+		Result result = Store.getInstance().purchaseOneOrMoreModels(Request.instance());
+		assert result.getResultCode() == Result.OPERATION_COMPLETED;
+	}
+
+	public void testBackOrder() {
+		Request.instance().setCustomerID("C1000");
+		Request.instance().setApplianceID("A1002");
+		Request.instance().setOrderQuantity(1);
+		Result result = Store.getInstance().purchaseOneOrMoreModels(Request.instance());
+		assert result.getResultCode() == Result.OPERATION_COMPLETED;
 	}
 
 	public void testAll() {
@@ -154,7 +177,9 @@ public class AutomatedTester {
 		testAddClothDryer();
 		testAddDishwasher();
 		testAddKitchenRange();
+		testAddStock();
 		testPurchase();
+		testBackOrder();
 
 	}
 
