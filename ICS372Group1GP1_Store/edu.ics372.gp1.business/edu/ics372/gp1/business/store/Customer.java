@@ -94,6 +94,24 @@ public class Customer implements Matchable<String>, Serializable {
 	public void setAppliances(List<Appliance> appliances) {
 		this.appliances = appliances;
 	}
+	
+	public boolean addRepairPlan(RepairPlan repairPlan) {
+		if (!repairPlansEnrolledIn.contains(repairPlan)) {
+			repairPlansEnrolledIn.add(repairPlan);
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean removeRepairPlan(RepairPlan repairPlan) {
+		if (repairPlansEnrolledIn.contains(repairPlan)) {
+			repairPlansEnrolledIn.remove(repairPlan);
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	public void charge(double cost) {
 		accountBalance += cost;

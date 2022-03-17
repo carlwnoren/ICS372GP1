@@ -161,14 +161,7 @@ public class Inventory implements ItemList<Appliance, String>, Serializable {
 				return result;
 			}
 		}
-		result.setResultCode(result.OPERATION_FAILED);
+		result.setResultCode(Result.OPERATION_FAILED);
 		return result;
 	}
-
-	@Override
-	public String listAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

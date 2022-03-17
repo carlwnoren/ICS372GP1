@@ -40,7 +40,7 @@ public class TesterUI {
 	 * no, checks for an existing UI instance.
 	 */
 	private TesterUI() {
-		if (yesOrNo("Look for saved data and  use it?")) {
+		if (yesOrNo("Look for saved data and load it?")) {
 			retrieve();
 		} else {
 			testerUI = TesterUI.instance();
@@ -245,7 +245,10 @@ public class TesterUI {
 			System.out.println("No repair plan exists for the given appliance ID.");
 		} else if (result.getResultCode() == Result.NO_SUCH_CUSTOMER) {
 			System.out.println("Invalid customer ID.");
-		} else if (result.getResultCode() == Result.OPERATION_COMPLETED) {
+		} else if (result.getResultCode() == Result.OPERATION_FAILED) {
+			System.out.println("Customer already enrolled in the repair plan for this appliance.");
+		}
+		else if (result.getResultCode() == Result.OPERATION_COMPLETED) {
 			System.out.println("Customer " + Request.instance().getCustomerID()
 					+ " enrolled in repair plan for appliance " + Request.instance().getApplianceID() + ".");
 		}
@@ -263,7 +266,10 @@ public class TesterUI {
 			System.out.println("No repair plan exists for the given appliance ID.");
 		} else if (result.getResultCode() == Result.NO_SUCH_CUSTOMER) {
 			System.out.println("Invalid customer ID.");
-		} else if (result.getResultCode() == Result.OPERATION_COMPLETED) {
+		} else if (result.getResultCode() == Result.OPERATION_FAILED) {
+			System.out.println("Customer was not enrolled in this repair plan.");
+		}
+		else if (result.getResultCode() == Result.OPERATION_COMPLETED) {
 			System.out.println("Customer " + Request.instance().getCustomerID()
 					+ " withdrew from repair plan for appliance " + Request.instance().getApplianceID() + ".");
 		}
@@ -322,8 +328,8 @@ public class TesterUI {
 		do {
 			try {
 				String item = getToken(prompt);
-				Integer number = Integer.valueOf(item);
-				return number.intValue();
+				double number = Double.valueOf(item);
+				return number;
 			} catch (NumberFormatException nfe) {
 				System.out.println("Please input a number ");
 			}

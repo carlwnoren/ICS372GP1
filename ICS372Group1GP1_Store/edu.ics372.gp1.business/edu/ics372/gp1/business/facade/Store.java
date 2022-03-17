@@ -77,8 +77,11 @@ public class Store implements Serializable {
 		} else if (repairPlan == null) {
 			result.setResultCode(Result.REPAIR_PLAN_NOT_FOUND);
 		} else {
-			repairPlan.enrollCustomer(customer);
-			result.setResultCode(Result.OPERATION_COMPLETED);
+			if (repairPlan.enrollCustomer(customer) && customer.addRepairPlan(repairPlan)) {
+				result.setResultCode(Result.OPERATION_COMPLETED);
+			} else {
+				result.setResultCode(Result.OPERATION_FAILED);
+			}
 		}
 		return result;
 	}
