@@ -50,6 +50,7 @@ public class RepairPlan implements Matchable<String>, Serializable {
 	public boolean enrollCustomer(Customer customer) {
 		if (!subscribers.contains(customer)) {
 			subscribers.add(customer);
+			customer.addRepairPlan(this);
 			return true;
 		} else {
 			return false;

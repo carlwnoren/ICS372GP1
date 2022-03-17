@@ -93,6 +93,10 @@ public class Customer implements Matchable<String>, Serializable {
 	public void setRepairPlansEnrolledIn(List<RepairPlan> repairPlansEnrolledIn) {
 		this.repairPlansEnrolledIn = repairPlansEnrolledIn;
 	}
+	
+	public void addRepairPlan(RepairPlan repairPlan) {
+		repairPlansEnrolledIn.add(repairPlan);
+	}
 
 	public void charge(double cost) {
 		accountBalance += cost;

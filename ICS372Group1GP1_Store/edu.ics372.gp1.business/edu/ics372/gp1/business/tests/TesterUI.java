@@ -37,7 +37,7 @@ public class TesterUI {
 	 * If no, checks for an existing UI instance.
 	 */
 	private TesterUI() {
-		if (yesOrNo("Look for saved data and  use it?")) {
+		if (yesOrNo("Look for saved data and load it?")) {
 			retrieve();
 		} else {
 			testerUI = TesterUI.instance();
