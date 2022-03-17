@@ -1,5 +1,7 @@
+/**
+ * Class transmit results back to UI and report whether the operation was successful.
+ */
 package edu.ics372.gp1.business.facade;
-
 
 public class Result extends DataTransfer {
 

@@ -23,6 +23,10 @@ import edu.ics372.gp1.business.store.Refrigerator;
 
 public class Inventory implements ItemList<Appliance, String>, Serializable {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * This field stores the singleton Inventory object.
 	 */
 	private static Inventory inventory;
