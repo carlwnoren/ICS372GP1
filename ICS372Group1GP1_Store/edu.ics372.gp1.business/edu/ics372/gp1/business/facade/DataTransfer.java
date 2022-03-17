@@ -1,3 +1,7 @@
+/**
+ * Data transfer classed used to securely transmit data to UI without exposing business logic. 
+ */
+
 package edu.ics372.gp1.business.facade;
 
 import java.util.List;
@@ -89,6 +93,11 @@ public abstract class DataTransfer {
 		this.customerAccountBalance = customerAccountBalance;
 	}
 
+	/**
+	 * Sets all fields for a customer
+	 * 
+	 * @param customer
+	 */
 	public void setCustomerFields(Customer customer) {
 		customerName = customer.getName();
 		customerAddress = customer.getAddress();
@@ -139,6 +148,11 @@ public abstract class DataTransfer {
 		this.applianceStock = applianceStock;
 	}
 
+	/**
+	 * Sets all fields for a generic appliance
+	 * 
+	 * @param clothDryer
+	 */
 	public void setApplianceFields(Appliance appliance) {
 		applianceBrand = appliance.getBrand();
 		applianceModel = appliance.getModel();
@@ -147,6 +161,11 @@ public abstract class DataTransfer {
 		applianceStock = appliance.getStock();
 	}
 
+	/**
+	 * Sets all fields for a furnace
+	 * 
+	 * @param clothDryer
+	 */
 	public void setFurnaceFields(Furnace furnace) {
 		applianceBrand = furnace.getBrand();
 		applianceModel = furnace.getModel();
@@ -156,6 +175,11 @@ public abstract class DataTransfer {
 		maxHeatOutput = furnace.getMaxHeatOutput();
 	}
 
+	/**
+	 * Sets all fields for a refrigerator
+	 * 
+	 * @param clothDryer
+	 */
 	public void setRefrigeratorFields(Refrigerator refrigerator) {
 		applianceBrand = refrigerator.getBrand();
 		applianceModel = refrigerator.getModel();
@@ -165,6 +189,11 @@ public abstract class DataTransfer {
 		capacity = refrigerator.getCapacity();
 	}
 
+	/**
+	 * Sets all fields for a cloth washer
+	 * 
+	 * @param clothDryer
+	 */
 	public void setClothWasherFields(ClothWasher clothWasher) {
 		applianceBrand = clothWasher.getBrand();
 		applianceModel = clothWasher.getModel();
@@ -174,6 +203,11 @@ public abstract class DataTransfer {
 		repairPlanCost = clothWasher.getRepairPlan().getCost();
 	}
 
+	/**
+	 * Sets all fields for a cloth dryer
+	 * 
+	 * @param clothDryer
+	 */
 	public void setClothDryerFields(ClothDryer clothDryer) {
 		applianceBrand = clothDryer.getBrand();
 		applianceModel = clothDryer.getModel();
@@ -237,6 +271,11 @@ public abstract class DataTransfer {
 		repairPlanSubscribers = repairPlan.getSubscribers();
 	}
 
+	/**
+	 * Sets all fields for a backorder
+	 * 
+	 * @param backorder
+	 */
 	public void setBackorderFields(Backorder backorder) {
 		backorderID = backorder.getBackorderID();
 		applianceID = backorder.getAppliance().getApplianceID();
@@ -329,6 +368,17 @@ public abstract class DataTransfer {
 		repairPlanCost = 0;
 		repairPlanApplianceID = "No such plan";
 		repairPlanSubscribers = null;
+		backorderQuantity = 0;
+		purchaseQuantity = 0;
+		furnacesOrdered = 0;
+		orderQuantity = 0;
+		salesRevenue = 0;
+		repairPlanRevenue = 0;
+		repairPlansEnrolledIn = null;
+		customerAppliances = null;
+		maxHeatOutput = 0;
+		capacity = 0;
+		backorderID = 0;
 
 	}
 }

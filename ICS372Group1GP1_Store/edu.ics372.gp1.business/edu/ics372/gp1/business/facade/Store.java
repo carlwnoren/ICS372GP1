@@ -1,4 +1,6 @@
-
+/**
+ * The Store class is used to organize all lists of objects and driver the needed operations of the program.
+ */
 package edu.ics372.gp1.business.facade;
 
 import java.io.FileInputStream;
