@@ -11,6 +11,7 @@ import edu.ics372.gp1.business.facade.Request;
 import edu.ics372.gp1.business.facade.Result;
 import edu.ics372.gp1.business.facade.Store;
 import edu.ics372.gp1.business.store.Appliance;
+import edu.ics372.gp1.business.store.RepairPlan;
 
 public class TesterUI {
 	private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -381,15 +382,18 @@ public class TesterUI {
 		while (iterator.hasNext()) {
 			Result result = iterator.next();
 			List<Appliance> Appliances = result.getCustomerAppliances();
+			List<RepairPlan> repairPlans = result.getRepairPlansEnrolledIn();
 
 			System.out.println(result.getCustomerName() + " " + result.getCustomerAddress() + " "
 					+ result.getCustomerPhoneNumber() + result.getCustomerID() + result.getCustomerAccountBalance());
 			for (Appliance appliance : Appliances) {
-
-				if (appliance.getApplianceID().equals(result.getApplianceID())) {
-					System.out.println("Plan for Brand:" + appliance.getBrand() + " Model:" + appliance.getModel());
+				for (RepairPlan repairPlan : repairPlans) {
+					if (appliance.getApplianceID().equals(repairPlan.getApplianceID())) {
+						System.out.println("Plan for Brand:" + appliance.getBrand() + " Model:" + appliance.getModel());
+					}
 				}
 			}
+
 		}
 		System.out.println("End of listing");
 	}
