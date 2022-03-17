@@ -319,8 +319,8 @@ public class TesterUI {
 		do {
 			try {
 				String item = getToken(prompt);
-				Integer number = Integer.valueOf(item);
-				return number.intValue();
+				double number = Double.valueOf(item);
+				return number;
 			} catch (NumberFormatException nfe) {
 				System.out.println("Please input a number ");
 			}
