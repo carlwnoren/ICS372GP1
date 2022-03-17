@@ -94,8 +94,22 @@ public class Customer implements Matchable<String>, Serializable {
 		this.repairPlansEnrolledIn = repairPlansEnrolledIn;
 	}
 	
-	public void addRepairPlan(RepairPlan repairPlan) {
-		repairPlansEnrolledIn.add(repairPlan);
+	public boolean addRepairPlan(RepairPlan repairPlan) {
+		if (!repairPlansEnrolledIn.contains(repairPlan)) {
+			repairPlansEnrolledIn.add(repairPlan);
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean removeRepairPlan(RepairPlan repairPlan) {
+		if (repairPlansEnrolledIn.contains(repairPlan)) {
+			repairPlansEnrolledIn.remove(repairPlan);
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public void charge(double cost) {
