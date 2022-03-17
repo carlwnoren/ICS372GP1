@@ -247,8 +247,7 @@ public class TesterUI {
 			System.out.println("Invalid customer ID.");
 		} else if (result.getResultCode() == Result.OPERATION_FAILED) {
 			System.out.println("Customer already enrolled in the repair plan for this appliance.");
-		}
-		else if (result.getResultCode() == Result.OPERATION_COMPLETED) {
+		} else if (result.getResultCode() == Result.OPERATION_COMPLETED) {
 			System.out.println("Customer " + Request.instance().getCustomerID()
 					+ " enrolled in repair plan for appliance " + Request.instance().getApplianceID() + ".");
 		}
@@ -268,8 +267,7 @@ public class TesterUI {
 			System.out.println("Invalid customer ID.");
 		} else if (result.getResultCode() == Result.OPERATION_FAILED) {
 			System.out.println("Customer was not enrolled in this repair plan.");
-		}
-		else if (result.getResultCode() == Result.OPERATION_COMPLETED) {
+		} else if (result.getResultCode() == Result.OPERATION_COMPLETED) {
 			System.out.println("Customer " + Request.instance().getCustomerID()
 					+ " withdrew from repair plan for appliance " + Request.instance().getApplianceID() + ".");
 		}
@@ -375,7 +373,7 @@ public class TesterUI {
 	}
 
 	/**
-	 * Method to print all repair plans with all customer info.
+	 * Method to print all repair plans with all customer info. testing git push
 	 */
 	public void getUsersInRepairPlans() {
 		Iterator<Result> iterator = store.getRepairPlans();
