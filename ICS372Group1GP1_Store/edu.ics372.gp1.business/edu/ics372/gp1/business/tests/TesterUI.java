@@ -553,7 +553,7 @@ public class TesterUI {
 				getInventory();
 				break;
 			case LIST_REPAIR_PLAN_SUBSCRIBERS:
-				getRepairPlans();
+				getUsersInRepairPlans();
 				break;
 			case LIST_CUSTOMERS:
 				getCustomers();
