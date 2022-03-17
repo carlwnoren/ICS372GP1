@@ -19,7 +19,7 @@ public abstract class Appliance implements Matchable<String>, Serializable {
 	protected String brand;
 	protected String model;
 	protected double cost;
-	protected int stock;
+	protected int stock = 0;
 	protected String applianceID;
 
 	@Override

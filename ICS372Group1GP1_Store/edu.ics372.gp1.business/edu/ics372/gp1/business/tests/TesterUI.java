@@ -200,7 +200,7 @@ public class TesterUI {
 		Request.instance().setCustomerID(getToken("Enter the customer ID."));
 		do {
 			Request.instance().setApplianceID(getToken("Enter the appliance ID."));
-			Request.instance().setOrderQuantity(getInt("Enter the quantity to order."));
+			Request.instance().setPurchaseQuantity(getInt("Enter the quantity to order."));
 			Result result = store.purchaseOneOrMoreModels(Request.instance());
 			switch (result.getResultCode()) {
 			case Result.NO_SUCH_CUSTOMER:
@@ -340,7 +340,7 @@ public class TesterUI {
 			try {
 				String item = getToken(prompt);
 				Integer number = Integer.valueOf(item);
-				return number.intValue();
+				return number;
 			} catch (NumberFormatException nfe) {
 				System.out.println("Please input a number ");
 			}
