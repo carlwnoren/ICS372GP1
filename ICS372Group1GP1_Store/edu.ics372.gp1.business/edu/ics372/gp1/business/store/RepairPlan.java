@@ -22,6 +22,7 @@ public class RepairPlan implements Matchable<String>, Serializable {
 	private static final long serialVersionUID = 1L;
 	private double cost;
 	private String applianceID;
+	private Appliance appliance;
 	private List<Customer> subscribers = new ArrayList<Customer>();
 
 	public RepairPlan(double cost, String applianceID) {

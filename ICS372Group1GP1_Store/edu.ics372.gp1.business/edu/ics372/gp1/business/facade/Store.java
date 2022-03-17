@@ -9,11 +9,13 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.function.Predicate;
+
+import edu.ics372.gp1.Iterators.CustomerFilteredIterator;
 import edu.ics372.gp1.Iterators.FilteredIterator;
 import edu.ics372.gp1.Iterators.SafeApplianceIterator;
 import edu.ics372.gp1.Iterators.SafeBackorderIterator;
+import edu.ics372.gp1.Iterators.SafeCustomerFilteredIterator;
 import edu.ics372.gp1.Iterators.SafeCustomerIterator;
-import edu.ics372.gp1.Iterators.SafeRepairPlanIterator;
 import edu.ics372.gp1.business.collections.BackorderList;
 import edu.ics372.gp1.business.collections.CustomerList;
 import edu.ics372.gp1.business.collections.Inventory;
@@ -110,9 +112,10 @@ public class Store implements Serializable {
 
 	// public boolean addToInventory()
 
-	/*public Result addAppliance(Request request) {
-		return inventory.addAppliance(request);
-	}*/
+	/*
+	 * public Result addAppliance(Request request) { return
+	 * inventory.addAppliance(request); }
+	 */
 
 	public Result addFurnace(Request request) {
 		return inventory.addFurnace(request);
@@ -297,17 +300,18 @@ public class Store implements Serializable {
 	}
 
 	public Iterator<Result> getRepairPlans() {
-		return new SafeRepairPlanIterator(repairPlanList.iterator());
+		Predicate<Customer> predicate = ((Customer a) -> a.isEnrolledInRepairPlan());
+		return new SafeCustomerFilteredIterator(new CustomerFilteredIterator(customerList.iterator(), predicate));
 
 	}
-	
+
 	public Iterator<Result> getBackorders() {
 		return new SafeBackorderIterator(backorderList.iterator());
 	}
 
 	public Iterator<Result> getAllAppliances() {
-		Predicate<Appliance> p1 = ((Appliance a) -> a instanceof Appliance);
-		return new SafeApplianceIterator(new FilteredIterator(inventory.iterator(), p1));
+		Predicate<Appliance> predicate = ((Appliance a) -> a instanceof Appliance);
+		return new SafeApplianceIterator(new FilteredIterator(inventory.iterator(), predicate));
 	}
 
 	public Iterator<Result> getFurnaces() {
@@ -344,9 +348,10 @@ public class Store implements Serializable {
 
 		return inventory.addStock(request);
 	}
-	
+
 	/**
 	 * Retrieves and deserializes the store data.
+	 * 
 	 * @return
 	 */
 	public static Store retrieve() {

@@ -1,7 +1,5 @@
 package edu.ics372.gp1.business.tests;
 
-import java.util.ArrayList;
-
 import edu.ics372.gp1.business.facade.Request;
 import edu.ics372.gp1.business.facade.Result;
 import edu.ics372.gp1.business.facade.Store;
@@ -14,14 +12,10 @@ public class AutomatedTester {
 	private String[] addresses = { "a1", "a2", "a3" };
 	private String[] phones = { "1111111111", "2222222222", "3333333333" };
 	private Customer[] customers = new Customer[3];
-	private String[] ids = { "i1", "i2", "i3", "i4", "i5", "i6" };
 	private Appliance[] appliances = new Appliance[3];
 	private String[] applianceModels = { "m1", "m2", "m3" };
 	private String[] applianceBrands = { "b1", "b2", "b3" };
 	private double[] applianceCosts = { 1, 2, 3 };
-	private String[] applianceIDs = { "A1000", "A1001", "A2000" };
-	private String[] CustomerIDs = { "C1000", "C1001", "C2000" };
-	private ArrayList<Appliance> testApplianceList = new ArrayList<Appliance>();
 
 	/**
 	 * Tests Member creation.
@@ -32,7 +26,7 @@ public class AutomatedTester {
 			Request.instance().setCustomerAddress(addresses[count]);
 			Request.instance().setCustomerName(names[count]);
 			Request.instance().setCustomerPhoneNumber(phones[count]);
-			Result result = store.getInstance().addCustomer(Request.instance());
+			Result result = Store.getInstance().addCustomer(Request.instance());
 			assert result.getResultCode() == Result.OPERATION_COMPLETED;
 			assert result.getCustomerName().equals(names[count]);
 			assert result.getCustomerPhoneNumber().equals(phones[count]);
@@ -161,6 +155,9 @@ public class AutomatedTester {
 		assert result.getResultCode() == Result.OPERATION_COMPLETED;
 	}
 
+	/*
+	 * Tests to see if backorder process fails
+	 */
 	public void testBackOrder() {
 		Request.instance().setCustomerID("C1000");
 		Request.instance().setApplianceID("A1002");
@@ -169,6 +166,9 @@ public class AutomatedTester {
 		assert result.getResultCode() == Result.OPERATION_COMPLETED;
 	}
 
+	/**
+	 * Method to call all testing methods.
+	 */
 	public void testAll() {
 		testAddCustomer();
 		testAddFurnace();

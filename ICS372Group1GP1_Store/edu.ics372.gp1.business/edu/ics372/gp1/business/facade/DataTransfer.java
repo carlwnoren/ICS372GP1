@@ -32,6 +32,8 @@ public abstract class DataTransfer {
 	private int orderQuantity;
 	private double salesRevenue;
 	private double repairPlanRevenue;
+	private List<RepairPlan> repairPlansEnrolledIn;
+	private List<Appliance> customerAppliances;
 
 	private int maxHeatOutput;
 	private int capacity;
@@ -93,6 +95,8 @@ public abstract class DataTransfer {
 		customerPhoneNumber = customer.getPhoneNumber();
 		customerID = customer.getId();
 		customerAccountBalance = customer.getAccountBalance();
+		repairPlansEnrolledIn = customer.getRepairPlansEnrolledIn();
+		customerAppliances = customer.getAppliances();
 	}
 
 	public String getApplianceBrand() {
@@ -232,7 +236,7 @@ public abstract class DataTransfer {
 		repairPlanApplianceID = repairPlan.getApplianceID();
 		repairPlanSubscribers = repairPlan.getSubscribers();
 	}
-	
+
 	public void setBackorderFields(Backorder backorder) {
 		backorderID = backorder.getBackorderID();
 		applianceID = backorder.getAppliance().getApplianceID();
@@ -290,6 +294,22 @@ public abstract class DataTransfer {
 	public void setRepairPlanRevenue(double repairPlanRevenue) {
 		this.repairPlanRevenue = repairPlanRevenue;
 
+	}
+
+	public List<RepairPlan> getRepairPlansEnrolledIn() {
+		return repairPlansEnrolledIn;
+	}
+
+	public void setRepairPlansEnrolledIn(List<RepairPlan> repairPlansEnrolledIn) {
+		this.repairPlansEnrolledIn = repairPlansEnrolledIn;
+	}
+
+	public List<Appliance> getCustomerAppliances() {
+		return customerAppliances;
+	}
+
+	public void setCustomerAppliances(List<Appliance> customerAppliances) {
+		this.customerAppliances = customerAppliances;
 	}
 
 	/**

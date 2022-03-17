@@ -4,10 +4,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Iterator;
+import java.util.List;
 import java.util.StringTokenizer;
+
 import edu.ics372.gp1.business.facade.Request;
 import edu.ics372.gp1.business.facade.Result;
 import edu.ics372.gp1.business.facade.Store;
+import edu.ics372.gp1.business.store.Appliance;
 
 public class TesterUI {
 	private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -32,9 +35,9 @@ public class TesterUI {
 	private static final int HELP = 15;
 
 	/**
-	 * Private singleton constructor. Asks the user if they wish to attempt
-	 * to retrieve saved data. If yes, checks for saved data and loads if possible.
-	 * If no, checks for an existing UI instance.
+	 * Private singleton constructor. Asks the user if they wish to attempt to
+	 * retrieve saved data. If yes, checks for saved data and loads if possible. If
+	 * no, checks for an existing UI instance.
 	 */
 	private TesterUI() {
 		if (yesOrNo("Look for saved data and  use it?")) {
@@ -57,7 +60,7 @@ public class TesterUI {
 			return testerUI;
 		}
 	}
-	
+
 	private void retrieve() {
 		try {
 			if (store == null) {
@@ -368,13 +371,21 @@ public class TesterUI {
 	/**
 	 * Method to print all repair plans with all customer info.
 	 */
-	public void getRepairPlans() {
+	public void getUsersInRepairPlans() {
 		Iterator<Result> iterator = store.getRepairPlans();
-		System.out.println("All RepairPlans: ");
+		System.out.println("Users enrolled in repair plans ");
 		while (iterator.hasNext()) {
 			Result result = iterator.next();
-			System.out.println("Appliance: " + result.getRepairPlanApplianceID() + " " + result.getRepairPlanCost()
-					+ result.getRepairPlanSubscribers());
+			List<Appliance> Appliances = result.getCustomerAppliances();
+
+			System.out.println(result.getCustomerName() + " " + result.getCustomerAddress() + " "
+					+ result.getCustomerPhoneNumber() + result.getCustomerID() + result.getCustomerAccountBalance());
+			for (Appliance appliance : Appliances) {
+
+				if (appliance.getApplianceID().equals(result.getApplianceID())) {
+					System.out.println("Plan for Brand:" + appliance.getBrand() + " Model:" + appliance.getModel());
+				}
+			}
 		}
 		System.out.println("End of listing");
 	}
@@ -431,7 +442,7 @@ public class TesterUI {
 			System.out.println(result.getApplianceID());
 		}
 	}
-	
+
 	/**
 	 * Prompts for a command from the keyboard
 	 * 
@@ -450,7 +461,7 @@ public class TesterUI {
 			}
 		} while (true);
 	}
-	
+
 	/**
 	 * Displays the help screen
 	 * 
@@ -487,22 +498,20 @@ public class TesterUI {
 	}
 
 	public void process() {
-		/*store.addCustomer("Joe", "123 fake st", "5555555555");
-		store.addCustomer("Moe", "123 fake st", "5555555555");
-		store.addCustomer("Zoe", "123 fake st", "5555555555");
-
-		System.out.println(store.getCustomers());
-
-		getCustomer();
-		addAppliance();
-		addAppliance();
-		addStock();
-		getInventory();
-		purchaseOneOrMoreModels();
-
-		Iterator<Result> itr = store.getCustomers();*/
+		/*
+		 * store.addCustomer("Joe", "123 fake st", "5555555555");
+		 * store.addCustomer("Moe", "123 fake st", "5555555555");
+		 * store.addCustomer("Zoe", "123 fake st", "5555555555");
+		 * 
+		 * System.out.println(store.getCustomers());
+		 * 
+		 * getCustomer(); addAppliance(); addAppliance(); addStock(); getInventory();
+		 * purchaseOneOrMoreModels();
+		 * 
+		 * Iterator<Result> itr = store.getCustomers();
+		 */
 		int command;
-		
+
 		while ((command = getCommand()) != EXIT) {
 			switch (command) {
 			case ADD_SINGLE_MODEL:
@@ -564,6 +573,6 @@ public class TesterUI {
 
 	public static void main(String[] args) {
 		TesterUI.instance().process();
-		
+
 	}
 }

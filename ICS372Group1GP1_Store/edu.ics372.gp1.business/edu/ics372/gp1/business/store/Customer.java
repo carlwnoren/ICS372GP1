@@ -1,8 +1,5 @@
 package edu.ics372.gp1.business.store;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +36,7 @@ public class Customer implements Matchable<String>, Serializable {
 		this.address = address;
 		this.phoneNumber = phoneNumber;
 		this.accountBalance = 0;
-		//this.id = id; since customerList (line 61) sets id think this can be removed
+		// this.id = id; since customerList (line 61) sets id think this can be removed
 	}
 
 	public void addAppliance(Appliance appliance) {
@@ -90,8 +87,12 @@ public class Customer implements Matchable<String>, Serializable {
 		return repairPlansEnrolledIn;
 	}
 
-	public void setRepairPlansEnrolledIn(List<RepairPlan> repairPlansEnrolledIn) {
-		this.repairPlansEnrolledIn = repairPlansEnrolledIn;
+	public List<Appliance> getAppliances() {
+		return appliances;
+	}
+
+	public void setAppliances(List<Appliance> appliances) {
+		this.appliances = appliances;
 	}
 
 	public void charge(double cost) {
