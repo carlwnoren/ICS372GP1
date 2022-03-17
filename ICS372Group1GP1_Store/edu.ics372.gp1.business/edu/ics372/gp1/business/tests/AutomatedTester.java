@@ -166,8 +166,7 @@ public class AutomatedTester {
 		Request.instance().setApplianceID("A1002");
 		Request.instance().setOrderQuantity(1);
 		Result result = Store.getInstance().purchaseOneOrMoreModels(Request.instance());
-		System.out.println(result.getResultCode());
-		assert result.getResultCode() == Result.BACKORDER_PLACED;
+		assert result.getResultCode() == Result.OPERATION_COMPLETED;
 	}
 
 	public void testAll() {
