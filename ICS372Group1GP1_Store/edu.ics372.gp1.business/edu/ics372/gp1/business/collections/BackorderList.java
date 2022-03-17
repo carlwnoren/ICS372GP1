@@ -42,11 +42,16 @@ public class BackorderList implements ItemList<Backorder, String>, Serializable 
 		}
 		return backorderList;
 	}
-	
+
+	/**
+	 * Iterator for list of backorders
+	 * 
+	 * @return Iterator
+	 */
 	public Iterator<Backorder> iterator() {
 		return backorders.iterator();
 	}
-	
+
 	/**
 	 * Adds new back order to list of all backorders .
 	 * 

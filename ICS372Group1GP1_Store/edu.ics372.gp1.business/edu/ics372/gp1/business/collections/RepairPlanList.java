@@ -15,6 +15,10 @@ import edu.ics372.gp1.business.store.RepairPlan;
 
 public class RepairPlanList implements ItemList<RepairPlan, String>, Serializable {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * This field stores the singleton RepairPlanList object.
 	 */
 	private static RepairPlanList repairPlanList;
@@ -64,6 +68,12 @@ public class RepairPlanList implements ItemList<RepairPlan, String>, Serializabl
 		return null;
 	}
 
+	/**
+	 * Used to add a repair plan to this list of plans
+	 * 
+	 * @param repairPlan
+	 * @return
+	 */
 	public boolean addRepairPlan(RepairPlan repairPlan) {
 		this.repairPlans.add(repairPlan);
 		System.out.println("Success");
@@ -79,6 +89,11 @@ public class RepairPlanList implements ItemList<RepairPlan, String>, Serializabl
 		return repairPlans.toString();
 	}
 
+	/**
+	 * returns iterator of repairPlans list
+	 * 
+	 * @return
+	 */
 	public Iterator<RepairPlan> iterator() {
 		return repairPlans.iterator();
 	}

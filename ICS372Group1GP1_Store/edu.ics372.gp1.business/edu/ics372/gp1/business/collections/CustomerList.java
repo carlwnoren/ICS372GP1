@@ -16,6 +16,11 @@ import edu.ics372.gp1.business.store.Customer;
 public class CustomerList implements ItemList<Customer, String>, Serializable {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * This field stores the singleton CustomerList object.
 	 */
 	private static CustomerList customerList;
@@ -78,6 +83,9 @@ public class CustomerList implements ItemList<Customer, String>, Serializable {
 		return customers.toString();
 	}
 
+	/**
+	 * returns iterator of customer list. return Iterator
+	 */
 	public Iterator<Customer> iterator() {
 		return customers.iterator();
 	}

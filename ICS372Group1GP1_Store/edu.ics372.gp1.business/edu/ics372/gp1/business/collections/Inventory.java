@@ -70,6 +70,12 @@ public class Inventory implements ItemList<Appliance, String>, Serializable {
 		return appliances.iterator();
 	}
 
+	/**
+	 * Specific function to add a furnace to inventory
+	 * 
+	 * @param request
+	 * @return
+	 */
 	public Result addFurnace(Request request) {
 		Result result = new Result();
 		Furnace furnace = new Furnace(request.getApplianceBrand(), request.getApplianceModel(),
@@ -83,6 +89,12 @@ public class Inventory implements ItemList<Appliance, String>, Serializable {
 		return result;
 	}
 
+	/**
+	 * Function to add KitchenRange to inventory
+	 * 
+	 * @param request
+	 * @return
+	 */
 	public Result addKitchenRange(Request request) {
 		Result result = new Result();
 		KitchenRange kitchenRange = new KitchenRange(request.getApplianceBrand(), request.getApplianceModel(),
@@ -96,6 +108,12 @@ public class Inventory implements ItemList<Appliance, String>, Serializable {
 		return result;
 	}
 
+	/**
+	 * Function to add ClothDryer to inventory, accounts for repair Plan
+	 * 
+	 * @param request
+	 * @return
+	 */
 	public Result addClothDryer(Request request) {
 		Result result = new Result();
 		ClothDryer clothDryer = new ClothDryer(request.getApplianceBrand(), request.getApplianceModel(),
@@ -110,6 +128,12 @@ public class Inventory implements ItemList<Appliance, String>, Serializable {
 		return result;
 	}
 
+	/**
+	 * Function to add ClothWasher to inventory, accounts for repair Plan
+	 * 
+	 * @param request
+	 * @return
+	 */
 	public Result addClothWasher(Request request) {
 		Result result = new Result();
 		ClothWasher clothWasher = new ClothWasher(request.getApplianceBrand(), request.getApplianceModel(),
@@ -122,9 +146,13 @@ public class Inventory implements ItemList<Appliance, String>, Serializable {
 		result.setResultCode(Result.OPERATION_FAILED);
 		return result;
 	}
-	// (String brand, String model, double cost, String applianceID, int
-	// maxHeatOutput
 
+	/**
+	 * Function to add dishwaser to inventory
+	 * 
+	 * @param request
+	 * @return
+	 */
 	public Result addDishwasher(Request request) {
 		Result result = new Result();
 		Dishwasher dishWasher = new Dishwasher(request.getApplianceBrand(), request.getApplianceModel(),
@@ -138,6 +166,12 @@ public class Inventory implements ItemList<Appliance, String>, Serializable {
 		return result;
 	}
 
+	/**
+	 * Function to add refrigerator to inventory, accounts for capacity
+	 * 
+	 * @param request
+	 * @return
+	 */
 	public Result addRefrigerator(Request request) {
 		Result result = new Result();
 		Refrigerator refrigerator = new Refrigerator(request.getApplianceBrand(), request.getApplianceModel(),
@@ -151,6 +185,12 @@ public class Inventory implements ItemList<Appliance, String>, Serializable {
 		return result;
 	}
 
+	/**
+	 * Used to add stock to a specific appliance.
+	 * 
+	 * @param request
+	 * @return
+	 */
 	public Result addStock(Request request) {
 		Result result = new Result();
 		for (Appliance model : appliances) {
