@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Iterator;
 import java.util.StringTokenizer;
-
 import edu.ics372.gp1.business.facade.Request;
 import edu.ics372.gp1.business.facade.Result;
 import edu.ics372.gp1.business.facade.Store;
@@ -32,7 +31,17 @@ public class TesterUI {
 	private static final int SAVE_DATA = 14;
 	private static final int HELP = 15;
 
+	/**
+	 * Private singleton constructor. Asks the user if they wish to attempt
+	 * to retrieve saved data. If yes, checks for saved data and loads if possible.
+	 * If no, checks for an existing UI instance.
+	 */
 	private TesterUI() {
+		if (yesOrNo("Look for saved data and  use it?")) {
+			retrieve();
+		} else {
+			testerUI = TesterUI.instance();
+		}
 
 	}
 
@@ -46,6 +55,22 @@ public class TesterUI {
 			return testerUI = new TesterUI();
 		} else {
 			return testerUI;
+		}
+	}
+	
+	private void retrieve() {
+		try {
+			if (store == null) {
+				store = Store.retrieve();
+				if (store != null) {
+					System.out.println(" The store has been successfully retrieved from the file data.ser\n");
+				} else {
+					System.out.println("File doesnt exist; creating new store");
+					store = Store.getInstance();
+				}
+			}
+		} catch (Exception cnfe) {
+			cnfe.printStackTrace();
 		}
 	}
 
@@ -329,7 +354,7 @@ public class TesterUI {
 		} while (true);
 	}
 
-	public void getCustomer() {
+	public void getCustomers() {
 		Iterator<Result> iterator = store.getCustomers();
 		System.out.println("List of members (name, address, phone, id)");
 		while (iterator.hasNext()) {
@@ -485,37 +510,40 @@ public class TesterUI {
 				addNewCustomer();
 				break;
 			case ADD_STOCK:
-				();
+				addStock();
 				break;
-			case RETURN_BOOKS:
-				returnBooks();
+			case PURCHASE_MODELS:
+				purchaseOneOrMoreModels();
 				break;
-			case REMOVE_BOOKS:
-				removeBooks();
+			case FULFILL_BACKORDER:
+				fulfillSingleBackorder();
 				break;
-			case RENEW_BOOKS:
-				renewBooks();
+			case ENROLL_CUSTOMER_IN_REPAIR_PLAN:
+				enrollInRepairPlan();
 				break;
-			case PLACE_HOLD:
-				placeHold();
+			case WITHDRAW_CUSTOMER_FROM_REPAIR_PLAN:
+				withdrawFromRepairPlan();
 				break;
-			case REMOVE_HOLD:
-				removeHold();
+			case CHARGE_ALL_REPAIR_PLANS:
+				chargeAllRepairPlans();
 				break;
-			case PROCESS_HOLD:
-				processHolds();
+			case PRINT_REVENUE:
+				printRevenue();
 				break;
-			case GET_TRANSACTIONS:
-				getTransactions();
+			case LIST_APPLIANCES:
+				getInventory();
 				break;
-			case GET_MEMBERS:
-				getMembers();
+			case LIST_REPAIR_PLAN_SUBSCRIBERS:
+				getRepairPlans();
 				break;
-			case GET_BOOKS:
-				getBooks();
+			case LIST_CUSTOMERS:
+				getCustomers();
 				break;
-			case SAVE:
-				save();
+			case LIST_BACKORDERS:
+				getBackorders();
+				break;
+			case SAVE_DATA:
+				saveData();
 				break;
 			case HELP:
 				help();

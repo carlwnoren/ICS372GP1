@@ -1,13 +1,14 @@
 
 package edu.ics372.gp1.business.facade;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.function.Predicate;
-
 import edu.ics372.gp1.Iterators.FilteredIterator;
 import edu.ics372.gp1.Iterators.SafeApplianceIterator;
 import edu.ics372.gp1.Iterators.SafeBackorderIterator;
@@ -109,9 +110,9 @@ public class Store implements Serializable {
 
 	// public boolean addToInventory()
 
-	public Result addAppliance(Request request) {
+	/*public Result addAppliance(Request request) {
 		return inventory.addAppliance(request);
-	}
+	}*/
 
 	public Result addFurnace(Request request) {
 		return inventory.addFurnace(request);
@@ -342,6 +343,26 @@ public class Store implements Serializable {
 	public Result addStock(Request request) {
 
 		return inventory.addStock(request);
+	}
+	
+	/**
+	 * Retrieves and deserializes the store data.
+	 * @return
+	 */
+	public static Store retrieve() {
+		try {
+			FileInputStream file = new FileInputStream("store.ser");
+			ObjectInputStream input = new ObjectInputStream(file);
+			store = (Store) input.readObject();
+			input.close();
+			return store;
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+			return null;
+		} catch (ClassNotFoundException cnfe) {
+			cnfe.printStackTrace();
+			return null;
+		}
 	}
 
 }

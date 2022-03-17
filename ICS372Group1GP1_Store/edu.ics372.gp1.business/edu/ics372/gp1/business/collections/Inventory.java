@@ -165,4 +165,10 @@ public class Inventory implements ItemList<Appliance, String>, Serializable {
 		return result;
 	}
 
+	@Override
+	public String listAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
