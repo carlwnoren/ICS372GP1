@@ -378,7 +378,7 @@ public abstract class DataTransfer {
 		customerAppliances = null;
 		maxHeatOutput = 0;
 		capacity = 0;
-		backorderID = 0;
+		backorderID = "No such backorder id";
 
 	}
 }

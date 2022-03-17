@@ -16,7 +16,7 @@ import edu.ics372.gp1.business.store.RepairPlan;
 public class TesterUI {
 	private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 	private static TesterUI testerUI;
-	private static Store store = Store.getInstance();
+	private static Store store;
 	private int applianceType;
 	private static final int EXIT = 0;
 	private static final int ADD_SINGLE_MODEL = 1;
@@ -44,7 +44,7 @@ public class TesterUI {
 		if (yesOrNo("Look for saved data and load it?")) {
 			retrieve();
 		} else {
-			testerUI = TesterUI.instance();
+			store = Store.getInstance();
 		}
 
 	}
