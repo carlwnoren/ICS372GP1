@@ -447,7 +447,9 @@ public class TesterUI {
 		}
 		while (iterator.hasNext()) {
 			Result result = iterator.next();
-			System.out.println(result.getApplianceID());
+			System.out.println(result.getApplianceID() + " Brand:" + result.getApplianceBrand() + " Model:"
+					+ result.getApplianceModel() + " Price:" + result.getApplianceCost() + " Stock:"
+					+ result.getApplianceStock());
 		}
 	}
 
