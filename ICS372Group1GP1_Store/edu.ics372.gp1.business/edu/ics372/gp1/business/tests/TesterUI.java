@@ -15,6 +15,22 @@ public class TesterUI {
 	private static TesterUI testerUI;
 	private static Store store = Store.getInstance();
 	private int applianceType;
+	private static final int EXIT = 0;
+	private static final int ADD_SINGLE_MODEL = 1;
+	private static final int ADD_SINGLE_CUSTOMER = 2;
+	private static final int ADD_STOCK = 3;
+	private static final int PURCHASE_MODELS = 4;
+	private static final int FULFILL_BACKORDER = 5;
+	private static final int ENROLL_CUSTOMER_IN_REPAIR_PLAN = 6;
+	private static final int WITHDRAW_CUSTOMER_FROM_REPAIR_PLAN = 7;
+	private static final int CHARGE_ALL_REPAIR_PLANS = 8;
+	private static final int PRINT_REVENUE = 9;
+	private static final int LIST_APPLIANCES = 10;
+	private static final int LIST_REPAIR_PLAN_SUBSCRIBERS = 11;
+	private static final int LIST_CUSTOMERS = 12;
+	private static final int LIST_BACKORDERS = 13;
+	private static final int SAVE_DATA = 14;
+	private static final int HELP = 15;
 
 	private TesterUI() {
 
@@ -329,10 +345,10 @@ public class TesterUI {
 	 */
 	public void getRepairPlans() {
 		Iterator<Result> iterator = store.getRepairPlans();
-		System.out.println("RepairPlans");
+		System.out.println("All RepairPlans: ");
 		while (iterator.hasNext()) {
 			Result result = iterator.next();
-			System.out.println(result.getRepairPlanApplianceID() + " " + result.getRepairPlanCost()
+			System.out.println("Appliance: " + result.getRepairPlanApplianceID() + " " + result.getRepairPlanCost()
 					+ result.getRepairPlanSubscribers());
 		}
 		System.out.println("End of listing");
@@ -340,7 +356,7 @@ public class TesterUI {
 
 	public void getBackorders() {
 		Iterator<Result> iterator = store.getBackorders();
-		System.out.println("Backorders");
+		System.out.println("All Backorders:");
 		while (iterator.hasNext()) {
 			Result result = iterator.next();
 			System.out.println("ID: " + result.getBackorderID() + " " + "Appliance: " + result.getApplianceBrand() + " "
@@ -390,6 +406,49 @@ public class TesterUI {
 			System.out.println(result.getApplianceID());
 		}
 	}
+	
+	/**
+	 * Prompts for a command from the keyboard
+	 * 
+	 * @return a valid command
+	 * 
+	 */
+	public int getCommand() {
+		do {
+			try {
+				int value = Integer.parseInt(getToken("Enter command:" + HELP + " for help"));
+				if (value >= EXIT && value <= HELP) {
+					return value;
+				}
+			} catch (NumberFormatException nfe) {
+				System.out.println("Enter a number");
+			}
+		} while (true);
+	}
+	
+	/**
+	 * Displays the help screen
+	 * 
+	 */
+	public void help() {
+		System.out.println("Enter a number between 0 and 12 as explained below:");
+		System.out.println(EXIT + " to Exit\n");
+		System.out.println(ADD_SINGLE_MODEL + " to add a single appliance model");
+		System.out.println(ADD_SINGLE_CUSTOMER + " to add a single customer");
+		System.out.println(ADD_STOCK + " to add stock for a single model");
+		System.out.println(PURCHASE_MODELS + " to order one or more models for a customer");
+		System.out.println(FULFILL_BACKORDER + " to fulfill a single backorder");
+		System.out.println(ENROLL_CUSTOMER_IN_REPAIR_PLAN + " to enroll a customer in a repair plan");
+		System.out.println(WITHDRAW_CUSTOMER_FROM_REPAIR_PLAN + " to withdraw a customer from a repair plan");
+		System.out.println(CHARGE_ALL_REPAIR_PLANS + " to charge all repair plans");
+		System.out.println(PRINT_REVENUE + " to print the total sales and repair plan revenue");
+		System.out.println(LIST_APPLIANCES + " to list all appliance models");
+		System.out.println(LIST_REPAIR_PLAN_SUBSCRIBERS + " to print all customers enrolled in a repair plan");
+		System.out.println(LIST_CUSTOMERS + " to print all customers");
+		System.out.println(LIST_BACKORDERS + " to print all backorders");
+		System.out.println(SAVE_DATA + " to  save data");
+		System.out.println(HELP + " for help");
+	}
 
 	public void addStock() {
 		Request.instance().setApplianceID(getName("Enter Appliance ID"));
@@ -403,7 +462,7 @@ public class TesterUI {
 	}
 
 	public void process() {
-		store.addCustomer("Joe", "123 fake st", "5555555555");
+		/*store.addCustomer("Joe", "123 fake st", "5555555555");
 		store.addCustomer("Moe", "123 fake st", "5555555555");
 		store.addCustomer("Zoe", "123 fake st", "5555555555");
 
@@ -416,8 +475,55 @@ public class TesterUI {
 		getInventory();
 		purchaseOneOrMoreModels();
 
-		Iterator<Result> itr = store.getCustomers();
-
+		Iterator<Result> itr = store.getCustomers();*/
+		int command;
+		
+		while ((command = getCommand()) != EXIT) {
+			switch (command) {
+			case ADD_SINGLE_MODEL:
+				addAppliance();
+				break;
+			case ADD_SINGLE_CUSTOMER:
+				addNewCustomer();
+				break;
+			case ADD_STOCK:
+				();
+				break;
+			case RETURN_BOOKS:
+				returnBooks();
+				break;
+			case REMOVE_BOOKS:
+				removeBooks();
+				break;
+			case RENEW_BOOKS:
+				renewBooks();
+				break;
+			case PLACE_HOLD:
+				placeHold();
+				break;
+			case REMOVE_HOLD:
+				removeHold();
+				break;
+			case PROCESS_HOLD:
+				processHolds();
+				break;
+			case GET_TRANSACTIONS:
+				getTransactions();
+				break;
+			case GET_MEMBERS:
+				getMembers();
+				break;
+			case GET_BOOKS:
+				getBooks();
+				break;
+			case SAVE:
+				save();
+				break;
+			case HELP:
+				help();
+				break;
+			}
+		}
 	}
 
 	private boolean yesOrNo(String prompt) {
@@ -430,5 +536,6 @@ public class TesterUI {
 
 	public static void main(String[] args) {
 		TesterUI.instance().process();
+		
 	}
 }
