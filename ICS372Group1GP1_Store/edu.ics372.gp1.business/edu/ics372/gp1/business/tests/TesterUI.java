@@ -215,7 +215,7 @@ public class TesterUI {
 				break;
 			case Result.BACKORDER_PLACED:
 				System.out.println("Order partially fulfilled. "
-						+ (Request.instance().getOrderQuantity() - result.getBackorderQuantity()) + " units ordered. "
+						+ (Request.instance().getPurchaseQuantity() - result.getBackorderQuantity()) + " units ordered. "
 						+ result.getBackorderQuantity() + " units were placed as backorder " + result.getBackorderID()
 						+ ".");
 				break;
