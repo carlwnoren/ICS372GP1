@@ -6,7 +6,7 @@ import java.util.NoSuchElementException;
 import edu.ics372.gp1.business.facade.Result;
 
 public class SafeCustomerFilteredIterator implements Iterator<Result> {
-	private FilteredIterator iterator;
+	private CustomerFilteredIterator iterator;
 	private Result result = new Result();
 
 	/**
@@ -26,7 +26,7 @@ public class SafeCustomerFilteredIterator implements Iterator<Result> {
 	@Override
 	public Result next() {
 		if (iterator.hasNext()) {
-			result.setApplianceFields(iterator.next());
+			result.setCustomerFields(iterator.next());
 		} else {
 			throw new NoSuchElementException("No such element");
 		}
