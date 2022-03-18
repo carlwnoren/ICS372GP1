@@ -2,6 +2,7 @@ package edu.ics372.gp1.business.store;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
@@ -22,7 +23,6 @@ public class RepairPlan implements Matchable<String>, Serializable {
 	private static final long serialVersionUID = 1L;
 	private double cost;
 	private String applianceID;
-	private Appliance appliance;
 	private List<Customer> subscribers = new ArrayList<Customer>();
 
 	public RepairPlan(double cost, String applianceID) {
@@ -51,7 +51,6 @@ public class RepairPlan implements Matchable<String>, Serializable {
 	public boolean enrollCustomer(Customer customer) {
 		if (!subscribers.contains(customer)) {
 			subscribers.add(customer);
-			customer.addRepairPlan(this);
 			return true;
 		} else {
 			return false;
@@ -72,6 +71,10 @@ public class RepairPlan implements Matchable<String>, Serializable {
 		} else {
 			return false;
 		}
+	}
+	
+	public boolean isCustomerEnrolled(Customer customer) {
+		return subscribers.contains(customer);
 	}
 
 	public double getCost() {

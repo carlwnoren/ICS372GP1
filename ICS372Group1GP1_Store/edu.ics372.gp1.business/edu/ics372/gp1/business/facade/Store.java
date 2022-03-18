@@ -79,12 +79,15 @@ public class Store implements Serializable {
 		} else if (repairPlan == null) {
 			result.setResultCode(Result.REPAIR_PLAN_NOT_FOUND);
 		} else {
-			if (repairPlan.enrollCustomer(customer) && customer.addRepairPlan(repairPlan)) {
+			if (!repairPlan.isCustomerEnrolled(customer)) {
+				repairPlan.enrollCustomer(customer);
+				customer.addRepairPlan(repairPlan);
 				result.setResultCode(Result.OPERATION_COMPLETED);
 			} else {
 				result.setResultCode(Result.OPERATION_FAILED);
 			}
 		}
+		System.out.println(result.getResultCode());
 		return result;
 	}
 
@@ -175,7 +178,8 @@ public class Store implements Serializable {
 		} else if (repairPlan == null) {
 			result.setResultCode(Result.REPAIR_PLAN_NOT_FOUND);
 		} else {
-			repairPlan.enrollCustomer(customer);
+			repairPlan.withdrawCustomer(customer);
+			customer.removeRepairPlan(repairPlan);
 			result.setResultCode(Result.OPERATION_COMPLETED);
 		}
 		return result;
