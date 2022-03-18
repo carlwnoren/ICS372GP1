@@ -259,7 +259,7 @@ public class TesterUI {
 	 * plan given by the user, by appliance ID.
 	 */
 	public void withdrawFromRepairPlan() {
-		Request.instance().setCustomerID(getToken("Enter the customer ID to be enrolled. "));
+		Request.instance().setCustomerID(getToken("Enter the customer ID to be withdrawn. "));
 		Request.instance().setApplianceID(getToken("Enter the appliance ID for the repair plan. "));
 		Result result = store.withdrawFromRepairPlan(Request.instance());
 		if (result.getResultCode() == Result.REPAIR_PLAN_NOT_FOUND) {
