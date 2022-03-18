@@ -74,7 +74,7 @@ public class Store implements Serializable {
 		Result result = new Result();
 		Customer customer = customerList.search(request.getCustomerID());
 		RepairPlan repairPlan = repairPlanList.search(request.getApplianceID());
-		if (customer == null) {
+		if (customer.equals(null)) {
 			result.setResultCode(Result.NO_SUCH_CUSTOMER);
 		} else if (repairPlan == null) {
 			result.setResultCode(Result.REPAIR_PLAN_NOT_FOUND);
@@ -89,6 +89,7 @@ public class Store implements Serializable {
 		}
 		System.out.println(result.getResultCode());
 		return result;
+
 	}
 
 	/**
@@ -221,30 +222,29 @@ public class Store implements Serializable {
 		}
 		int stock = appliance.getStock();
 		double cost = appliance.getCost();
-		//if there is enough stock, fulfill the order
+		// if there is enough stock, fulfill the order
 		if (stock >= quantity) {
 			appliance.removeStock(quantity);
 			addSalesRevenue(quantity * cost);
 			result.setResultCode(Result.OPERATION_COMPLETED);
 		} else {
-			//if not enough stock, and appliance is a furnace, no backorder can be created
+			// if not enough stock, and appliance is a furnace, no backorder can be created
 			if (appliance instanceof Furnace) {
 				addSalesRevenue(stock * cost);
 				result.setFurnacesOrdered(stock);
 				appliance.removeStock(stock);
 				result.setResultCode(Result.INSUFFICIENT_STOCK);
 			} else {
-				//if stock is insufficient but not a furnace, a backorder is placed
+				// if stock is insufficient but not a furnace, a backorder is placed
 				addSalesRevenue(quantity * cost);
 				result.setBackorderQuantity(quantity - stock);
-				result.setBackorderID(backorderList.addBackorder(appliance, quantity - stock, customer));					
+				result.setBackorderID(backorderList.addBackorder(appliance, quantity - stock, customer));
 				result.setResultCode(Result.BACKORDER_PLACED);
 				appliance.removeStock(stock);
 			}
 		}
 		return result;
 	}
-
 
 	/**
 	 * Fulfills a single backorder, depleting the given appliance's stock by the
