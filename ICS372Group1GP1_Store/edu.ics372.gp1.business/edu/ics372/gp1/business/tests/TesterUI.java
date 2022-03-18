@@ -391,10 +391,14 @@ public class TesterUI {
 			Appliance tempAppliance = appliances.search(result.getRepairPlanApplianceID());
 
 			for (Customer customer : customers) {
-				System.out.println("Model: " + tempAppliance.getModel() + " Brand: " + tempAppliance.getBrand()
-						+ " Customer " + customer.getName() + " Address: " + customer.getAddress()
+				System.out.println(" Customer " + customer.getName() + " Address: " + customer.getAddress()
 						+ customer.getPhoneNumber() + " Customer ID: " + customer.getId() + " Account Balance: "
 						+ customer.getAccountBalance());
+				for (RepairPlan repairPlan : customer.getRepairPlansEnrolledIn()) {
+
+					System.out.println(" Model: " + appliances.search(repairPlan.getApplianceID()).getModel()
+							+ " Brand: " + appliances.search(repairPlan.getApplianceID()).getBrand());
+				}
 			}
 
 		}
