@@ -136,5 +136,12 @@ public class RepairPlan implements Matchable<String>, Serializable {
 				+ "]";
 	}
 
-	// need to implement save
+	/**
+	 * Safe to string statement to hide subscriber information.
+	 * 
+	 * @return
+	 */
+	public String safeToString() {
+		return "RepairPlan for Appliance" + applianceID + " Cost: " + cost;
+	}
 }

@@ -12,12 +12,11 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.function.Predicate;
 
-import edu.ics372.gp1.Iterators.CustomerFilteredIterator;
 import edu.ics372.gp1.Iterators.FilteredIterator;
 import edu.ics372.gp1.Iterators.SafeApplianceIterator;
 import edu.ics372.gp1.Iterators.SafeBackorderIterator;
-import edu.ics372.gp1.Iterators.SafeCustomerFilteredIterator;
 import edu.ics372.gp1.Iterators.SafeCustomerIterator;
+import edu.ics372.gp1.Iterators.SafeRepairPlanIterator;
 import edu.ics372.gp1.business.collections.BackorderList;
 import edu.ics372.gp1.business.collections.CustomerList;
 import edu.ics372.gp1.business.collections.Inventory;
@@ -314,9 +313,17 @@ public class Store implements Serializable {
 		return new SafeCustomerIterator(customerList.iterator());
 	}
 
+	public Inventory getApplianceList() {
+		return inventory;
+	}
+
+//	public Iterator<Result> getRepairPlans() {
+//		Predicate<Customer> predicate = ((Customer a) -> a.isEnrolledInRepairPlan());
+//		return new SafeCustomerFilteredIterator(new CustomerFilteredIterator(customerList.iterator(), predicate));
+//
+//	}
 	public Iterator<Result> getRepairPlans() {
-		Predicate<Customer> predicate = ((Customer a) -> a.isEnrolledInRepairPlan());
-		return new SafeCustomerFilteredIterator(new CustomerFilteredIterator(customerList.iterator(), predicate));
+		return new SafeRepairPlanIterator(repairPlanList.iterator());
 
 	}
 
@@ -362,6 +369,14 @@ public class Store implements Serializable {
 	public Result addStock(Request request) {
 
 		return inventory.addStock(request);
+	}
+
+	public CustomerList getCustomerList() {
+		return customerList;
+	}
+
+	public RepairPlanList getRepairPlanList() {
+		return repairPlanList;
 	}
 
 	/**

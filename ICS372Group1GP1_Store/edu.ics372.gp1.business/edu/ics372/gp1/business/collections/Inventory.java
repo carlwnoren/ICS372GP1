@@ -208,4 +208,8 @@ public class Inventory implements ItemList<Appliance, String>, Serializable {
 		result.setResultCode(Result.OPERATION_FAILED);
 		return result;
 	}
+
+	public List<Appliance> getAppliancesList() {
+		return appliances;
+	}
 }
