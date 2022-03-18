@@ -74,8 +74,8 @@ public class Store implements Serializable {
 		Result result = new Result();
 		Customer customer = customerList.search(request.getCustomerID());
 		RepairPlan repairPlan = repairPlanList.search(request.getApplianceID());
-		System.out.println(repairPlan.getSubscribers());
 		if (customer.equals(null)) {
+		if (customer == null) {
 			result.setResultCode(Result.NO_SUCH_CUSTOMER);
 		} else if (repairPlan == null) {
 			result.setResultCode(Result.REPAIR_PLAN_NOT_FOUND);
