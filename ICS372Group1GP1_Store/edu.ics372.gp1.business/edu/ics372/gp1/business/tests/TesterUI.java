@@ -11,7 +11,6 @@ import edu.ics372.gp1.business.collections.Inventory;
 import edu.ics372.gp1.business.facade.Request;
 import edu.ics372.gp1.business.facade.Result;
 import edu.ics372.gp1.business.facade.Store;
-import edu.ics372.gp1.business.store.Appliance;
 import edu.ics372.gp1.business.store.Customer;
 import edu.ics372.gp1.business.store.RepairPlan;
 
@@ -380,25 +379,20 @@ public class TesterUI {
 	 */
 	public void getUsersInRepairPlans() {
 		Iterator<Result> iterator = store.getRepairPlans();
-		RepairPlan tempRepairPlan;
 		System.out.println("Users enrolled in repair plans ");
 
-		while (iterator.hasNext()) {
-			Result result = iterator.next();
-			List<Customer> customers = result.getRepairPlanSubscribers();
-			Inventory appliances = store.getApplianceList();
-			;
-			Appliance tempAppliance = appliances.search(result.getRepairPlanApplianceID());
+		Result result = iterator.next();
+		List<Customer> customers = result.getRepairPlanSubscribers();
+		Inventory appliances = store.getApplianceList();
 
-			for (Customer customer : customers) {
-				System.out.println(" Customer " + customer.getName() + " Address: " + customer.getAddress()
-						+ customer.getPhoneNumber() + " Customer ID: " + customer.getId() + " Account Balance: "
-						+ customer.getAccountBalance());
-				for (RepairPlan repairPlan : customer.getRepairPlansEnrolledIn()) {
+		for (Customer customer : customers) {
+			System.out.println(" Customer " + customer.getName() + " Address: " + customer.getAddress()
+					+ customer.getPhoneNumber() + " Customer ID: " + customer.getId() + " Account Balance: "
+					+ customer.getAccountBalance());
+			for (RepairPlan repairPlan : customer.getRepairPlansEnrolledIn()) {
 
-					System.out.println(" Model: " + appliances.search(repairPlan.getApplianceID()).getModel()
-							+ " Brand: " + appliances.search(repairPlan.getApplianceID()).getBrand());
-				}
+				System.out.println(" Model: " + appliances.search(repairPlan.getApplianceID()).getModel() + " Brand: "
+						+ appliances.search(repairPlan.getApplianceID()).getBrand());
 			}
 
 		}
