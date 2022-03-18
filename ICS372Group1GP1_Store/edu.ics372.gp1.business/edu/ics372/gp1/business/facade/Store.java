@@ -73,7 +73,7 @@ public class Store implements Serializable {
 		Result result = new Result();
 		Customer customer = customerList.search(request.getCustomerID());
 		RepairPlan repairPlan = repairPlanList.search(request.getApplianceID());
-		if (customer.equals(null)) {
+		if (customer == null) {
 			result.setResultCode(Result.NO_SUCH_CUSTOMER);
 		} else if (repairPlan == null) {
 			result.setResultCode(Result.REPAIR_PLAN_NOT_FOUND);
@@ -86,7 +86,6 @@ public class Store implements Serializable {
 				result.setResultCode(Result.OPERATION_FAILED);
 			}
 		}
-		System.out.println(result.getResultCode());
 		return result;
 
 	}
@@ -209,8 +208,8 @@ public class Store implements Serializable {
 	 */
 	public Result purchaseOneOrMoreModels(Request request) {
 		Result result = new Result();
-		Appliance appliance = inventory.search(request.getApplianceID());
 		Customer customer = customerList.search(request.getCustomerID());
+		Appliance appliance = inventory.search(request.getApplianceID());
 		int quantity = request.getPurchaseQuantity();
 		if (appliance == null) {
 			result.setResultCode(Result.APPLIANCE_NOT_FOUND);
@@ -225,17 +224,20 @@ public class Store implements Serializable {
 		if (stock >= quantity) {
 			appliance.removeStock(quantity);
 			addSalesRevenue(quantity * cost);
+			customer.charge(quantity * cost);
 			result.setResultCode(Result.OPERATION_COMPLETED);
 		} else {
 			// if not enough stock, and appliance is a furnace, no backorder can be created
 			if (appliance instanceof Furnace) {
 				addSalesRevenue(stock * cost);
+				customer.charge(stock * cost);
 				result.setFurnacesOrdered(stock);
 				appliance.removeStock(stock);
 				result.setResultCode(Result.INSUFFICIENT_STOCK);
 			} else {
 				// if stock is insufficient but not a furnace, a backorder is placed
 				addSalesRevenue(quantity * cost);
+				customer.charge(quantity * cost);
 				result.setBackorderQuantity(quantity - stock);
 				result.setBackorderID(backorderList.addBackorder(appliance, quantity - stock, customer));
 				result.setResultCode(Result.BACKORDER_PLACED);
