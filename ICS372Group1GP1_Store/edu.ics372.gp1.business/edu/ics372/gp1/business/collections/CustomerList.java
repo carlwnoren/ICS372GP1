@@ -77,13 +77,6 @@ public class CustomerList implements ItemList<Customer, String>, Serializable {
 	}
 
 	/**
-	 * Method to return list of all customers
-	 */
-	public String listAll() {
-		return customers.toString();
-	}
-
-	/**
 	 * returns iterator of customer list. return Iterator
 	 */
 	public Iterator<Customer> iterator() {
