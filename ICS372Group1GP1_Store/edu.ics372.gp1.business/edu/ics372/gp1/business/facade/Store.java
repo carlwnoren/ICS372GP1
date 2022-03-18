@@ -75,7 +75,6 @@ public class Store implements Serializable {
 		Customer customer = customerList.search(request.getCustomerID());
 		RepairPlan repairPlan = repairPlanList.search(request.getApplianceID());
 		if (customer.equals(null)) {
-		if (customer == null) {
 			result.setResultCode(Result.NO_SUCH_CUSTOMER);
 		} else if (repairPlan == null) {
 			result.setResultCode(Result.REPAIR_PLAN_NOT_FOUND);
@@ -86,7 +85,6 @@ public class Store implements Serializable {
 				result.setResultCode(Result.OPERATION_FAILED);
 			}
 		}
-		System.out.println(repairPlan.getSubscribers());
 		return result;
 
 	}
