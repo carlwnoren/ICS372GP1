@@ -44,8 +44,6 @@ public abstract class DataTransfer {
 
 	private String backorderID;
 
-	// needs repairplan fields
-
 	/**
 	 * This sets all fields to "none".
 	 */
