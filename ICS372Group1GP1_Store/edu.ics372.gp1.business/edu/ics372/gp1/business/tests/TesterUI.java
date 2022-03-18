@@ -215,9 +215,9 @@ public class TesterUI {
 				break;
 			case Result.BACKORDER_PLACED:
 				System.out.println("Order partially fulfilled. "
-						+ (Request.instance().getPurchaseQuantity() - result.getBackorderQuantity()) + " units ordered. "
-						+ result.getBackorderQuantity() + " units were placed as backorder " + result.getBackorderID()
-						+ ".");
+						+ (Request.instance().getPurchaseQuantity() - result.getBackorderQuantity())
+						+ " units ordered. " + result.getBackorderQuantity() + " units were placed as backorder "
+						+ result.getBackorderID() + ".");
 				break;
 			case Result.OPERATION_COMPLETED:
 				System.out
@@ -379,6 +379,7 @@ public class TesterUI {
 	public void getUsersInRepairPlans() {
 		Iterator<Result> iterator = store.getRepairPlans();
 		System.out.println("Users enrolled in repair plans ");
+		System.out.println(iterator.hasNext());
 		while (iterator.hasNext()) {
 			Result result = iterator.next();
 			List<Appliance> Appliances = result.getCustomerAppliances();
