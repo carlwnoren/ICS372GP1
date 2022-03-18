@@ -7,10 +7,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import edu.ics372.gp1.business.collections.Inventory;
 import edu.ics372.gp1.business.facade.Request;
 import edu.ics372.gp1.business.facade.Result;
 import edu.ics372.gp1.business.facade.Store;
 import edu.ics372.gp1.business.store.Appliance;
+import edu.ics372.gp1.business.store.Customer;
 import edu.ics372.gp1.business.store.RepairPlan;
 
 public class TesterUI {
@@ -374,25 +376,25 @@ public class TesterUI {
 	}
 
 	/**
-	 * Method to print all repair plans with all customer info. testing git push
+	 * Method to print all customers who are enrolled in repair plans.
 	 */
 	public void getUsersInRepairPlans() {
 		Iterator<Result> iterator = store.getRepairPlans();
+		RepairPlan tempRepairPlan;
 		System.out.println("Users enrolled in repair plans ");
-		System.out.println(iterator.hasNext());
+
 		while (iterator.hasNext()) {
 			Result result = iterator.next();
-			List<Appliance> Appliances = result.getCustomerAppliances();
-			List<RepairPlan> repairPlans = result.getRepairPlansEnrolledIn();
+			List<Customer> customers = result.getRepairPlanSubscribers();
+			Inventory appliances = store.getApplianceList();
+			;
+			Appliance tempAppliance = appliances.search(result.getRepairPlanApplianceID());
 
-			System.out.println(result.getCustomerName() + " " + result.getCustomerAddress() + " "
-					+ result.getCustomerPhoneNumber() + result.getCustomerID() + result.getCustomerAccountBalance());
-			for (Appliance appliance : Appliances) {
-				for (RepairPlan repairPlan : repairPlans) {
-					if (appliance.getApplianceID().equals(repairPlan.getApplianceID())) {
-						System.out.println("Plan for Brand:" + appliance.getBrand() + " Model:" + appliance.getModel());
-					}
-				}
+			for (Customer customer : customers) {
+				System.out.println("Model: " + tempAppliance.getModel() + " Brand: " + tempAppliance.getBrand()
+						+ " Customer " + customer.getName() + " Address: " + customer.getAddress()
+						+ customer.getPhoneNumber() + " Customer ID: " + customer.getId() + " Account Balance: "
+						+ customer.getAccountBalance());
 			}
 
 		}
