@@ -11,7 +11,7 @@ import edu.ics372.gp1.business.facade.Store;
 /**
  * Repair plan object class
  * 
- * @author -  Carl Noren, Justin Pham, Kean Jay
+ * @author - Carl Noren, Justin Pham, Kean Jay
  *
  */
 public class RepairPlan implements Matchable<String>, Serializable {
@@ -67,10 +67,11 @@ public class RepairPlan implements Matchable<String>, Serializable {
 			return false;
 		}
 	}
-	
+
 	/**
-	 * Checks if a given customer is enrolled in this repair plan.
-	 * Returns true if yes, false if no.
+	 * Checks if a given customer is enrolled in this repair plan. Returns true if
+	 * yes, false if no.
+	 * 
 	 * @param customer
 	 * @return
 	 */
@@ -93,7 +94,7 @@ public class RepairPlan implements Matchable<String>, Serializable {
 	public void setApplianceID(String applianceID) {
 		this.applianceID = applianceID;
 	}
-	
+
 	public List<Customer> getSubscribers() {
 		return subscribers;
 	}
@@ -112,6 +113,7 @@ public class RepairPlan implements Matchable<String>, Serializable {
 
 	/**
 	 * Returns a list of this plan's subscribers as a string.
+	 * 
 	 * @return
 	 */
 	public String listAll() {
@@ -143,12 +145,4 @@ public class RepairPlan implements Matchable<String>, Serializable {
 				+ "]";
 	}
 
-	/**
-	 * Safe to string statement to hide subscriber information.
-	 * 
-	 * @return
-	 */
-	public String safeToString() {
-		return "RepairPlan for Appliance" + applianceID + " Cost: " + cost;
-	}
 }
