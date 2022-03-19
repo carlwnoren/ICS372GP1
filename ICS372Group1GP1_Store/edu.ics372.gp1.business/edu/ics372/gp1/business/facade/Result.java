@@ -14,6 +14,9 @@ public class Result extends DataTransfer {
 	public static final int BACKORDER_NOT_FOUND = 7;
 	public static final int REPAIR_PLAN_NOT_FOUND = 8;
 
+	/**
+	 * Stores the result of the method, that is transmitted to the user interface.
+	 */
 	private int resultCode;
 
 	public int getResultCode() {

@@ -12,7 +12,12 @@ public class Request extends DataTransfer {
 	private Request() {
 
 	}
-
+	
+	/**
+	 * This instance method ensures only one request object exists,
+	 * supporting the singleton pattern.
+	 * @return
+	 */
 	public static Request instance() {
 		if (request == null) {
 			request = new Request();
