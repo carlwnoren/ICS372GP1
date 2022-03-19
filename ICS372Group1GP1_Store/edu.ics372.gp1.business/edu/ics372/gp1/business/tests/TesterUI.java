@@ -224,6 +224,20 @@ public class TesterUI {
 			System.out.println(result.getCustomerName() + "'s id is " + result.getCustomerID());
 		}
 	}
+	
+	/**
+	 * This method adds stock for a single model chosen by the user.
+	 */
+	public void addStock() {
+		Request.instance().setApplianceID(getName("Enter Appliance ID"));
+		Request.instance().setApplianceStock(getInt("Enter Stock Amount"));
+		Result result = store.addStock(Request.instance());
+		if (result.getResultCode() != Result.OPERATION_COMPLETED) {
+			System.out.println("Could not add member");
+		} else {
+			System.out.println(result.getApplianceID() + " stock is " + result.getApplianceStock());
+		}
+	}
 
 	/**
 	 * Purchases a model and the quantity of that model based on input from the
@@ -258,13 +272,19 @@ public class TesterUI {
 			}
 		} while (yesOrNo("Would you like to order another model?"));
 	}
-
+	
 	/**
-	 * Charges all subscribed to repair plans.
+	 * Fulfills a single backorder given by the user. The stock for that appliance
+	 * is reduced by the amount on backorder.
 	 */
-	public void chargeAllRepairPlans() {
-		store.chargeAllRepairPlans();
-		System.out.println("All repair plans have been charged.");
+	public void fulfillSingleBackorder() {
+		Request.instance().setBackorderID(getToken("Enter the backorder ID."));
+		Result result = store.fulfillBackorder(Request.instance());
+		if (result.getResultCode() == Result.BACKORDER_NOT_FOUND) {
+			System.out.println("Invalid backorder ID.");
+		} else if (result.getResultCode() == Result.OPERATION_COMPLETED) {
+			System.out.println("Backorder " + Request.instance().getBackorderID() + " fulfilled.");
+		}
 	}
 
 	/**
@@ -306,29 +326,124 @@ public class TesterUI {
 					+ " withdrew from repair plan for appliance " + Request.instance().getApplianceID() + ".");
 		}
 	}
-
+	
 	/**
-	 * Fulfills a single backorder given by the user. The stock for that appliance
-	 * is reduced by the amount on backorder.
+	 * Charges all subscribed to repair plans.
 	 */
-	public void fulfillSingleBackorder() {
-		Request.instance().setBackorderID(getToken("Enter the backorder ID."));
-		Result result = store.fulfillBackorder(Request.instance());
-		if (result.getResultCode() == Result.BACKORDER_NOT_FOUND) {
-			System.out.println("Invalid backorder ID.");
-		} else if (result.getResultCode() == Result.OPERATION_COMPLETED) {
-			System.out.println("Backorder " + Request.instance().getBackorderID() + " fulfilled.");
-		}
+	public void chargeAllRepairPlans() {
+		store.chargeAllRepairPlans();
+		System.out.println("All repair plans have been charged.");
 	}
+
 
 	/**
 	 * Prints the sales and repair plan revenue from the store.
 	 */
-
 	public void printRevenue() {
 		Result result = store.printRevenue();
 		System.out.println("Revenue from sales: $" + result.getSalesRevenue());
 		System.out.println("Revenue from repair plans: $" + result.getRepairPlanRevenue());
+	}
+	
+	/**
+	 * Lists all of one type or all appliances, chosen by the user.
+	 */
+	public void getInventory() {
+		Iterator<Result> iterator = null;
+		System.out.println("1 = furnace");
+		System.out.println("2 = Refrigerator");
+		System.out.println("3 = Kitchen Range");
+		System.out.println("4 = Cloth Dryer");
+		System.out.println("5 = Cloth Washer");
+		System.out.println("6 = Dishwasher");
+		System.out.println("7 = All appliances");
+		int applianceType = getInt("Enter Appliance Type");
+
+		switch (applianceType) {
+		case 1:
+			iterator = store.getFurnaces();
+			break;
+		case 2:
+			iterator = store.getRefrigerators();
+			break;
+		case 3:
+			iterator = store.getKitchenRanges();
+			break;
+		case 4:
+			iterator = store.getClothDryers();
+			break;
+		case 5:
+			iterator = store.getClothWashers();
+			break;
+		case 6:
+			iterator = store.getDishwashers();
+			break;
+		case 7:
+			iterator = store.getAllAppliances();
+			break;
+		}
+		while (iterator.hasNext()) {
+			Result result = iterator.next();
+			System.out.println(result.getApplianceID() + " Brand:" + result.getApplianceBrand() + " Model:"
+					+ result.getApplianceModel() + " Price:" + result.getApplianceCost() + " Stock:"
+					+ result.getApplianceStock());
+		}
+	}
+	
+	/**
+	 * Method to print all customers who are enrolled in repair plans
+	 * and which repair plans they're enrolled in.
+	 */
+	public void getUsersInRepairPlans() {
+		Iterator<Result> iterator = store.getRepairPlans();
+		System.out.println("Users enrolled in repair plans ");
+
+		Result result = iterator.next();
+		List<Customer> customers = result.getRepairPlanSubscribers();
+		Inventory appliances = store.getApplianceList();
+
+		for (Customer customer : customers) {
+			System.out.println(" Customer " + customer.getName() + " Address: " + customer.getAddress()
+					+ customer.getPhoneNumber() + " Customer ID: " + customer.getId() + " Account Balance: "
+					+ customer.getAccountBalance());
+			for (RepairPlan repairPlan : customer.getRepairPlansEnrolledIn()) {
+
+				System.out.println(" Model: " + appliances.search(repairPlan.getApplianceID()).getModel() + " Brand: "
+						+ appliances.search(repairPlan.getApplianceID()).getBrand());
+			}
+
+		}
+		System.out.println("End of listing");
+	}
+	
+	/**
+	 * Lists customers and if they are enrolled in a repair plan.
+	 */
+	public void getCustomers() {
+		Iterator<Result> iterator = store.getCustomers();
+		System.out.println("List of members (name, address, phone, id)");
+		while (iterator.hasNext()) {
+			Result result = iterator.next();
+			System.out.println(result.getCustomerName() + " " + result.getCustomerAddress() + " "
+					+ result.getCustomerPhoneNumber() + " " + result.getCustomerID());
+		}
+		System.out.println("End of listing");
+	}
+
+	/**
+	 * Lists all backorders.
+	 */
+	public void getBackorders() {
+		Iterator<Result> iterator = store.getBackorders();
+		System.out.println("All Backorders:");
+		while (iterator.hasNext()) {
+			Result result = iterator.next();
+			System.out.println("ID: " + result.getBackorderID() + " " + "Appliance: " + result.getApplianceBrand() + " "
+					+ result.getApplianceModel() + " " + result.getApplianceID() + " Quantity: "
+					+ result.getBackorderQuantity() + "Customer: " + result.getCustomerName() + " "
+					+ result.getCustomerID());
+		}
+		System.out.println("End of listing");
 	}
 
 	/**
@@ -416,107 +531,6 @@ public class TesterUI {
 	}
 
 	/**
-	 * Lists customers and if they are enrolled in a repair plan.
-	 */
-	public void getCustomers() {
-		Iterator<Result> iterator = store.getCustomers();
-		System.out.println("List of members (name, address, phone, id)");
-		while (iterator.hasNext()) {
-			Result result = iterator.next();
-			System.out.println(result.getCustomerName() + " " + result.getCustomerAddress() + " "
-					+ result.getCustomerPhoneNumber() + " " + result.getCustomerID());
-		}
-		System.out.println("End of listing");
-	}
-
-	/**
-	 * Method to print all customers who are enrolled in repair plans
-	 * and which repair plans they're enrolled in.
-	 */
-	public void getUsersInRepairPlans() {
-		Iterator<Result> iterator = store.getRepairPlans();
-		System.out.println("Users enrolled in repair plans ");
-
-		Result result = iterator.next();
-		List<Customer> customers = result.getRepairPlanSubscribers();
-		Inventory appliances = store.getApplianceList();
-
-		for (Customer customer : customers) {
-			System.out.println(" Customer " + customer.getName() + " Address: " + customer.getAddress()
-					+ customer.getPhoneNumber() + " Customer ID: " + customer.getId() + " Account Balance: "
-					+ customer.getAccountBalance());
-			for (RepairPlan repairPlan : customer.getRepairPlansEnrolledIn()) {
-
-				System.out.println(" Model: " + appliances.search(repairPlan.getApplianceID()).getModel() + " Brand: "
-						+ appliances.search(repairPlan.getApplianceID()).getBrand());
-			}
-
-		}
-		System.out.println("End of listing");
-	}
-
-	/**
-	 * Lists all repair plans.
-	 */
-	public void getBackorders() {
-		Iterator<Result> iterator = store.getBackorders();
-		System.out.println("All Backorders:");
-		while (iterator.hasNext()) {
-			Result result = iterator.next();
-			System.out.println("ID: " + result.getBackorderID() + " " + "Appliance: " + result.getApplianceBrand() + " "
-					+ result.getApplianceModel() + " " + result.getApplianceID() + " Quantity: "
-					+ result.getBackorderQuantity() + "Customer: " + result.getCustomerName() + " "
-					+ result.getCustomerID());
-		}
-		System.out.println("End of listing");
-	}
-
-	/**
-	 * Lists all of one type or all appliances, chosen by the user.
-	 */
-	public void getInventory() {
-		Iterator<Result> iterator = null;
-		System.out.println("1 = furnace");
-		System.out.println("2 = Refrigerator");
-		System.out.println("3 = Kitchen Range");
-		System.out.println("4 = Cloth Dryer");
-		System.out.println("5 = Cloth Washer");
-		System.out.println("6 = Dishwasher");
-		System.out.println("7 = All appliances");
-		int applianceType = getInt("Enter Appliance Type");
-
-		switch (applianceType) {
-		case 1:
-			iterator = store.getFurnaces();
-			break;
-		case 2:
-			iterator = store.getRefrigerators();
-			break;
-		case 3:
-			iterator = store.getKitchenRanges();
-			break;
-		case 4:
-			iterator = store.getClothDryers();
-			break;
-		case 5:
-			iterator = store.getClothWashers();
-			break;
-		case 6:
-			iterator = store.getDishwashers();
-			break;
-		case 7:
-			iterator = store.getAllAppliances();
-			break;
-		}
-		while (iterator.hasNext()) {
-			Result result = iterator.next();
-			System.out.println(result.getApplianceID() + " Brand:" + result.getApplianceBrand() + " Model:"
-					+ result.getApplianceModel() + " Price:" + result.getApplianceCost() + " Stock:"
-					+ result.getApplianceStock());
-		}
-	}
-
-	/**
 	 * Prompts for a command from the keyboard
 	 * @return a valid command
 	 * 
@@ -555,20 +569,6 @@ public class TesterUI {
 		System.out.println(LIST_BACKORDERS + " to print all backorders");
 		System.out.println(SAVE_DATA + " to  save data");
 		System.out.println(HELP + " for help");
-	}
-
-	/**
-	 * This method adds stock for a single model chosen by the user.
-	 */
-	public void addStock() {
-		Request.instance().setApplianceID(getName("Enter Appliance ID"));
-		Request.instance().setApplianceStock(getInt("Enter Stock Amount"));
-		Result result = store.addStock(Request.instance());
-		if (result.getResultCode() != Result.OPERATION_COMPLETED) {
-			System.out.println("Could not add member");
-		} else {
-			System.out.println(result.getApplianceID() + " stock is " + result.getApplianceStock());
-		}
 	}
 
 	/**

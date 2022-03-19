@@ -10,6 +10,7 @@ import java.io.Serializable;
 
 import edu.ics372.gp1.business.collections.Matchable;
 
+@SuppressWarnings("serial") //warning not needed, as object serializes without ID
 public class Backorder implements Matchable<String>, Serializable {
 
 	String backorderID;

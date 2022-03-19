@@ -15,6 +15,7 @@ import edu.ics372.gp1.business.store.Appliance;
 import edu.ics372.gp1.business.store.Backorder;
 import edu.ics372.gp1.business.store.Customer;
 
+@SuppressWarnings("serial") //warning not needed, as object serializes without ID
 public class BackorderList implements ItemList<Backorder, String>, Serializable {
 	/**
 	 * This field stores the singleton BackorderList object.
