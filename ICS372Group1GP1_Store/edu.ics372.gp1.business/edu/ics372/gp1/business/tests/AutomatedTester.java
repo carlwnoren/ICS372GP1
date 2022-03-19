@@ -186,7 +186,7 @@ public class AutomatedTester {
 		testAddStock();
 		testPurchase();
 		testBackOrder();
-
+		
 	}
 
 	/**
