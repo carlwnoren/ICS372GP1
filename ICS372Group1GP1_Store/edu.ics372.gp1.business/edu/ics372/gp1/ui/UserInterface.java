@@ -266,7 +266,7 @@ public class UserInterface {
 				break;
 			case Result.OPERATION_COMPLETED:
 				System.out
-						.println("Order successfully placed for " + Request.instance().getOrderQuantity() + " units.");
+						.println("Order successfully placed for " + Request.instance().getPurchaseQuantity() + " units.");
 			}
 		} while (yesOrNo("Would you like to order another model?"));
 	}
