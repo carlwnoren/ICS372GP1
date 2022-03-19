@@ -15,10 +15,6 @@ public class ClothDryer extends Appliance {
 		repairPlan = new RepairPlan(repairPlanCost, applianceID);
 	}
 
-	public void enrollRepairPlan(RepairPlan repairPlan) {
-		// NEEDS WORK
-	}
-
 	public RepairPlan getRepairPlan() {
 		return this.repairPlan;
 	}
