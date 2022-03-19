@@ -518,7 +518,6 @@ public class TesterUI {
 
 	/**
 	 * Prompts for a command from the keyboard
-	 * 
 	 * @return a valid command
 	 * 
 	 */
