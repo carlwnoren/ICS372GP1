@@ -74,7 +74,7 @@ public class UserInterface {
 			if (store == null) {
 				store = Store.retrieve();
 				if (store != null) {
-					System.out.println(" The store has been successfully retrieved from the file data.ser\n");
+					System.out.println(" The store has been successfully retrieved from the file store.ser\n");
 				} else {
 					System.out.println("File doesnt exist; creating new store");
 					store = Store.getInstance();
@@ -347,7 +347,7 @@ public class UserInterface {
 	 */
 	public void getInventory() {
 		Iterator<Result> iterator = null;
-		System.out.println("1 = furnace");
+		System.out.println("1 = Furnace");
 		System.out.println("2 = Refrigerator");
 		System.out.println("3 = Kitchen Range");
 		System.out.println("4 = Cloth Dryer");
@@ -381,8 +381,8 @@ public class UserInterface {
 		}
 		while (iterator.hasNext()) {
 			Result result = iterator.next();
-			System.out.println(result.getApplianceID() + " Brand:" + result.getApplianceBrand() + " Model:"
-					+ result.getApplianceModel() + " Price:" + result.getApplianceCost() + " Stock:"
+			System.out.println(result.getApplianceID() + " Brand: " + result.getApplianceBrand() + " Model: "
+					+ result.getApplianceModel() + " Price: " + result.getApplianceCost() + " Stock: "
 					+ result.getApplianceStock());
 		}
 	}
@@ -420,12 +420,12 @@ public class UserInterface {
 		System.out.println("List of Customers (name, address, phone, id)");
 		while (iterator.hasNext()) {
 			Result result = iterator.next();
-			System.out.print(result.getCustomerName() + " " + result.getCustomerAddress() +
-			" " + result.getCustomerPhoneNumber() + " " + result.getCustomerID());
+			System.out.print("Name: " + result.getCustomerName() + " Address: " + result.getCustomerAddress() +
+			" Phone Number: " + result.getCustomerPhoneNumber() + " ID: " + result.getCustomerID());
 			if (!result.getRepairPlansEnrolledIn().isEmpty()) {
-				System.out.println(" Customer is enrolled in at least 1 repair plan");
+				System.out.println(" | Customer is enrolled in at least 1 repair plan");
 			} else if (result.getRepairPlansEnrolledIn().isEmpty()) {
-				System.out.println(" Customer is not enrolled in a repair plan");
+				System.out.println(" | Customer is not enrolled in a repair plan");
 			}
 		}
 		System.out.println("End of listing");
