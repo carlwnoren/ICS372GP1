@@ -4,14 +4,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Iterator;
-import java.util.List;
 import java.util.StringTokenizer;
 
 import edu.ics372.gp1.business.collections.Inventory;
 import edu.ics372.gp1.business.facade.Request;
 import edu.ics372.gp1.business.facade.Result;
 import edu.ics372.gp1.business.facade.Store;
-import edu.ics372.gp1.business.store.Customer;
 import edu.ics372.gp1.business.store.RepairPlan;
 
 public class UserInterface {
@@ -394,24 +392,22 @@ public class UserInterface {
 	 * repair plans they're enrolled in.
 	 */
 	public void getUsersInRepairPlans() {
-		Iterator<Result> iterator = store.getRepairPlans();
+		Iterator<Result> iterator = store.getCustomers();
 		System.out.println("Users enrolled in repair plans ");
 		while (iterator.hasNext()) {
 			Result result = iterator.next();
-			List<Customer> customers = result.getRepairPlanSubscribers();
 			Inventory appliances = store.getApplianceList();
+			if (!result.getRepairPlansEnrolledIn().isEmpty()) {
+				System.out.println(" Customer " + result.getCustomerName() + " Address: " + result.getCustomerAddress()
+						+ " " + result.getCustomerPhoneNumber() + " Customer ID: " + result.getCustomerID()
+						+ " Account Balance: " + result.getCustomerAccountBalance());
 
-			for (Customer customer : customers) {
-				System.out.println(" Customer " + customer.getName() + " Address: " + customer.getAddress()
-						+ customer.getPhoneNumber() + " Customer ID: " + customer.getId() + " Account Balance: "
-						+ customer.getAccountBalance());
-				for (RepairPlan repairPlan : customer.getRepairPlansEnrolledIn()) {
-
+				for (RepairPlan repairPlan : result.getRepairPlansEnrolledIn()) {
 					System.out.println(" Model: " + appliances.search(repairPlan.getApplianceID()).getModel()
 							+ " Brand: " + appliances.search(repairPlan.getApplianceID()).getBrand());
 				}
-
 			}
+
 		}
 		System.out.println("End of listing");
 	}
