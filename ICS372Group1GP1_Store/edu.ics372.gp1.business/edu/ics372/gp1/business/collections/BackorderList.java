@@ -89,7 +89,11 @@ public class BackorderList implements ItemList<Backorder, String>, Serializable 
 		}
 		return null;
 	}
-
+	
+	/**
+	 * Lists all backorders as a string
+	 * @return
+	 */
 	public String listAll() {
 		return backorders.toString();
 	}

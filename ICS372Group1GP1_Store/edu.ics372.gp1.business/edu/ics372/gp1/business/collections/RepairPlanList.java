@@ -27,6 +27,9 @@ public class RepairPlanList implements ItemList<RepairPlan, String>, Serializabl
 	 */
 	private List<RepairPlan> repairPlans = new LinkedList<RepairPlan>();
 
+	/**
+	 * Private constructor to support the singleton class.
+	 */
 	private RepairPlanList() {
 
 	}
