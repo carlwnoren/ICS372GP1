@@ -301,13 +301,13 @@ public class Store implements Serializable {
 	}
 
 	// needs testing
-	public void listAllCustomers() {
+	/*public void listAllCustomers() {
 		customerList.listAll();
 	}
 
 	public void listAllCustomersRepairPlans() {
 		repairPlanList.listAll();
-	}
+	}*/
 
 	public Iterator<Result> getCustomers() {
 		return new SafeCustomerIterator(customerList.iterator());

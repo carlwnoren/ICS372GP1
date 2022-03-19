@@ -509,18 +509,6 @@ public class TesterUI {
 	}
 
 	public void process() {
-		/*
-		 * store.addCustomer("Joe", "123 fake st", "5555555555");
-		 * store.addCustomer("Moe", "123 fake st", "5555555555");
-		 * store.addCustomer("Zoe", "123 fake st", "5555555555");
-		 * 
-		 * System.out.println(store.getCustomers());
-		 * 
-		 * getCustomer(); addAppliance(); addAppliance(); addStock(); getInventory();
-		 * purchaseOneOrMoreModels();
-		 * 
-		 * Iterator<Result> itr = store.getCustomers();
-		 */
 		int command;
 
 		while ((command = getCommand()) != EXIT) {
