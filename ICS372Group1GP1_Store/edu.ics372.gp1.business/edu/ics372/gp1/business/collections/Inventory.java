@@ -34,10 +34,18 @@ public class Inventory implements ItemList<Appliance, String>, Serializable {
 	 * This field stores all Appliance objects stored in this Inventory.
 	 */
 	private List<Appliance> appliances = new LinkedList<Appliance>();
-
+	/**
+	 * String used to begin each ID with 'A'
+	 */
 	private static final String APPLIANCE_STRING = "A";
+	/**
+	 * ID counter starting at 1000 used to create uniqe IDs
+	 */
 	private int idCounter = 1000;
 
+	/**
+	 * Private constructor to support the singleton class.
+	 */
 	private Inventory() {
 
 	}

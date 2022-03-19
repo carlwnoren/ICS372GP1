@@ -29,9 +29,14 @@ public class CustomerList implements ItemList<Customer, String>, Serializable {
 	 * This field stores all Customer objects stored in this CustomerList.
 	 */
 	private List<Customer> customers = new LinkedList<Customer>();
-
-	private static final String CUSTOMER_STRING = "C";// String used to add C to the front of the customer ID
-	private int idCounter = 1000;// ID counter starting at 1000
+	/**
+	 * String used to add C to the front of the customer ID
+	 */
+	private static final String CUSTOMER_STRING = "C";
+	/**
+	 * ID counter starting at 1000 to create unique IDs
+	 */
+	private int idCounter = 1000;
 
 	private CustomerList() {
 

@@ -7,6 +7,11 @@ package edu.ics372.gp1.business.collections;
  */
 public interface Matchable<K> {
 
+	/**
+	 * Checks if a given parameter matches that field in the calling object.
+	 * @param other
+	 * @return
+	 */
 	boolean matches(K other);
 
 }
