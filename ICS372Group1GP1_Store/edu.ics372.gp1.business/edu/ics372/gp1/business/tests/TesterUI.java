@@ -16,9 +16,14 @@ import edu.ics372.gp1.business.store.RepairPlan;
 
 public class TesterUI {
 	private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+	/**
+	 * This field stores the singleton interface.
+	 */
 	private static TesterUI testerUI;
+	/**
+	 * This method stores the store object linked to this interface.
+	 */
 	private static Store store;
-	private int applianceType;
 	private static final int EXIT = 0;
 	private static final int ADD_SINGLE_MODEL = 1;
 	private static final int ADD_SINGLE_CUSTOMER = 2;
@@ -51,7 +56,7 @@ public class TesterUI {
 	}
 
 	/**
-	 * Supports the singleton pattern
+	 * This method supports the singleton pattern.
 	 * 
 	 * @return the singleton object
 	 */
@@ -63,6 +68,9 @@ public class TesterUI {
 		}
 	}
 
+	/**
+	 * This method retrieves the store data.
+	 */
 	private void retrieve() {
 		try {
 			if (store == null) {
@@ -94,7 +102,7 @@ public class TesterUI {
 		System.out.println("4 = Cloth Dryer");
 		System.out.println("5 = Cloth Washer");
 		System.out.println("6 = Dishwasher");
-		applianceType = getInt("Enter Appliance Type");
+		int applianceType = getInt("Enter Appliance Type");
 
 		switch (applianceType) {
 		case 1:
@@ -421,7 +429,7 @@ public class TesterUI {
 		System.out.println("5 = Cloth Washer");
 		System.out.println("6 = Dishwasher");
 		System.out.println("7 = All appliances");
-		applianceType = getInt("Enter Appliance Type");
+		int applianceType = getInt("Enter Appliance Type");
 
 		switch (applianceType) {
 		case 1:
@@ -474,11 +482,10 @@ public class TesterUI {
 	}
 
 	/**
-	 * Displays the help screen
-	 * 
+	 * This method displays the help screen, which shows the user the menu of actions.
 	 */
 	public void help() {
-		System.out.println("Enter a number between 0 and 12 as explained below:");
+		System.out.println("Enter a number between 0 and 15 for the options below:");
 		System.out.println(EXIT + " to Exit\n");
 		System.out.println(ADD_SINGLE_MODEL + " to add a single appliance model");
 		System.out.println(ADD_SINGLE_CUSTOMER + " to add a single customer");
@@ -497,6 +504,9 @@ public class TesterUI {
 		System.out.println(HELP + " for help");
 	}
 
+	/**
+	 * This method adds stock for a single model chosen by the user.
+	 */
 	public void addStock() {
 		Request.instance().setApplianceID(getName("Enter Appliance ID"));
 		Request.instance().setApplianceStock(getInt("Enter Stock Amount"));
