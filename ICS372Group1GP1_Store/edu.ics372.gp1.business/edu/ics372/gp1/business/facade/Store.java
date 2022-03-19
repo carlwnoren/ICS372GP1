@@ -1,5 +1,6 @@
 /**
  * The Store class is used to organize all lists of objects and driver the needed operations of the program.
+ * @author - Carl Noren, Justin Pham, Kean Jay
  */
 package edu.ics372.gp1.business.facade;
 
@@ -104,6 +105,11 @@ public class Store implements Serializable {
 		return newCustomer.getId();
 	}
 
+	/**
+	 * Adds a customer to the customerList and returns the result to the interface.
+	 * @param request
+	 * @return
+	 */
 	public Result addCustomer(Request request) {
 		Result result = new Result();
 		Customer customer = new Customer(request.getCustomerName(), request.getCustomerAddress(),
@@ -116,27 +122,39 @@ public class Store implements Serializable {
 		result.setResultCode(Result.OPERATION_FAILED);
 		return result;
 	}
-
-	// public boolean addToInventory()
-
-	/*
-	 * public Result addAppliance(Request request) { return
-	 * inventory.addAppliance(request); }
+	
+	/**
+	 * Adds a new furnace model to the inventory and returns the result to the interface.
+	 * @param request
+	 * @return
 	 */
-
 	public Result addFurnace(Request request) {
 		return inventory.addFurnace(request);
 	}
 
+	/**
+	 * Adds a new kitchen range model to the inventory and returns the result to the interface.
+	 * @param request
+	 * @return
+	 */
 	public Result addKitchenRange(Request request) {
 		return inventory.addKitchenRange(request);
 	}
 
+	/**
+	 * Adds a new refrigerator model to the inventory and returns the result to the interface.
+	 * @param request
+	 * @return
+	 */
 	public Result addRefrigerator(Request request) {
-		// TODO Auto-generated method stub
 		return inventory.addRefrigerator(request);
 	}
 
+	/**
+	 * Adds a new cloth dryer model to the inventory and returns the result to the interface.
+	 * @param request
+	 * @return
+	 */
 	public Result addClothDryer(Request request) {
 		Result tempResult = inventory.addClothDryer(request);
 		RepairPlan tempPlan = new RepairPlan(tempResult.getRepairPlanCost(), tempResult.getApplianceID());
@@ -145,6 +163,11 @@ public class Store implements Serializable {
 		return tempResult;
 	}
 
+	/**
+	 * Adds a new cloth washer model to the inventory and returns the result to the interface.
+	 * @param request
+	 * @return
+	 */
 	public Result addClothWasher(Request request) {
 		Result tempResult = inventory.addClothWasher(request);
 		RepairPlan tempPlan = new RepairPlan(tempResult.getRepairPlanCost(), tempResult.getApplianceID());
@@ -153,12 +176,14 @@ public class Store implements Serializable {
 		return tempResult;
 	}
 
+	/**
+	 * Adds a new dishwasher model to the inventory and returns the result to the interface.
+	 * @param request
+	 * @return
+	 */
 	public Result addDishwasher(Request request) {
-		// TODO Auto-generated method stub
 		return inventory.addDishwasher(request);
 	}
-	// (String brand, String model, double cost, String applianceID, int
-	// maxHeatOutput
 
 	/**
 	 * Removes a given customer (by ID) to a repair plan's (by appliance ID) list of
@@ -195,6 +220,11 @@ public class Store implements Serializable {
 		}
 	}
 
+	/**
+	 * Sends the sales and repair plan revenue from the store in the result
+	 * object returned to the interface.
+	 * @return
+	 */
 	public Result printRevenue() {
 		Result result = new Result();
 		result.setSalesRevenue(salesRevenue);
@@ -203,8 +233,10 @@ public class Store implements Serializable {
 	}
 
 	/**
+	 * Purchases a given appliance model and returns the result to the interface.
+	 * A backorder is placed if stock on hand is insufficient, unless the appliance
+	 * ordered is a furnace.
 	 * @return
-	 *
 	 */
 	public Result purchaseOneOrMoreModels(Request request) {
 		Result result = new Result();
@@ -268,7 +300,6 @@ public class Store implements Serializable {
 
 	/**
 	 * Serializes the store's data.
-	 * 
 	 * @return the result of the operation
 	 */
 	public Result saveData() {
@@ -296,85 +327,132 @@ public class Store implements Serializable {
 		repairPlanRevenue += cost;
 	}
 
+	/**
+	 * Adds a given amount to the sales revenue of the store.
+	 * @param cost
+	 */
 	public void addSalesRevenue(double cost) {
 		salesRevenue += cost;
 	}
 
-	// needs testing
-	/*public void listAllCustomers() {
-		customerList.listAll();
-	}
-
-	public void listAllCustomersRepairPlans() {
-		repairPlanList.listAll();
-	}*/
-
+	/**
+	 * Returns an iterator for the customers.
+	 * @return
+	 */
 	public Iterator<Result> getCustomers() {
 		return new SafeCustomerIterator(customerList.iterator());
 	}
 
+	/**
+	 * Returns the inventory field for this store.
+	 * @return
+	 */
 	public Inventory getApplianceList() {
 		return inventory;
 	}
 
-//	public Iterator<Result> getRepairPlans() {
-//		Predicate<Customer> predicate = ((Customer a) -> a.isEnrolledInRepairPlan());
-//		return new SafeCustomerFilteredIterator(new CustomerFilteredIterator(customerList.iterator(), predicate));
-//
-//	}
+	/**
+	 * Returns an iterator for the repair plans.
+	 * @return
+	 */
 	public Iterator<Result> getRepairPlans() {
 		return new SafeRepairPlanIterator(repairPlanList.iterator());
 
 	}
 
+	/**
+	 * Returns an iterator for the backorders.
+	 * @return
+	 */
 	public Iterator<Result> getBackorders() {
 		return new SafeBackorderIterator(backorderList.iterator());
 	}
 
+	/**
+	 * Returns an iterator for all appliance types.
+	 * @return
+	 */
 	public Iterator<Result> getAllAppliances() {
 		Predicate<Appliance> predicate = ((Appliance a) -> a instanceof Appliance);
 		return new SafeApplianceIterator(new FilteredIterator(inventory.iterator(), predicate));
 	}
 
+	/**
+	 * Returns an iterator for the furnaces.
+	 * @return
+	 */
 	public Iterator<Result> getFurnaces() {
 		Predicate<Appliance> p1 = ((Appliance a) -> a instanceof Furnace);
 		return new SafeApplianceIterator(new FilteredIterator(inventory.iterator(), p1));
 	}
 
+	/**
+	 * Returns an iterator for the refrigerators.
+	 * @return
+	 */
 	public Iterator<Result> getRefrigerators() {
 		Predicate<Appliance> p1 = ((Appliance a) -> a instanceof Refrigerator);
 		return new SafeApplianceIterator(new FilteredIterator(inventory.iterator(), p1));
 	}
 
+	/**
+	 * Returns an iterator for the customers.
+	 * @return
+	 */
 	public Iterator<Result> getClothDryers() {
 		Predicate<Appliance> p1 = ((Appliance a) -> a instanceof ClothDryer);
 		return new SafeApplianceIterator(new FilteredIterator(inventory.iterator(), p1));
 	}
 
+	/**
+	 * Returns an iterator for the cloth washers.
+	 * @return
+	 */
 	public Iterator<Result> getClothWashers() {
 		Predicate<Appliance> p1 = ((Appliance a) -> a instanceof ClothWasher);
 		return new SafeApplianceIterator(new FilteredIterator(inventory.iterator(), p1));
 	}
 
+	/**
+	 * Returns an iterator for the dishwashers.
+	 * @return
+	 */
 	public Iterator<Result> getDishwashers() {
 		Predicate<Appliance> p1 = ((Appliance a) -> a instanceof Dishwasher);
 		return new SafeApplianceIterator(new FilteredIterator(inventory.iterator(), p1));
 	}
 
+	/**
+	 * Returns an iterator for the kitchen ranges.
+	 * @return
+	 */
 	public Iterator<Result> getKitchenRanges() {
 		Predicate<Appliance> p1 = ((Appliance a) -> a instanceof KitchenRange);
 		return new SafeApplianceIterator(new FilteredIterator(inventory.iterator(), p1));
 	}
 
+	/**
+	 * Adds stock for a single model.
+	 * @param request
+	 * @return
+	 */
 	public Result addStock(Request request) {
 
 		return inventory.addStock(request);
 	}
 
+	/**
+	 * Returns the store's customer list.
+	 * @return
+	 */
 	public CustomerList getCustomerList() {
 		return customerList;
 	}
-
+	
+	/**
+	 * Returns the store's repair plan list.
+	 * @return
+	 */
 	public RepairPlanList getRepairPlanList() {
 		return repairPlanList;
 	}
