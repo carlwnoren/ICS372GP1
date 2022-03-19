@@ -1,3 +1,7 @@
+/**
+ * Filtered iterator for use by Appliances 
+ * @author Kean Jaycox, Justin Pham, Carl Noren
+ */
 package edu.ics372.gp1.Iterators;
 
 import java.util.Iterator;

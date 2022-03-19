@@ -1,7 +1,7 @@
 /**
- * Appliance class
+ * Appliance Class, used as frame work for all other appliance types. 
  * 
- * @author Kean
+ * @author Kean Jaycox, Justin Pham, Carl Noren
  *
  */
 package edu.ics372.gp1.business.store;
@@ -12,9 +12,6 @@ import edu.ics372.gp1.business.collections.Matchable;
 
 public abstract class Appliance implements Matchable<String>, Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	protected String brand;
 	protected String model;
@@ -27,6 +24,14 @@ public abstract class Appliance implements Matchable<String>, Serializable {
 		return this.applianceID.equals(customerID);
 	}
 
+	/**
+	 * Constructor used to create new object.
+	 * 
+	 * @param brand
+	 * @param model
+	 * @param cost
+	 * @param applianceID
+	 */
 	public Appliance(String brand, String model, double cost, String applianceID) {
 		this.brand = brand;
 		this.model = model;
@@ -34,10 +39,20 @@ public abstract class Appliance implements Matchable<String>, Serializable {
 		this.applianceID = applianceID;
 	}
 
+	/**
+	 * used to add the number of appliances to stock
+	 * 
+	 * @param quantity
+	 */
 	public void addStock(int quantity) {
 		stock += quantity;
 	}
 
+	/**
+	 * used to remove a number of appliances from stock
+	 * 
+	 * @param quantity
+	 */
 	public void removeStock(int quantity) {
 		if (stock < quantity) {
 			throw new IllegalArgumentException("Stock cannot be less than 0.");

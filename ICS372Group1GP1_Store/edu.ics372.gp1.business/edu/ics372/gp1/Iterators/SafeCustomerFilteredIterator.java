@@ -1,3 +1,7 @@
+/**
+ * Safe Customer iterator used to prevent unwanted changes to lists when not needed.
+ * @author Kean Jaycox, Justin Pham, Carl Noren
+ */
 package edu.ics372.gp1.Iterators;
 
 import java.util.Iterator;
@@ -10,9 +14,9 @@ public class SafeCustomerFilteredIterator implements Iterator<Result> {
 	private Result result = new Result();
 
 	/**
-	 * The user of SafeIterator must supply an Iterator to Appliance.
+	 * Filtered iterator must be supplied to this class by user
 	 * 
-	 * @param customerFilteredIterator Iterator<Appliance>
+	 * @param customerFilteredIterator Iterator<Customer>
 	 */
 	public SafeCustomerFilteredIterator(CustomerFilteredIterator customerFilteredIterator) {
 		this.iterator = customerFilteredIterator;

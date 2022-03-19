@@ -3,6 +3,8 @@
  * This class is a singleton.
  * It has the repairPlanList and repairPlans fields.
  * It has the getInstance and search methods.
+ * 
+ * @author Kean Jaycox, Justin Pham, Carl Noren
  */
 package edu.ics372.gp1.business.collections;
 

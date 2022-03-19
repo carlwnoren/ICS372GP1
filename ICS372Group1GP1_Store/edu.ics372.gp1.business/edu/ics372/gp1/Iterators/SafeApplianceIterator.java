@@ -1,3 +1,7 @@
+/**
+ * Safe appliance iterator used to prevent unwanted changes to lists when not needed.
+ * @author Kean Jaycox, Justin Pham, Carl Noren
+ */
 package edu.ics372.gp1.Iterators;
 
 import java.util.Iterator;

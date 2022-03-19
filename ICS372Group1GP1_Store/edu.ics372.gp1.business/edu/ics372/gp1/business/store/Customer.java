@@ -1,3 +1,8 @@
+/**
+ * Customer classes used store customer info and owned appliances and repairplan
+ * 
+ * @author Kean Jaycox, Justin Pham, Carl Noren
+ */
 package edu.ics372.gp1.business.store;
 
 import java.io.Serializable;
@@ -7,10 +12,6 @@ import java.util.Objects;
 
 import edu.ics372.gp1.business.collections.Matchable;
 
-/**
- * @author jpham
- *
- */
 public class Customer implements Matchable<String>, Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -36,9 +37,13 @@ public class Customer implements Matchable<String>, Serializable {
 		this.address = address;
 		this.phoneNumber = phoneNumber;
 		this.accountBalance = 0;
-		// this.id = id; since customerList (line 61) sets id think this can be removed
 	}
 
+	/**
+	 * adds a single appliance to customer's list of appliances
+	 * 
+	 * @param appliance
+	 */
 	public void addAppliance(Appliance appliance) {
 		appliances.add(appliance);
 	}
@@ -95,6 +100,12 @@ public class Customer implements Matchable<String>, Serializable {
 		this.appliances = appliances;
 	}
 
+	/**
+	 * Adds a repair plan to customer's list of repair plans
+	 * 
+	 * @param repairPlan
+	 * @return
+	 */
 	public boolean addRepairPlan(RepairPlan repairPlan) {
 		if (!repairPlansEnrolledIn.contains(repairPlan)) {
 			repairPlansEnrolledIn.add(repairPlan);
@@ -104,6 +115,12 @@ public class Customer implements Matchable<String>, Serializable {
 		}
 	}
 
+	/**
+	 * removes a repair plan to customer's list of repair plans
+	 * 
+	 * @param repairPlan
+	 * @return
+	 */
 	public boolean removeRepairPlan(RepairPlan repairPlan) {
 		if (repairPlansEnrolledIn.contains(repairPlan)) {
 			repairPlansEnrolledIn.remove(repairPlan);
@@ -113,20 +130,34 @@ public class Customer implements Matchable<String>, Serializable {
 		}
 	}
 
+	/**
+	 * charges customer, adds a certain owed balance to their account
+	 * 
+	 * @param cost
+	 */
 	public void charge(double cost) {
 		accountBalance += cost;
 	}
 
+	/**
+	 * Checks to see if customer is enrolled in any plans or none at all
+	 * 
+	 * @return
+	 */
 	public boolean isEnrolledInRepairPlan() {
 		return !repairPlansEnrolledIn.isEmpty();
 	}
 
+	/**
+	 * Checks to see if parameter given matches a the ID of this Customer.
+	 * 
+	 * @param customerID
+	 */
 	@Override
 	public boolean matches(String customerID) {
 		return this.id.equals(customerID);
 	}
 
-	// may need to modify hashcode and equals
 	@Override
 	public int hashCode() {
 		return Objects.hash(address, id, name, phoneNumber);

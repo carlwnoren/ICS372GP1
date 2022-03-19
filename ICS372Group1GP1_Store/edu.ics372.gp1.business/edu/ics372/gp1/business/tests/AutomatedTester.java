@@ -1,3 +1,9 @@
+/**
+ * Automated tester class, used to test creation of objects and other functions
+ * 
+ * @author Kean Jaycox, Justin Pham, Carl Noren
+ * 
+ */
 package edu.ics372.gp1.business.tests;
 
 import edu.ics372.gp1.business.facade.Request;
@@ -7,7 +13,7 @@ import edu.ics372.gp1.business.store.Appliance;
 import edu.ics372.gp1.business.store.Customer;
 
 public class AutomatedTester {
-	private Store store;
+
 	private String[] names = { "n1", "n2", "n3" };
 	private String[] addresses = { "a1", "a2", "a3" };
 	private String[] phones = { "1111111111", "2222222222", "3333333333" };
@@ -19,8 +25,8 @@ public class AutomatedTester {
 
 	/**
 	 * Tests Member creation.
+	 *
 	 */
-	// need to modify below more for testing.
 	public void testAddCustomer() {
 		for (int count = 0; count < customers.length; count++) {
 			Request.instance().setCustomerAddress(addresses[count]);
@@ -183,6 +189,11 @@ public class AutomatedTester {
 
 	}
 
+	/**
+	 * Main class used to start tests
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		new AutomatedTester().testAll();
 	}

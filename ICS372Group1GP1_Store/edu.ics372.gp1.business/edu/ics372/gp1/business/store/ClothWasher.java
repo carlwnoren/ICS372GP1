@@ -1,7 +1,7 @@
 /**
- * ClothWasher class
+ * ClothWasher class, used to represent a cloth washer and store a repair plan
  * 
- * @author Kean
+ * @author Kean Jaycox, Justin Pham, Carl Noren
  *
  */
 package edu.ics372.gp1.business.store;
@@ -10,13 +10,18 @@ public class ClothWasher extends Appliance {
 	private static final long serialVersionUID = 1L;
 	private RepairPlan repairPlan;
 
+	/**
+	 * Constructor to create a washer with associated repair plan
+	 * 
+	 * @param brand
+	 * @param model
+	 * @param cost
+	 * @param applianceID
+	 * @param repairPlanCost
+	 */
 	public ClothWasher(String brand, String model, double cost, String applianceID, double repairPlanCost) {
 		super(brand, model, cost, applianceID);
 		repairPlan = new RepairPlan(repairPlanCost, applianceID);
-	}
-
-	public void enrollRepairPlan(RepairPlan repairPlan) {
-		// NEEDS WORK
 	}
 
 	public RepairPlan getRepairPlan() {
