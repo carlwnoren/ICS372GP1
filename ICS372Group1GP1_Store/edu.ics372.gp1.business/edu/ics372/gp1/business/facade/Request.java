@@ -1,5 +1,6 @@
 /**
  * Used to get data from instance and send to store class for processing.
+ * @author - Carl Noren, Justin Pham, Kean Jay
  */
 package edu.ics372.gp1.business.facade;
 

@@ -2,7 +2,6 @@ package edu.ics372.gp1.business.store;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
@@ -12,14 +11,10 @@ import edu.ics372.gp1.business.facade.Store;
 /**
  * Repair plan object class
  * 
- * @author jpham
+ * @author -  Carl Noren, Justin Pham, Kean Jay
  *
  */
 public class RepairPlan implements Matchable<String>, Serializable {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private double cost;
 	private String applianceID;
@@ -73,6 +68,12 @@ public class RepairPlan implements Matchable<String>, Serializable {
 		}
 	}
 	
+	/**
+	 * Checks if a given customer is enrolled in this repair plan.
+	 * Returns true if yes, false if no.
+	 * @param customer
+	 * @return
+	 */
 	public boolean isCustomerEnrolled(Customer customer) {
 		return subscribers.contains(customer);
 	}
@@ -92,7 +93,7 @@ public class RepairPlan implements Matchable<String>, Serializable {
 	public void setApplianceID(String applianceID) {
 		this.applianceID = applianceID;
 	}
-
+	
 	public List<Customer> getSubscribers() {
 		return subscribers;
 	}
@@ -101,16 +102,22 @@ public class RepairPlan implements Matchable<String>, Serializable {
 		this.subscribers = subscribers;
 	}
 
+	/**
+	 * Returns true if the given customer ID matches this object's customer ID.
+	 */
 	@Override
 	public boolean matches(String customerID) {
 		return this.applianceID.equals(customerID);
 	}
 
+	/**
+	 * Returns a list of this plan's subscribers as a string.
+	 * @return
+	 */
 	public String listAll() {
 		return subscribers.toString();
 	}
 
-	// may need to modify hashcode and equals
 	@Override
 	public int hashCode() {
 		return Objects.hash(applianceID, cost, subscribers);

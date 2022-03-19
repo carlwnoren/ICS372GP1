@@ -1,5 +1,7 @@
 /**
  * Class transmit results back to UI and report whether the operation was successful.
+ * 
+ * @author - Carl Noren, Justin Pham, Kean Jay
  */
 package edu.ics372.gp1.business.facade;
 
