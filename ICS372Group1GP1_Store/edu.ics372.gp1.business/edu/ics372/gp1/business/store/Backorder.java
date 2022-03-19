@@ -5,6 +5,7 @@ import java.io.Serializable;
 import edu.ics372.gp1.business.collections.Matchable;
 
 public class Backorder implements Matchable<String>, Serializable{
+	private static final long serialVersionUID = 1L;
 	String backorderID;
 	Appliance appliance;
 	Customer customer;
