@@ -420,12 +420,12 @@ public class UserInterface {
 		System.out.println("List of Customers (name, address, phone, id)");
 		while (iterator.hasNext()) {
 			Result result = iterator.next();
-			System.out.print(result.getCustomerName() + " " + result.getCustomerAddress() + " "
-					+ result.getCustomerPhoneNumber() + " " + result.getCustomerID());
+			System.out.print(result.getCustomerName() + " " + result.getCustomerAddress() +
+			" " + result.getCustomerPhoneNumber() + " " + result.getCustomerID());
 			if (!result.getRepairPlansEnrolledIn().isEmpty()) {
-				System.out.println(" Customer is enrolled in at least 1 plan");
+				System.out.println(" Customer is enrolled in at least 1 repair plan");
 			} else if (result.getRepairPlansEnrolledIn().isEmpty()) {
-				System.out.println(" Customer is not enrolled in a plan");
+				System.out.println(" Customer is not enrolled in a repair plan");
 			}
 		}
 		System.out.println("End of listing");
