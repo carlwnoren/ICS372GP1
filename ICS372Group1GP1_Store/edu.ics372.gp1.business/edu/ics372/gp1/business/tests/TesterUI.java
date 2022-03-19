@@ -87,11 +87,9 @@ public class TesterUI {
 		}
 	}
 
-//	private String applianceBrand;
-//	private String applianceModel;
-//	private String applianceID;
-//	private double applianceCost;
-//	private int applianceStock;
+	/**
+	 * This method adds a single model to the store's inventory.
+	 */
 	public void addAppliance() {
 		Request.instance().setApplianceBrand(getName("Enter Appliance Brand"));
 		Request.instance().setApplianceModel(getName("Enter Appliance Model"));
@@ -127,6 +125,10 @@ public class TesterUI {
 
 	}
 
+	/**
+	 * This method, called by addAppliance(), allows the user to create a new
+	 * furnace to the inventory.
+	 */
 	public void addFurnace() {
 		Request.instance().setMaxHeatOutput(Integer.parseInt(getName("Enter Max Heat Output")));
 		Result result = store.addFurnace(Request.instance());
@@ -137,6 +139,10 @@ public class TesterUI {
 		}
 	}
 
+	/**
+	 * This method, called by addAppliance(), allows the user to create a new
+	 * refigerator to the inventory.
+	 */
 	public void addRefrigerator() {
 		Request.instance().setCapacity(Integer.parseInt(getName("Enter Capacity")));
 		Result result = store.addRefrigerator(Request.instance());
@@ -148,8 +154,11 @@ public class TesterUI {
 		}
 	}
 
+	/**
+	 * This method, called by addAppliance(), allows the user to create a new
+	 * kitchen range to the inventory.
+	 */
 	public void addKitchenRange() {
-
 		Result result = store.addKitchenRange(Request.instance());
 		if (result.getResultCode() != Result.OPERATION_COMPLETED) {
 			System.out.println("Could not add member");
@@ -158,6 +167,10 @@ public class TesterUI {
 		}
 	}
 
+	/**
+	 * This method, called by addAppliance(), allows the user to create a new
+	 * cloth dryer to the inventory.
+	 */
 	public void addClothDryer() {
 		Request.instance().setRepairPlanCost(getDouble("Enter repair plan cost"));
 		Result result = store.addClothDryer(Request.instance());
@@ -169,6 +182,10 @@ public class TesterUI {
 		}
 	}
 
+	/**
+	 * This method, called by addAppliance(), allows the user to create a new
+	 * cloth washer to the inventory.
+	 */
 	public void addClothWasher() {
 		Request.instance().setRepairPlanCost(getDouble("Enter repair plan cost"));
 		Result result = store.addClothWasher(Request.instance());
@@ -179,7 +196,11 @@ public class TesterUI {
 					result.getApplianceModel() + "'s id is " + result.getApplianceID() + result.getRepairPlanCost());
 		}
 	}
-
+	
+	/**
+	 * This method, called by addAppliance(), allows the user to create a new
+	 * dishwasher to the inventory.
+	 */
 	public void addDishwasher() {
 		Result result = store.addDishwasher(Request.instance());
 		if (result.getResultCode() != Result.OPERATION_COMPLETED) {
@@ -189,6 +210,9 @@ public class TesterUI {
 		}
 	}
 
+	/**
+	 * This method adds a new customer to the system.
+	 */
 	public void addNewCustomer() {
 		Request.instance().setCustomerName(getName("Enter member name"));
 		Request.instance().setCustomerAddress(getName("Enter address"));
@@ -236,7 +260,7 @@ public class TesterUI {
 	}
 
 	/**
-	 * Charges all repair plans.
+	 * Charges all subscribed to repair plans.
 	 */
 	public void chargeAllRepairPlans() {
 		store.chargeAllRepairPlans();
@@ -319,6 +343,11 @@ public class TesterUI {
 		}
 	}
 
+	/**
+	 * Gets a string entered by the user.
+	 * @param prompt
+	 * @return
+	 */
 	public String getName(String prompt) {
 		do {
 			try {
@@ -332,6 +361,11 @@ public class TesterUI {
 
 	}
 
+	/**
+	 * Collects and returns a double entered by the user.
+	 * @param prompt
+	 * @return
+	 */
 	public double getDouble(String prompt) {
 		do {
 			try {
@@ -344,6 +378,11 @@ public class TesterUI {
 		} while (true);
 	}
 
+	/**
+	 * Gets an integer after a prompt.
+	 * @param prompt
+	 * @return
+	 */
 	public int getInt(String prompt) {
 		do {
 			try {
@@ -356,6 +395,11 @@ public class TesterUI {
 		} while (true);
 	}
 
+	/**
+	 * Gets a token from the user after a prompt.
+	 * @param prompt
+	 * @return
+	 */
 	public String getToken(String prompt) {
 		do {
 			try {
@@ -371,6 +415,9 @@ public class TesterUI {
 		} while (true);
 	}
 
+	/**
+	 * Lists customers and if they are enrolled in a repair plan.
+	 */
 	public void getCustomers() {
 		Iterator<Result> iterator = store.getCustomers();
 		System.out.println("List of members (name, address, phone, id)");
@@ -383,7 +430,8 @@ public class TesterUI {
 	}
 
 	/**
-	 * Method to print all customers who are enrolled in repair plans.
+	 * Method to print all customers who are enrolled in repair plans
+	 * and which repair plans they're enrolled in.
 	 */
 	public void getUsersInRepairPlans() {
 		Iterator<Result> iterator = store.getRepairPlans();
@@ -407,6 +455,9 @@ public class TesterUI {
 		System.out.println("End of listing");
 	}
 
+	/**
+	 * Lists all repair plans.
+	 */
 	public void getBackorders() {
 		Iterator<Result> iterator = store.getBackorders();
 		System.out.println("All Backorders:");
@@ -420,6 +471,9 @@ public class TesterUI {
 		System.out.println("End of listing");
 	}
 
+	/**
+	 * Lists all of one type or all appliances, chosen by the user.
+	 */
 	public void getInventory() {
 		Iterator<Result> iterator = null;
 		System.out.println("1 = furnace");
@@ -518,6 +572,9 @@ public class TesterUI {
 		}
 	}
 
+	/**
+	 * Processes the user's input in the interface.
+	 */
 	public void process() {
 		int command;
 
@@ -572,6 +629,12 @@ public class TesterUI {
 		}
 	}
 
+	/**
+	 * Collects a yes or nor response from the user and returns
+	 * true if yes, false if no.
+	 * @param prompt
+	 * @return
+	 */
 	private boolean yesOrNo(String prompt) {
 		String more = getToken(prompt + " (Y|y)[es] or anything else for no");
 		if (more.charAt(0) != 'y' && more.charAt(0) != 'Y') {
