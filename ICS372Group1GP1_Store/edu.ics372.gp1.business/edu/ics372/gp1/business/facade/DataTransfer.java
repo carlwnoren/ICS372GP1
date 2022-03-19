@@ -47,49 +47,6 @@ public abstract class DataTransfer {
 	/**
 	 * This sets all fields to "none".
 	 */
-	public DataTransfer() {
-		reset();
-	}
-
-	public String getCustomerName() {
-		return customerName;
-	}
-
-	public void setCustomerName(String customerName) {
-		this.customerName = customerName;
-	}
-
-	public String getCustomerAddress() {
-		return customerAddress;
-	}
-
-	public void setCustomerAddress(String customerAddress) {
-		this.customerAddress = customerAddress;
-	}
-
-	public String getCustomerPhoneNumber() {
-		return customerPhoneNumber;
-	}
-
-	public void setCustomerPhoneNumber(String customerPhoneNumber) {
-		this.customerPhoneNumber = customerPhoneNumber;
-	}
-
-	public String getCustomerID() {
-		return customerID;
-	}
-
-	public void setCustomerID(String customerId) {
-		this.customerID = customerId;
-	}
-
-	public double getCustomerAccountBalance() {
-		return customerAccountBalance;
-	}
-
-	public void setCustomerAccountBalance(double customerAccountBalance) {
-		this.customerAccountBalance = customerAccountBalance;
-	}
 
 	/**
 	 * Sets all fields for a customer
@@ -104,46 +61,6 @@ public abstract class DataTransfer {
 		customerAccountBalance = customer.getAccountBalance();
 		repairPlansEnrolledIn = customer.getRepairPlansEnrolledIn();
 		customerAppliances = customer.getAppliances();
-	}
-
-	public String getApplianceBrand() {
-		return applianceBrand;
-	}
-
-	public void setApplianceBrand(String applianceBrand) {
-		this.applianceBrand = applianceBrand;
-	}
-
-	public String getApplianceModel() {
-		return applianceModel;
-	}
-
-	public void setApplianceModel(String applianceModel) {
-		this.applianceModel = applianceModel;
-	}
-
-	public String getApplianceID() {
-		return applianceID;
-	}
-
-	public void setApplianceID(String applianceID) {
-		this.applianceID = applianceID;
-	}
-
-	public double getApplianceCost() {
-		return applianceCost;
-	}
-
-	public void setApplianceCost(double applianceCost) {
-		this.applianceCost = applianceCost;
-	}
-
-	public int getApplianceStock() {
-		return applianceStock;
-	}
-
-	public void setApplianceStock(int applianceStock) {
-		this.applianceStock = applianceStock;
 	}
 
 	/**
@@ -215,54 +132,6 @@ public abstract class DataTransfer {
 		repairPlanCost = clothDryer.getRepairPlan().getCost();
 	}
 
-	public double getRepairPlanCost() {
-		return repairPlanCost;
-	}
-
-	public void setRepairPlanCost(double repairPlanCost) {
-		this.repairPlanCost = repairPlanCost;
-	}
-
-	public String getRepairPlanApplianceID() {
-		return repairPlanApplianceID;
-	}
-
-	public void setBackorderQuantity(int quantity) {
-		backorderQuantity = quantity;
-	}
-
-	public int getBackorderQuantity() {
-		return backorderQuantity;
-	}
-
-	public int getPurchaseQuantity() {
-		return purchaseQuantity;
-	}
-
-	public void setPurchaseQuantity(int purchaseQuantity) {
-		this.purchaseQuantity = purchaseQuantity;
-	}
-
-	public int getFurnacesOrdered() {
-		return furnacesOrdered;
-	}
-
-	public void setFurnacesOrdered(int insufficientFurnaceStock) {
-		this.furnacesOrdered = insufficientFurnaceStock;
-	}
-
-	public String getBackorderID() {
-		return backorderID;
-	}
-
-	public void setBackorderID(String backorderID) {
-		this.backorderID = backorderID;
-	}
-
-	public void setRepairPlanApplianceID(String repairPlanApplianceID) {
-		this.repairPlanApplianceID = repairPlanApplianceID;
-	}
-
 	public void setRepairPlanFields(RepairPlan repairPlan) {
 		repairPlanCost = repairPlan.getCost();
 		repairPlanApplianceID = repairPlan.getApplianceID();
@@ -282,6 +151,81 @@ public abstract class DataTransfer {
 		backorderQuantity = backorder.getQuantity();
 		customerName = backorder.getCustomer().getName();
 		customerID = backorder.getCustomer().getId();
+	}
+
+	/**
+	 * Sets all String fields to "none"
+	 */
+	public void reset() {
+		customerName = "No such customer";
+		customerAddress = "No such customer";
+		customerPhoneNumber = "No such customer";
+		customerID = "Invalid customer id";
+		customerAccountBalance = 0;
+		applianceBrand = "No such model";
+		applianceModel = "No such model";
+		applianceCost = 0;
+		applianceStock = 0;
+		applianceID = "No such model";
+		repairPlanCost = 0;
+		repairPlanApplianceID = "No such plan";
+		repairPlanSubscribers = null;
+		backorderQuantity = 0;
+		purchaseQuantity = 0;
+		furnacesOrdered = 0;
+		orderQuantity = 0;
+		salesRevenue = 0;
+		repairPlanRevenue = 0;
+		repairPlansEnrolledIn = null;
+		customerAppliances = null;
+		maxHeatOutput = 0;
+		capacity = 0;
+		backorderID = "No such backorder id";
+
+	}
+
+	public DataTransfer() {
+		reset();
+	}
+
+	public String getCustomerName() {
+		return customerName;
+	}
+
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
+
+	public String getCustomerAddress() {
+		return customerAddress;
+	}
+
+	public void setCustomerAddress(String customerAddress) {
+		this.customerAddress = customerAddress;
+	}
+
+	public String getCustomerPhoneNumber() {
+		return customerPhoneNumber;
+	}
+
+	public void setCustomerPhoneNumber(String customerPhoneNumber) {
+		this.customerPhoneNumber = customerPhoneNumber;
+	}
+
+	public String getCustomerID() {
+		return customerID;
+	}
+
+	public void setCustomerID(String customerId) {
+		this.customerID = customerId;
+	}
+
+	public double getCustomerAccountBalance() {
+		return customerAccountBalance;
+	}
+
+	public void setCustomerAccountBalance(double customerAccountBalance) {
+		this.customerAccountBalance = customerAccountBalance;
 	}
 
 	public int getMaxHeatOutput() {
@@ -349,34 +293,92 @@ public abstract class DataTransfer {
 		this.customerAppliances = customerAppliances;
 	}
 
-	/**
-	 * Sets all String fields to "none"
-	 */
-	public void reset() {
-		customerName = "No such customer";
-		customerAddress = "No such customer";
-		customerPhoneNumber = "No such customer";
-		customerID = "Invalid customer id";
-		customerAccountBalance = 0;
-		applianceBrand = "No such model";
-		applianceModel = "No such model";
-		applianceCost = 0;
-		applianceStock = 0;
-		applianceID = "No such model";
-		repairPlanCost = 0;
-		repairPlanApplianceID = "No such plan";
-		repairPlanSubscribers = null;
-		backorderQuantity = 0;
-		purchaseQuantity = 0;
-		furnacesOrdered = 0;
-		orderQuantity = 0;
-		salesRevenue = 0;
-		repairPlanRevenue = 0;
-		repairPlansEnrolledIn = null;
-		customerAppliances = null;
-		maxHeatOutput = 0;
-		capacity = 0;
-		backorderID = "No such backorder id";
-
+	public double getRepairPlanCost() {
+		return repairPlanCost;
 	}
+
+	public void setRepairPlanCost(double repairPlanCost) {
+		this.repairPlanCost = repairPlanCost;
+	}
+
+	public String getRepairPlanApplianceID() {
+		return repairPlanApplianceID;
+	}
+
+	public void setBackorderQuantity(int quantity) {
+		backorderQuantity = quantity;
+	}
+
+	public int getBackorderQuantity() {
+		return backorderQuantity;
+	}
+
+	public int getPurchaseQuantity() {
+		return purchaseQuantity;
+	}
+
+	public void setPurchaseQuantity(int purchaseQuantity) {
+		this.purchaseQuantity = purchaseQuantity;
+	}
+
+	public int getFurnacesOrdered() {
+		return furnacesOrdered;
+	}
+
+	public void setFurnacesOrdered(int insufficientFurnaceStock) {
+		this.furnacesOrdered = insufficientFurnaceStock;
+	}
+
+	public String getBackorderID() {
+		return backorderID;
+	}
+
+	public void setBackorderID(String backorderID) {
+		this.backorderID = backorderID;
+	}
+
+	public String getApplianceBrand() {
+		return applianceBrand;
+	}
+
+	public void setApplianceBrand(String applianceBrand) {
+		this.applianceBrand = applianceBrand;
+	}
+
+	public String getApplianceModel() {
+		return applianceModel;
+	}
+
+	public void setApplianceModel(String applianceModel) {
+		this.applianceModel = applianceModel;
+	}
+
+	public String getApplianceID() {
+		return applianceID;
+	}
+
+	public void setApplianceID(String applianceID) {
+		this.applianceID = applianceID;
+	}
+
+	public double getApplianceCost() {
+		return applianceCost;
+	}
+
+	public void setApplianceCost(double applianceCost) {
+		this.applianceCost = applianceCost;
+	}
+
+	public int getApplianceStock() {
+		return applianceStock;
+	}
+
+	public void setApplianceStock(int applianceStock) {
+		this.applianceStock = applianceStock;
+	}
+
+	public void setRepairPlanApplianceID(String repairPlanApplianceID) {
+		this.repairPlanApplianceID = repairPlanApplianceID;
+	}
+
 }
