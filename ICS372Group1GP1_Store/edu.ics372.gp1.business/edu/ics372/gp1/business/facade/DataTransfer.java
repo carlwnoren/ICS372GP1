@@ -1,5 +1,7 @@
 /**
- * Data transfer classed used to securely transmit data to UI without exposing business logic. 
+ * Data transfer classed used to securely transmit data to UI without exposing business logic.
+ * 
+ *  @author - Carl Noren, Justin Pham, Kean Jay
  */
 
 package edu.ics372.gp1.business.facade;
