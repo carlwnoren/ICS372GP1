@@ -14,14 +14,16 @@ import edu.ics372.gp1.business.store.Customer;
 
 public class AutomatedTester {
 
-	private String[] names = { "n1", "n2", "n3" };
-	private String[] addresses = { "a1", "a2", "a3" };
-	private String[] phones = { "1111111111", "2222222222", "3333333333" };
-	private Customer[] customers = new Customer[3];
-	private Appliance[] appliances = new Appliance[3];
-	private String[] applianceModels = { "m1", "m2", "m3" };
-	private String[] applianceBrands = { "b1", "b2", "b3" };
-	private double[] applianceCosts = { 1, 2, 3 };
+	private String[] names = { "n1", "n2", "n3", "n4", "n5" };
+	private String[] addresses = { "a1", "a2", "a3", "a4", "a5" };
+	private String[] phones = { "1111111111", "2222222222", "3333333333", "4444444444", "555555555" };
+	private Customer[] customers = new Customer[5];
+	private Appliance[] appliances = new Appliance[15];
+	private String[] applianceModels = { "m1", "m2", "m3", "m4", "m5", "m6", "m7", "m8", "m9", "m10", "m11", "m12",
+			"m13", "m14", "m15" };
+	private String[] applianceBrands = { "b1", "b2", "b3", "b4", "b5", "b6", "b7", "b8", "b9", "b10", "b11", "b12",
+			"b13", "b14", "b15" };
+	private double[] applianceCosts = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
 
 	/**
 	 * Tests Member creation.
